@@ -1,0 +1,26 @@
+{
+  "application-name": "Let's learn!",
+  "connection":{
+    "signin": "Signin",
+    "login": "Login",
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "or": "Or*",
+    "usernameError": "Please fill the username field",
+    "usernameOrEmailError": "Please fill the username or email field",
+    "emailError": "Please fill the email field with a valid email address",
+    "emailInvalidError": "Please enter a valid email address",
+    "passwordError": "Please fill the password field"
+  },
+  "mainPage": {
+    "title": "Main Page"
+  },
+  "dictionaryPage": {
+    "title": "Dictionary",
+    "subject": "Subject",
+    "alphabeticOrder": "Alphabetic Order",
+    "levelOrder": "Level Order",
+    "filter": "filtre"
+  }
+}

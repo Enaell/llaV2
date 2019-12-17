@@ -34,15 +34,12 @@ router.get('/', auth.optional, (req, res, next) => {
             return res.json({ words: words })
          })
     }
-})
-.catch((err)=>{
-    console.log(err);
-  });
+});
 
 
 router.post('/', auth.required, (req, res, next) => {
     const { payload: { id, role } } = req;
-    const { body: { wordLists } }
+    const { body: { wordLists } } = req;
 
     const finalWordLists = role === ROLES.Admin || role === ROLES.Moderator 
         ? wordLists.map(wordList => {return new WordLists({...wordList, owner: id})})
@@ -54,6 +51,6 @@ router.post('/', auth.required, (req, res, next) => {
         console.log("Couldn't save words");
         console.log(error);
     });
-}).catch(err => console.log(err));
+})
 
 module.exports = router;

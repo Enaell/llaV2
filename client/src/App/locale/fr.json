@@ -1,0 +1,26 @@
+{
+  "application-name": "Let's learn !",
+  "connection":{
+    "signin": "s'enregistrer",
+    "login": "se connecter",
+    "username": "Nom",
+    "password": "Mot de Passe",
+    "email": "Email",
+    "or": "Ou*",
+    "usernameError": "Veuillez entrer un nom",
+    "usernameOrEmailError": "Veuillez entrer un nom ou une adresse email",
+    "emailError": "Veuillez entrer une adresse email valide",
+    "emailInvalidError": "Merci d'entrer une adresse email valide",
+    "passwordError": "Veuillez entrer votre mot de passe"
+  },
+  "mainPage": {
+    "title": "Page Principale"
+  },
+  "dictionaryPage": {
+    "title": "Dictionaire",
+    "subject": "Sujet",
+    "alphabeticOrder": "Ordre Alphabétique",
+    "levelOrder": "Ordre par Niveau",
+    "filter": "filtre"
+  }
+}
