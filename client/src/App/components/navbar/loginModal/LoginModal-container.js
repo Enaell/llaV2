@@ -13,9 +13,9 @@ function mapStateToProps(state)
 
 function mapDispatchToProps(dispatch){
   return {
-    onLogin:(username, emailAddress, password) => {
-      const loginBody = username !== '' ? {"username":username,"password":password} : {"email":emailAddress,"password":password};
-      fetch("http://localhost:3000/api/customers/login",
+    onLogin:(emailAddress, password) => {
+      const loginBody = { user: { "email":emailAddress,"password":password }};
+      fetch("http://localhost:5000/api/users/login",
         {
             headers: {
               'Accept': 'application/json',
@@ -47,8 +47,8 @@ function mapDispatchToProps(dispatch){
         });
     },
     onSignin:(username, emailAddress, password) => {
-      const signinBody =  {"name": username, "email": emailAddress, "username": username,"password": password};
-      fetch("http://localhost:3000/api/customers",
+      const signinBody =  {'user': {"name": username, "email": emailAddress, "username": username,"password": password}};
+      fetch("http://localhost:5000/api/users",
         {
             headers: {
               'Accept': 'application/json',
@@ -68,7 +68,7 @@ function mapDispatchToProps(dispatch){
           }
           else
           {
-            dispatch({type: 'LOGIN', payload: json});
+            dispatch({type: 'LOGIN', payload: json.user});
             dispatch({type: 'TOGGLE_LOGIN_MODAL'});
           }
         })

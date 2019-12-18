@@ -2,13 +2,6 @@ import {shuffle, sample} from 'underscore';
 import theme from '../theme';
 import { combineReducers } from 'redux'
 
-
-
-
-let initialState = {
-  theme: theme
-};
-
 // general
 
 const setTheme = (state, theme) => ({ ...state, theme});
@@ -25,7 +18,7 @@ const themeReducer = (state = initialThemeState, action) => {
 } 
 
 // user
-const login = (state, user) => ({ ...state, user });
+const login = (state, user) => ({ ...state, ...user });
 
 const logout = (state) => ({ ...state, user: {} });
 
@@ -189,7 +182,7 @@ const addCard = (state, card) => ({ ...state, cards: state.cards.concat([card]) 
 
 const initialExerciceState = {};
 
-const exerciceReducer = (state = initialExerciceState, action) => {
+const exercicesReducer = (state = initialExerciceState, action) => {
   switch (action.type) {
     case 'ANSWER_SELECTED':
       return answerSelected(state, action.payload);
@@ -209,7 +202,7 @@ const reducer = combineReducers({
   dictionary: dictionaryReducer,
   loginModal: loginModalReducer,
   navSnackBar: navSnackbarReducer,
-  exercice: exerciceReducer,
+  exercices: exercicesReducer,
   theme: themeReducer
 })
 

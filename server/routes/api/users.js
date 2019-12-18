@@ -25,7 +25,6 @@ router.post('/', auth.optional, (req, res, next) => {
 
   const finalUser = new Users(user);
   finalUser.setPassword(user.password);
-console.log('=============== user creation response ====================');
   console.log(finalUser.toAuthJSON());
   return finalUser.save()
     .then(() => res.json({ user: finalUser.toAuthJSON() }));

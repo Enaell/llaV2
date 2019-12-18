@@ -5,9 +5,9 @@ const UTILS = {
         Moderator: 'Moderator'
     },
     LANGUAGES: {
-        Fr: 'fr',
-        En: 'en',
-        Cn: 'cn'
+        Fr: 'Fr',
+        En: 'En',
+        Cn: 'Cn'
     },
     VISIBILITY: {
         Visitor: 'Visitor',

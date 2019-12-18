@@ -1,6 +1,12 @@
 export type UserType = {
-    id: string
+    _id?: string,
+    token?: string,
+    username: string,
+    language: LanguageType,
+    learningLanguage: LanguageType
 } 
+
+export type LanguageType = 'Fr'| 'En' | 'Cn';
 
 export type SentencesType = {
     sentence: string,

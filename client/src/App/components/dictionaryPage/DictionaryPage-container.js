@@ -12,13 +12,20 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return{
     getAllWords: (language, token) => {
-      const getWordUrl = token ? 'http://localhost:3000/api/words?access_token=' + token : 'http://localhost:3000/api/words';
-      fetch(getWordUrl,
+      const headers = token ? {
+        'Authorization': `Token ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      } : {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      };
+
+      const getWordsUrl = language ? `http://localhost:5000/api/words?language=${language}` : `http://localhost:5000/api/words`
+
+      fetch(getWordsUrl,
       {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+        headers: headers,
         method:"GET"
       })
       .then((res) => {

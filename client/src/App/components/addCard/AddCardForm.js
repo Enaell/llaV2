@@ -110,9 +110,4 @@ function mapDispatchToProps(dispatch, props){
   }
 }
 
-function mapStateToProps()
-{
-  return({})
-}
-
-export default withRouter(connect (mapStateToProps, mapDispatchToProps)(AddCardForm));
+export default withRouter(connect (null, mapDispatchToProps)(AddCardForm));

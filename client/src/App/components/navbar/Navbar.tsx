@@ -46,7 +46,7 @@ const Navbar = ({
             </Typography>
           </Button>
           <div className={classes.grow} />
-          {user.id ?
+          {user.token ?
             <UserBar/>
           :
             <div>

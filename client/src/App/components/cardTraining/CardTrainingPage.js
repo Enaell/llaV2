@@ -29,9 +29,9 @@ function Continue({show, onContinue}) {
 const CardTrainingPage = ({turnData, highlight, user, onAnswerSelected, onContinue, getCards, classes }) => 
   {
     useEffect(()=>{
-      const token = user.id ? user.id : null;
+      const token = user && user.token ? user.token : undefined;
       getCards(token);
-      },[]);
+      },[user]);
 
     return (
       <React.Fragment>

@@ -86,21 +86,21 @@ export function Layout(props: LayoutType) {
         flexWrap = { flexWrap: 'wrap-reverse' };
     }
 
-    const justifyContentStyle = justifyContent && { justifyContent: getMainAxisAlign(justifyContent) } || {};
+    const justifyContentStyle = (justifyContent && { justifyContent: getMainAxisAlign(justifyContent) }) || {};
 
-    const alignItemsStyle = alignItems && { alignItems: getCrossAxisAlign(alignItems) } || {};
+    const alignItemsStyle = (alignItems && { alignItems: getCrossAxisAlign(alignItems) }) || {};
 
-    const alignSelfStyle = alignSelf && { alignSelf: getCrossAxisAlign(alignSelf) } || {};
+    const alignSelfStyle = (alignSelf && { alignSelf: getCrossAxisAlign(alignSelf) }) || {};
 
-    const alignContentStyle = alignContent && { alignContent: getMainAxisAlign(alignContent, true) } || {};
+    const alignContentStyle = (alignContent && { alignContent: getMainAxisAlign(alignContent, true) }) || {};
 
-    const flexGrowStyle = flexGrow && { flexGrow } || {};
+    const flexGrowStyle = (flexGrow && { flexGrow })|| {};
 
-    const flexShrinkStyle = flexShrink && { flexShrink } || {};
+    const flexShrinkStyle = (flexShrink && { flexShrink }) || {};
 
-    const flexBasisStyle = flexBasis && { flexBasis } || {};
+    const flexBasisStyle = (flexBasis && { flexBasis }) || {};
 
-    const flexStyle = flex && { flex } || {};
+    const flexStyle = (flex && { flex }) || {};
 
     const breakpointsClassNames: string[] = [];
     const breakpointsStyles = !breakpoints ? {} :

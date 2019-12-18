@@ -27,13 +27,18 @@ function mapDispatchToProps(dispatch){
       dispatch({type: 'CONTINUE'});
     },
     getCards: (token) => {
-      const getCardUrl = token ? 'http://localhost:3000/api/cards?access_token=' + token : 'http://localhost:3000/api/cards';
-      fetch(getCardUrl,
-      {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+      const headers = token ? {
+        'Authorization': `Token ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      } : {
+        'Accept': 'application/json',
+      'Content-Type': 'application/json'
+      };
+
+      fetch('http://localhost:5000/api/words',
+      { 
+        headers:  headers,
         method:"GET"
       })
       .then((res) => {

@@ -5,7 +5,7 @@ import  { PageTitle }  from '../common/GenericComponents';
 import DictionaryTabs from './tabs';
 import DictionarySidePanel from './dictionarySidePanel';
 import { withStyles } from '@material-ui/core/styles';
-import { UserType } from '../common/types';
+import { UserType, LanguageType } from '../common/types';
 
 const styles = (theme: any) => ({
   content: {
@@ -31,15 +31,16 @@ const DictionaryPage = ({
   getAllWords, 
   openSidePanel, 
   classes
-}: { user: UserType, getAllWords: (language: string, token: string | null) => void, openSidePanel: boolean, classes: any }) => {
+}: { user: UserType, getAllWords: (language: LanguageType | undefined, token: string | undefined) => void, openSidePanel: boolean, classes: any }) => {
 
   const contentShiftClasses = {
     [classes.contentShift]: openSidePanel,
   }
 
   useEffect(()=>{
-    const token = user.id ? user.id : null;
-    getAllWords('cn', token);
+    const token = user && user.token ? user.token : undefined;
+    const learningLanguage = user && user.learningLanguage ? user.learningLanguage : undefined; 
+    getAllWords(learningLanguage, token);
     },[]);
 
   return(

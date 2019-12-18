@@ -42,9 +42,9 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
 
   const onSigninClick = () => {
 
-    const usError = username === '';
-    const pError =  password === '';
-    const eaError = !emailAddress.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+    const usError = !username;
+    const pError =  !password;
+    const eaError = !(emailAddress && emailAddress.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i));
 
     setUsernameError(usError);
     setPasswordError(pError);
@@ -56,23 +56,19 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
 
   const onLoginClick = () => {
 
-    const usError = !(username !== '' || emailAddress !== '');
-    const pError =  password === '';
-    const eaError = username === '' && emailAddress !== '' && !emailAddress.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-
-    setUsernameError(usError);
+    const pError =  !password;
+    const eaError = !(emailAddress && emailAddress.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i));
     setEmailAddressError(eaError);
     setPasswordError(pError);
 
-    if (!(usError || pError || eaError))
-      onLogin(username, emailAddress, password);
+    if (!(pError || eaError))
+      onLogin(emailAddress, password);
   }
 
   function handleTabChange(event: any, newValue: number){
     setUsernameError(false);
     setPasswordError(false);
     setEmailAddressError(false);
-
     changeTabNumber(newValue);
   }
 
@@ -94,11 +90,9 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
             {tabNumber === 0 && 
               <LoginForm 
                 handleEmailChange = {handleEmailChange} 
-                handleUserNameChange = {handleUserNameChange} 
                 handlePasswordChange = {handlePasswordChange}
                 passwordError = {passwordError}
                 emailAddressError = {emailAddressError}
-                usernameError = {usernameError}
               />
             }
             {tabNumber === 1 &&

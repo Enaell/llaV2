@@ -27,20 +27,21 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return{
     onLogout:(token) => {
-      fetch("http://localhost:3000/api/customers/logout?access_token=" + token,
-      {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: "POST",
-          // body: JSON.stringify(signinBody)
-      })
-      .then(() => dispatch({type:'LOGOUT'}))
-      .catch((e) => {
-        console.log(e);
-        dispatch({type:'LOGOUT'});
-      })
+      // fetch("http://localhost:3000/api/customers/logout?access_token=" + token,
+      // {
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json'
+      //     },
+      //     method: "POST",
+      //     // body: JSON.stringify(signinBody)
+      // })
+      // .then(() => 
+      dispatch({type:'LOGOUT'})
+      // .catch((e) => {
+      //   console.log(e);
+      //   dispatch({type:'LOGOUT'});
+      // })
     }
   }
 }
