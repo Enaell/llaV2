@@ -35,7 +35,7 @@ function mapDispatchToProps(dispatch){
           }
           else
           {
-            dispatch({type: 'LOGIN', payload: json});
+            dispatch({type: 'LOGIN', payload: json.user});
             dispatch({type: 'TOGGLE_LOGIN_MODAL'});
           }
         })

@@ -51,6 +51,7 @@ router.post('/', auth.required, (req, res, next) => {
     .catch(error => {
         console.log("Couldn't save words");
         console.log(error);
+        return res.sendStatus(400);
     });
 })
 

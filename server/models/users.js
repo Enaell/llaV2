@@ -6,7 +6,7 @@ const { ROLES, LANGUAGES } = require('./utils');
 const { Schema } = mongoose;
 
 const UsersSchema = new Schema({
-  name: String,
+  username: String,
   email: {type: String, required: true} ,
   role: {type: String, default: ROLES.Customer},
   language: {type: String, default: LANGUAGES.Fr},
@@ -42,6 +42,7 @@ UsersSchema.methods.generateJWT = function() {
 
 UsersSchema.methods.toAuthJSON = function() {
   return {
+    name: this.name,
     role: this.role,
     language: this.language,
     learningLanguage: this.learningLanguage,

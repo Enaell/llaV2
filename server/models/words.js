@@ -9,6 +9,7 @@ const WordsSchema = new Schema({
     internationalName: {type: String, required: true},
     language: {type: String, default: LANGUAGES.Fr},
     subject: {type: [String], default: 'other'},
+    level: {type: Number, default: 0},
     translations: [{
                       name: {type: String, required: true},
                       internationalName: {type: String, required: true},

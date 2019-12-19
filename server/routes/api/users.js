@@ -66,6 +66,20 @@ router.post('/login', auth.optional, (req, res, next) => {
   })(req, res, next);
 });
 
+router.get('/logout', function(req, res, next) {
+  if (req.session) {
+    // delete session object
+    req.session.destroy(function(err) {
+      if(err) {
+        return next(err);
+      } else {
+        return res.redirect('/');
+      }
+    });
+  }
+});
+
+
 //GET user by id route (required, only authenticated users have access)
 router.get('/users/:id', auth.required, (req, res, next) => {
   const userId = req.params.id;

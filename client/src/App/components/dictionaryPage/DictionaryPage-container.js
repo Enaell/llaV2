@@ -31,7 +31,7 @@ function mapDispatchToProps(dispatch){
       .then((res) => {
         return res.json();
       })
-      .then((json) => dispatch({type: 'GET_WORDS', payload: json}))
+      .then((json) => dispatch({type: 'GET_WORDS', payload: json.words}))
     }
   }
 }

@@ -1,12 +1,18 @@
 export type UserType = {
     _id?: string,
     token?: string,
+    email?: string,
     username: string,
+    role?: RoleType,
     language: LanguageType,
     learningLanguage: LanguageType
 } 
 
+export type RoleType = 'Admin' | 'Customer' | 'Moderator';
+
 export type LanguageType = 'Fr'| 'En' | 'Cn';
+
+export type VisibilityType = 'Visitor' | 'Loggedin' | 'Owner' ;
 
 export type SentencesType = {
     sentence: string,
@@ -15,22 +21,24 @@ export type SentencesType = {
 
 export type TranslationType = {
     name: string,
-    globalName: string,
+    internationalName: string,
     language: string,
     sentences: SentencesType[],
     rank: number,
+    comments?: string,
 }
 
 export type WordType= {
+    owner?: string,
     name: string,
-    globalName: string,
+    internationalName: string,
     language: string,
     subject: string[],
     level: number,
     translations: TranslationType[],
     comments: string,
     validated: boolean, //(this field is to differenciate cards validated by admin from others)
-    visibility: number //(rank of visibility wanted by the card owner)
+    visibility: VisibilityType, //(rank of visibility wanted by the card owner)
 }
 
 export type HorizontalType= 'center' | 'start' | 'end' | 'stretch' | 'baseline';
