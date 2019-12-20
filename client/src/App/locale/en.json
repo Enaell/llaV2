@@ -11,10 +11,11 @@
     "usernameOrEmailError": "Please fill the username or email field",
     "emailError": "Please fill the email field with a valid email address",
     "emailInvalidError": "Please enter a valid email address",
-    "passwordError": "Please fill the password field"
+    "passwordError": "Please fill the password field",
+    "visitor": "Connect as Visitor"
   },
   "mainPage": {
-    "title": "Main Page"
+    "title": "Welcome!"
   },
   "dictionaryPage": {
     "title": "Dictionary",
@@ -22,5 +23,10 @@
     "alphabeticOrder": "Alphabetic Order",
     "levelOrder": "Level Order",
     "filter": "filtre"
+  },
+  "language": {
+    "Fr": "French",
+    "En": "English",
+    "Cn": "Chinese"
   }
 }

@@ -1,6 +1,8 @@
 import {shuffle, sample} from 'underscore';
 import theme from '../theme';
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
+
+import counterpart from 'counterpart';
 
 // general
 
@@ -20,11 +22,23 @@ const themeReducer = (state = initialThemeState, action) => {
 // user
 const login = (state, user) => ({ ...state, ...user });
 
-const logout = (state) => ({ ...state, user: {} });
+const logout = () => ({});
 
 const logState = (state) => {
   console.log(state)
   return state
+}
+
+const loginAsVisitor = (state, languages) => {
+
+  counterpart.setLocale(languages.language);
+  return {
+     ...state, 
+    username: 'Visitor', 
+    role: 'Visitor', 
+    language: languages.language, 
+    learningLanguage: languages.learningLanguage
+  }
 }
 
 const initialUserState = {};
@@ -37,6 +51,8 @@ const userReducer = (state = initialUserState, action) => {
       return logout(state);
     case 'LOG_STATE':
       return logState(state);
+    case 'LOGIN_AS_VISITOR':
+      return loginAsVisitor(state, action.payload)
     default: 
       return state;
   }
@@ -44,7 +60,7 @@ const userReducer = (state = initialUserState, action) => {
 
 // dictionary
 
-const getWords = (state, wordList) => ({...state, words: wordList.sort((a, b) => {return a.globalName > b.globalName;}) || [] })
+const getWords = (state, wordList) => ({...state, words: wordList.sort((a, b) => {return a.internationalName > b.internationalName;}) || [] })
 
 const openSidePanel = (state) => ({ ...state, openSidePanel: true });
 

@@ -11,10 +11,11 @@
     "usernameOrEmailError": "Veuillez entrer un nom ou une adresse email",
     "emailError": "Veuillez entrer une adresse email valide",
     "emailInvalidError": "Merci d'entrer une adresse email valide",
-    "passwordError": "Veuillez entrer votre mot de passe"
+    "passwordError": "Veuillez entrer votre mot de passe",
+    "visitor": "Connexion en temps que visiteur"
   },
   "mainPage": {
-    "title": "Page Principale"
+    "title": "Bienvenue !"
   },
   "dictionaryPage": {
     "title": "Dictionaire",
@@ -22,5 +23,10 @@
     "alphabeticOrder": "Ordre Alphabétique",
     "levelOrder": "Ordre par Niveau",
     "filter": "filtre"
+  },
+  "language": {
+    "Fr": "Francais",
+    "En": "Anglais",
+    "Cn": "Chinois"
   }
 }

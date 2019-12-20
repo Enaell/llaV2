@@ -31,7 +31,7 @@ export const WordCard = ({
             Pinying
           </Typography>
           <Typography align={ wordDetailAlign || align } variant="h6" gutterBottom>
-            { word.globalName }
+            { word.internationalName }
           </Typography>
       </CardContent>
     </Card>
@@ -42,8 +42,8 @@ export const WordColumn = ({
   word, 
   horizontal, 
   nameVariant, 
-  globalNameVariant 
-}: {word: WordType, horizontal: HorizontalType, nameVariant: VariantType, globalNameVariant: VariantType}) => {
+  internationalNameVariant 
+}: {word: WordType, horizontal: HorizontalType, nameVariant: VariantType, internationalNameVariant: VariantType}) => {
   return (
     <Column horizontal={ horizontal || 'center'} >
         <Typography color="textSecondary" gutterBottom>
@@ -55,8 +55,8 @@ export const WordColumn = ({
         <Typography color="textSecondary" gutterBottom>
           Pinying
         </Typography>
-        <Typography variant= { globalNameVariant || 'h6' } gutterBottom>
-          { word.globalName }
+        <Typography variant= { internationalNameVariant || 'h6' } gutterBottom>
+          { word.internationalName }
         </Typography>
     </Column>
   )

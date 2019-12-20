@@ -8,7 +8,7 @@ export type UserType = {
     learningLanguage: LanguageType
 } 
 
-export type RoleType = 'Admin' | 'Customer' | 'Moderator';
+export type RoleType = 'Admin' | 'Customer' | 'Moderator' | 'Visitor';
 
 export type LanguageType = 'Fr'| 'En' | 'Cn';
 

@@ -44,7 +44,7 @@ export const WordList = ({
           <Checkbox color={'primary'} checked={checked.indexOf(`${index}`) !== -1} tabIndex={-1} disableRipple />
           <ListItemText
             style={{paddingRight: '30px'}} 
-            primary={`${word.name} - ${word.globalName}`}
+            primary={`${word.name} - ${word.internationalName}`}
             primaryTypographyProps={{variant:'body1'}}
             secondary={`${translationsToString(word.translations)}`} 
           />

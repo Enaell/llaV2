@@ -12,6 +12,7 @@ import reducer from '../redux/reducer';
 import counterpart from 'counterpart';
 import localeFr from '../locale/fr.json';
 import localeEn from '../locale/en.json';
+import localeCn from '../locale/cn.json';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import RouteNotFound from './RouteNotfound';
 import { Column } from './common/Flexbox';
@@ -41,13 +42,15 @@ const styles = (theme: any) => ({
   }
 });
 
-counterpart.registerTranslations('en', localeEn);
-counterpart.registerTranslations('fr', localeFr);
-
-counterpart.setLocale('fr');
+counterpart.registerTranslations('En', localeEn);
+counterpart.registerTranslations('Fr', localeFr);
+counterpart.registerTranslations('Cn', localeCn);
 
 let store = Redux.createStore(reducer, composeWithDevTools());
 
+store.getState().user && store.getState().user.language 
+? counterpart.setLocale(store.getState().user.language)
+: counterpart.setLocale('Fr');
 
 class App extends Component {
   render() {

@@ -12,9 +12,9 @@ const firstLetterSortedDictionary = (dictionary: WordType[]) => {
   let sortedDictionary: {[key: string]: WordType[]} = {}
 
   dictionary.forEach((word: WordType) => {
-    if (!sortedDictionary.hasOwnProperty(word.globalName.charAt(0)))
-      sortedDictionary[word.globalName.charAt(0)] = [];
-    sortedDictionary[word.globalName.charAt(0)].push(word);
+    if (!sortedDictionary.hasOwnProperty(word.internationalName.charAt(0)))
+      sortedDictionary[word.internationalName.charAt(0)] = [];
+    sortedDictionary[word.internationalName.charAt(0)].push(word);
   });
   return sortedDictionary;
 }
@@ -33,7 +33,7 @@ const subjectSortedDictionary = (dictionary: WordType[]) => {
   return sortedDictionary;
 }
 
-const alphabeticSort =  (a: WordType, b: WordType) => a.globalName > b.globalName ? 1 : -1;
+const alphabeticSort =  (a: WordType, b: WordType) => a.internationalName > b.internationalName ? 1 : -1;
 
 const levelSort = (a: WordType, b: WordType) => a.level > b.level ? 1 : -1;
 
@@ -45,8 +45,8 @@ const filteredWords = (words: WordType[], filter: string) => {
       words.filter(word => {
         const rgxp = new RegExp(filter.toLowerCase());
         const wordName = word.name.toLowerCase();
-        const wordGlobalName = word.globalName.toLowerCase();
-        return wordName.match(rgxp) || wordGlobalName.match(rgxp);
+        const wordinternationalName = word.internationalName.toLowerCase();
+        return wordName.match(rgxp) || wordinternationalName.match(rgxp);
       })
     );
   }

@@ -30,7 +30,7 @@ export const SelectedWords = ({
         <ListItem style={{minWidth: '350px'}} key={index} role={undefined} button onClick={() => handleWordPreview(word)}>
          <ListItemText
             style={{paddingRight: '30px'}} 
-            primary={`${word.name} - ${word.globalName}`}
+            primary={`${word.name} - ${word.internationalName}`}
             primaryTypographyProps={{variant:'body1'}}
             secondary={`${translationsToString(word.translations)}`}
           />
