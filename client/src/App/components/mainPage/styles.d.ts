@@ -5,7 +5,6 @@ export const welcomeSection = {
     width: '100%',
     position: 'fixed',
     zIndex: '1000',
-    backgroundImage: `url(${firstPagePict})`
 }
 
 export const backgroundImg = {
@@ -15,4 +14,8 @@ export const backgroundImg = {
     position: 'absolute' as "absolute",
     backgroundImage: `url(${firstPagePict})`,
     filter: 'blur(8px)'
+}
+
+export const connectionDiv = {
+    paddingTop: '10%'
 }
