@@ -19,6 +19,7 @@ import { Column } from './common/Flexbox';
 import {ThemeProvider} from '@material-ui/core/styles';
 import theme from '../theme';
 import { withStyles } from '@material-ui/core/styles';
+import {UserBoard} from './mainPage/UserBoard';
 
 console.log(React.version);
 
@@ -58,7 +59,7 @@ class App extends Component {
       <ReactRedux.Provider store={store}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <Column horizontal='center'>
+            <Column horizontal='center' style={{ width:'100%' }}>
               <Navbar/>
               <RouterSwitch>
                 <Route exact path="/" component={MainPage}/>

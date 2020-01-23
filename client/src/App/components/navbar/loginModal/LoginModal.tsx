@@ -3,10 +3,7 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import LoginForm from './LoginForm';
-import SigninForm from './SigninForm';
+import {LoginTabs} from '../../login/LoginTabs'; 
 import translate from 'counterpart';
 
 type LoginModalType = {
@@ -77,34 +74,16 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
     <div>
       <Dialog open={open} onClose={closeModal} aria-labelledby="form-dialog-title">
           <DialogContent>
-            <Tabs
-              value={tabNumber}
-              onChange={handleTabChange}
-              indicatorColor="primary"
-              textColor="primary"
-              centered
-            >
-              <Tab label={translate('connection.login')}/>
-              <Tab label={translate('connection.signin')}/>
-            </Tabs>
-            {tabNumber === 0 && 
-              <LoginForm 
-                handleEmailChange = {handleEmailChange} 
-                handlePasswordChange = {handlePasswordChange}
-                passwordError = {passwordError}
-                emailAddressError = {emailAddressError}
-              />
-            }
-            {tabNumber === 1 &&
-              <SigninForm
-                handleEmailChange = {handleEmailChange} 
-                handleUserNameChange = {handleUserNameChange} 
-                handlePasswordChange = {handlePasswordChange}
-                passwordError = {passwordError}
-                emailAddressError = {emailAddressError}
-                usernameError = {usernameError}
-              />
-            }
+            <LoginTabs 
+              tabNumber={tabNumber}
+              handleTabChange={handleTabChange} 
+              handleEmailChange={handleEmailChange} 
+              handlePasswordChange={handlePasswordChange} 
+              passwordError={passwordError} 
+              emailAddressError={emailAddressError} 
+              usernameError={usernameError} 
+              handleUserNameChange={handleUserNameChange}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={closeModal} color="primary">

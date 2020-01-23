@@ -1,61 +1,21 @@
-import React, { useState } from 'react';
-import { Button, Select, MenuItem } from '@material-ui/core';
+import React from 'react';
+import { Button, Select, MenuItem, Fade } from '@material-ui/core';
 import translate from 'counterpart';
 import { Column, Row } from '../common/Flexbox';
 import  { PageTitle }  from '../common/GenericComponents';
-import { welcomeSection, backgroundImg, connectionDiv } from './styles.d';
 import { UserType, LanguageType } from '../common/types';
-import { fullNameLanguages } from '../common/utils';
+import {WelcomeSection} from './WelcomeSection';
+import {UserBoard} from './UserBoard';
 
-const WelcomeSection = ({ onLoginClick, onSigninClick, connectAsVisitor }
-  : {
-    onLoginClick: () => {}, 
-    onSigninClick: () => {},
-    connectAsVisitor: (language: LanguageType, learningLanguage: LanguageType) => {}
-  }) => {
-  const [language, setLanguage] = useState('' as LanguageType);
-  const [learningLanguage, setLearningLanguage] = useState('' as LanguageType);
 
-  
-  return (
-      <Column vertical={'center'} className='welcomeSection' style={welcomeSection}>
-        <div style={backgroundImg}></div>
-      
-        <Column>
-          <Row horizontal={'center'}>
-            <Button onClick={onLoginClick}> {translate('connection.login')}</Button>
-            <Button onClick={onSigninClick}> {translate('connection.signin')}</Button>
-          </Row>
-
-          <Row horizontal={'center'}>
-            <Select
-              labelId="selectLanguage"
-              value={language}
-              onChange={(event: React.ChangeEvent<{ value: unknown }>) => {     translate.setLocale(event.target.value as string)
-                ;setLanguage(event.target.value as LanguageType)}}
-            >
-              {Object.keys(fullNameLanguages).map((key) => <MenuItem value={key}>{ fullNameLanguages[key] }</MenuItem>)}
-            </Select>
-            <Select
-              labelId="selectLearningLanguage"
-              value={learningLanguage}
-              onChange={(event: React.ChangeEvent<{ value: unknown }>) => setLearningLanguage(event.target.value as LanguageType)}
-            >
-              {Object.keys(fullNameLanguages).map((key) => <MenuItem value={key}>{ translate(`language.${key}`) }</MenuItem>)}
-            </Select>
-            <Button onClick={()=> language && learningLanguage && connectAsVisitor(language, learningLanguage)}>{translate('connection.visitor')}</Button>
-          </Row>
-        </Column>
-      </Column>
-  );
-}
-
-const MainPage = ({user, onLoginClick, onSigninClick, connectAsVisitor, history }
+const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, changeTabNumber, history }
   : {
     user: UserType,
-    onLoginClick: () => {}, 
-    onSigninClick: () => {}, 
-    connectAsVisitor: (language: LanguageType, learningLanguage: LanguageType) => {}
+    onLogin: (emailAddress: string, password: string) => {}, 
+    onSignin: (username: string, emailAddress: string, password: string) => {},
+    connectAsVisitor: (language: LanguageType, learningLanguage: LanguageType) => {},
+    tabNumber: number,
+    changeTabNumber: (num: number) => void,  
     history: any
   }) => {
 
@@ -69,16 +29,40 @@ const MainPage = ({user, onLoginClick, onSigninClick, connectAsVisitor, history 
 
   return(
     <>
-      {!(user && user.language && user.learningLanguage)
-      && <WelcomeSection onLoginClick={onLoginClick} onSigninClick={onSigninClick} connectAsVisitor={connectAsVisitor} />}
-
-      <PageTitle title={translate('mainPage.title')} ></PageTitle>
-      <Button onClick={handleOnDictionaryClick}>
-        Dictionary
-      </Button>
-      <Button onClick={handleOnCardTrainingClick}>
-        Card Training
-      </Button>
+      <WelcomeSection
+        isLogged={user && user.language !== undefined && user.learningLanguage !== undefined}
+        onLogin={onLogin} 
+        onSignin={onSignin} 
+        connectAsVisitor={connectAsVisitor} 
+        tabNumber={tabNumber} 
+        changeTabNumber={changeTabNumber}
+      />
+      <Fade timeout={4000} in={user && user.language !== undefined && user.learningLanguage !== undefined}>
+        <Column horizontal='center' style={{ width:'100%', paddingTop: '350px' }}>
+          {/* <PageTitle title={translate('mainPage.title')} ></PageTitle>
+          <Button onClick={handleOnDictionaryClick}>
+            Dictionary
+          </Button>
+          <Button onClick={handleOnCardTrainingClick}>
+            Card Training
+          </Button> */}
+          <UserBoard userModules={[
+            {
+              name: 'news', 
+              lgPosition: {x: 0, y: 0, w: 3, h: 2 }, 
+              mdPosition: {x: 0, y: 0, w: 3, h: 2 }, 
+              smPosition: {x: 0, y: 0, w: 2, h: 2 }, 
+              xsPosition: {x: 0, y: 0, w: 1, h: 1 }
+            },
+            {
+              name: 'fastExercice',
+              lgPosition: {x: 5, y: 0, w: 6, h: 2 }, 
+              mdPosition: {x: 5, y: 0, w: 6, h: 2 }, 
+              smPosition: {x: 3, y: 0, w: 3, h: 4 }, 
+              xsPosition: {x: 3, y: 0, w: 3, h: 4 }
+            }]} />
+        </Column>
+      </Fade>
     </>
   );
 }

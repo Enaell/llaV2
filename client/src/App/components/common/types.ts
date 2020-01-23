@@ -36,7 +36,7 @@ export type WordType= {
     subject: string[],
     level: number,
     translations: TranslationType[],
-    comments: string,
+    comments?: string,
     validated: boolean, //(this field is to differenciate cards validated by admin from others)
     visibility: VisibilityType, //(rank of visibility wanted by the card owner)
 }
