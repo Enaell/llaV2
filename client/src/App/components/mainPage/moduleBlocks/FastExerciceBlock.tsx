@@ -148,7 +148,6 @@ export const FastExerciceBlock = ({style = {}, words = tempWords, rank = 5}: {st
         setScore(score + answerScore)
         setScoreMax(scoreMax + 1)
       }, 500);
-
     }
 
     return (
