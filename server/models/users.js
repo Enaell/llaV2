@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const { ROLES, LANGUAGES } = require('./utils');
-
 const { Schema } = mongoose;
 
 const UsersSchema = new Schema({
@@ -11,6 +10,7 @@ const UsersSchema = new Schema({
   role: {type: String, default: ROLES.Customer},
   language: {type: String, default: LANGUAGES.Fr},
   learningLanguage: {type: String, default: LANGUAGES.Fr},
+  userBoard: [{ type: Schema.Types.ObjectId, ref: 'UserGridBlocks' }],
   hash: String,
   salt: String,
 });
@@ -46,6 +46,7 @@ UsersSchema.methods.toAuthJSON = function() {
     role: this.role,
     language: this.language,
     learningLanguage: this.learningLanguage,
+    userBoard: this.userBoard,
     token: this.generateJWT(),
   };
 };

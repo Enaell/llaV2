@@ -3,6 +3,9 @@ const passport = require('passport');
 const router = require('express').Router();
 const auth = require('../auth');
 const Users = mongoose.model('Users');
+const UserGridBlock = mongoose.model('UserGridBlocks');
+const userGridBlocks = require('../../models/Default/userGridBlocks');
+
 
 //POST new user route (optional, everyone has access)
 router.post('/', auth.optional, (req, res, next) => {
@@ -25,9 +28,18 @@ router.post('/', auth.optional, (req, res, next) => {
 
   const finalUser = new Users(user);
   finalUser.setPassword(user.password);
-  console.log(finalUser.toAuthJSON());
+
+  finalUser.userBoard = userGridBlocks.map(gridBlock => {
+    const userGridBlock = new UserGridBlock(gridBlock);
+    userGridBlock.save();
+    return userGridBlock;
+  });
+
   return finalUser.save()
-    .then(() => res.json({ user: finalUser.toAuthJSON() }));
+    .then(() => res.json({ user: finalUser.populate('userBoard').toAuthJSON() }))
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
 });
 
 //POST login route (optional, everyone has access)
@@ -59,7 +71,24 @@ router.post('/login', auth.optional, (req, res, next) => {
       const user = passportUser;
       user.token = passportUser.generateJWT();
 
-      return res.json({ user: user.toAuthJSON() });
+      
+
+      return Users.findOById(user._id)
+      .populate('userBoard')
+      .then((foundUser) => {
+        return { ...(user.toAuthJSON()), userBoard: foundUser.userBoard}
+      })
+      .then(finalUser => res.json({user: finalUser}));
+
+
+      // console.log('=========================');
+      // console.log(finalUser);
+
+      // user.userBoard = finalUser.userBoard;
+
+      // console.log(user)
+
+      // return res.json({ user: user.toAuthJSON() });
     }
 
     return status(400).info;
