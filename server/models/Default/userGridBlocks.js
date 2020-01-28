@@ -15,10 +15,10 @@ userGridLayout = [
     },
     {
         name: "wordOfTheDay",
-        lgPosition: {x: 0, y: 1, w: 3, h: 2 }, 
-        mdPosition: {x: 0, y: 1, w: 3, h: 2 }, 
-        smPosition: {x: 0, y: 0, w: 3, h: 2 }, 
-        xsPosition: {x: 0, y: 0, w: 3, h: 2 }
+        lgPosition: {x: 0, y: 2, w: 3, h: 2 }, 
+        mdPosition: {x: 0, y: 2, w: 3, h: 2 }, 
+        smPosition: {x: 0, y: 2, w: 3, h: 2 }, 
+        xsPosition: {x: 0, y: 1, w: 3, h: 2 }
     }
 ];
 

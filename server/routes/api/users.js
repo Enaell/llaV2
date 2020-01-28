@@ -6,6 +6,21 @@ const Users = mongoose.model('Users');
 const UserGridBlock = mongoose.model('UserGridBlocks');
 const userGridBlocks = require('../../models/Default/userGridBlocks');
 
+const formatUserBoard = (array, key) => {
+  const initialValue = {};
+  return array.reduce((obj, item) => {
+    return {
+      ...obj,
+      [item[key]]: {
+        lgPosition: item.lgPosition, 
+        mdPosition: item.mdPosition, 
+        smPosition: item.smPosition, 
+        xsPosition: item.xsPosition
+      }
+    };
+  }, initialValue);
+};
+
 
 //POST new user route (optional, everyone has access)
 router.post('/', auth.optional, (req, res, next) => {
@@ -36,10 +51,18 @@ router.post('/', auth.optional, (req, res, next) => {
   });
 
   return finalUser.save()
-    .then(() => res.json({ user: finalUser.populate('userBoard').toAuthJSON() }))
+    .then(()=> finalUser.populate('userBoard'))
+    .then(foundUser => ({...(finalUser.toAuthJSON()), userBoard: formatUserBoard(foundUser.userBoard, 'name')}))
+    .then(frontUser => res.json({ user: frontUser }))
     .catch((error) => {
       res.status(500).json({ error });
     });
+
+  // return finalUser.save()
+  //   .then(() => {res.json({ user: finalUser.populate('userBoard').toAuthJSON() })})
+  //   .catch((error) => {
+  //     res.status(500).json({ error });
+  //   });
 });
 
 //POST login route (optional, everyone has access)
@@ -71,24 +94,15 @@ router.post('/login', auth.optional, (req, res, next) => {
       const user = passportUser;
       user.token = passportUser.generateJWT();
 
-      
-
-      return Users.findOById(user._id)
+      return Users.findOne({ _id: user._id })
       .populate('userBoard')
       .then((foundUser) => {
-        return { ...(user.toAuthJSON()), userBoard: foundUser.userBoard}
+        return { ...(user.toAuthJSON()), userBoard: formatUserBoard(foundUser.userBoard, 'name')}
       })
-      .then(finalUser => res.json({user: finalUser}));
-
-
-      // console.log('=========================');
-      // console.log(finalUser);
-
-      // user.userBoard = finalUser.userBoard;
-
-      // console.log(user)
-
-      // return res.json({ user: user.toAuthJSON() });
+      .then(finalUser => res.json({user: finalUser}))
+      .catch((error) => {
+        res.status(500).json({ error });
+      });;
     }
 
     return status(400).info;
