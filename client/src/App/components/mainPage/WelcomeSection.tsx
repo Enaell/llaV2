@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Column, Row } from '../common/Flexbox';
 import { welcomeSection, welcomeSectionLogged, backgroundImg, backgroundImgLogged, connectionDiv, statusReminderDiv } from './styles.d';
 import { LanguageType } from '../common/types';
-import { Button, Typography } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import translate from 'counterpart';
 import { LoginTabs } from '../login/LoginTabs';
 import { IntroductionColumn } from './introductionColumn';

@@ -41,7 +41,24 @@ const loginAsVisitor = (state, languages) => {
   }
 }
 
-const initialUserState = {};
+const updateUserboard = (state, userBoard) => ({ ...state, userBoard: { ...userBoard }});
+
+const initialUserState = {
+  userBoard: {
+    news: {
+      lg: {x: 0, y: 0, w: 3, h: 2 }, 
+      md: {x: 0, y: 0, w: 3, h: 2 }, 
+      sm: {x: 0, y: 0, w: 2, h: 2 }, 
+      xs: {x: 0, y: 0, w: 1, h: 1 }
+    },
+    fastExercice: {
+      lg: {x: 5, y: 0, w: 6, h: 2 }, 
+      md: {x: 5, y: 0, w: 6, h: 2 }, 
+      sm: {x: 3, y: 0, w: 3, h: 4 }, 
+      xs: {x: 3, y: 0, w: 3, h: 4 }
+    }
+  }
+};
 
 const userReducer = (state = initialUserState, action) => {
   switch (action.type){
@@ -52,7 +69,9 @@ const userReducer = (state = initialUserState, action) => {
     case 'LOG_STATE':
       return logState(state);
     case 'LOGIN_AS_VISITOR':
-      return loginAsVisitor(state, action.payload)
+      return loginAsVisitor(state, action.payload);
+    case 'UPDATE_USERBOARD':
+      return updateUserboard(state, action.payload);
     default: 
       return state;
   }

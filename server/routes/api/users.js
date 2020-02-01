@@ -12,10 +12,10 @@ const formatUserBoard = (array, key) => {
     return {
       ...obj,
       [item[key]]: {
-        lgPosition: item.lgPosition, 
-        mdPosition: item.mdPosition, 
-        smPosition: item.smPosition, 
-        xsPosition: item.xsPosition
+        lg: item.lg, 
+        md: item.md, 
+        sm: item.sm, 
+        xs: item.xs
       }
     };
   }, initialValue);

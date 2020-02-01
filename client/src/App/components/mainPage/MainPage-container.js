@@ -85,7 +85,10 @@ function mapDispatchToProps(dispatch){
     },
     closeModal:() => {
       dispatch({type: 'TOGGLE_LOGIN_MODAL'});
-    }
+    },
+    updateUserBoard: (userBoard) => {
+      dispatch({type: 'UPDATE_USERBOARD', payload: userBoard})
+    } 
 
   }
 }

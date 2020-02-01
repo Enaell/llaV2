@@ -119,7 +119,6 @@ function getNewAnswer(words: WordType[], oldWordName = undefined as WordType | u
 
 function getTranslation(word: WordType, maxRank: number){
   const translations = word.translations.filter(translation => translation.rank <= maxRank)
-  console.log(translations);
   return sample(translations, 1)[0] as TranslationType;
 }
 
@@ -131,7 +130,6 @@ export const FastExerciceBlock = ({style = {}, words = tempWords, rank = 5}: {st
 
     const [responses, setResponses] = useState(getResponses(words, undefined));
     const [translations, setTranslations] = useState(responses.map(response => getTranslation(response, rank)))
-    console.log(translations);
     const [answer, setAnswer] = useState(getNewAnswer(responses))
     const [score, setScore] = useState(0);
     const [scoreMax, setScoreMax] = useState(0)

@@ -1,5 +1,6 @@
 export type UserType = {
     _id?: string,
+    userBoard?: UserModulesType,
     token?: string,
     email?: string,
     username: string,
@@ -18,6 +19,24 @@ export type SentencesType = {
     sentence: string,
     translatedSentence: string
 }
+
+export type PositionType = {
+    x: number; 
+    y: number; 
+    w: number; 
+    h: number;
+} 
+  
+export type UserModulesType = {
+    [key: string]: {
+        lg: PositionType;
+        md: PositionType;
+        sm: PositionType;
+        xs: PositionType;    
+    }
+}
+
+export type BreakpointType = 'lg' | 'md' | 'sm' | 'xs';
 
 export type TranslationType = {
     name: string,
