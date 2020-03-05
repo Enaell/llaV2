@@ -11,18 +11,21 @@ import InputOutlinedIcon from '@material-ui/icons/InputOutlined';
 
 import { Typography, Button } from '@material-ui/core';
 
-export const ModuleBlockHeader = ({displayed, name, onModify,  setOnModify} : 
+export const ModuleBlockHeader = ({displayed, prettyName, onModify,  setOnModify, deleteModule, saveModules, cancelModification} : 
 {
     displayed: boolean; 
-    name: string
+    prettyName: string
     onModify: boolean;
     setOnModify: React.Dispatch<React.SetStateAction<boolean>>;
+    deleteModule: () => void;
+    saveModules: () => void;
+    cancelModification: () => void
 }) => {
   return (
-      <Row horizontal={'space-between'} vertical={'center'} style={{width: 'calc(100% + 4px)', height:'50px', position: 'absolute', zIndex: '2'}}>
-        <Typography style={{ paddingLeft: '20px' }} variant='h6' color={'initial'}>{name}</Typography>
+      <Row horizontal={'space-between'} vertical={'center'} style={{width: 'calc(100% + 4px)', height:'50px', position: 'absolute', zIndex: '100'}}>
+        <Typography style={{ paddingLeft: '20px' }} variant='h6' color={'initial'}>{prettyName}</Typography>
         { displayed &&
-        <div>
+        <div style={{paddingRight: '10px'}}>
           { !onModify ?
           <>
             <Button onClick={() => setOnModify(true)}>
@@ -44,13 +47,13 @@ export const ModuleBlockHeader = ({displayed, name, onModify,  setOnModify} :
           : 
           <>
             <Button>
-              <SaveAltOutlinedIcon color='action' titleAccess={'Delete'}/>
+              <SaveAltOutlinedIcon onClick={() => saveModules()} color='action' titleAccess={'Save'}/>
             </Button>
             <Button>
-              <DeleteOutlinedIcon color='action' titleAccess={'Delete'}/>
+              <DeleteOutlinedIcon onClick={() => deleteModule()}  color='action' titleAccess={'Delete'}/>
             </Button>
             <Button>
-              <CloseIcon color='action' titleAccess={'Cancel'}/>
+              <CloseIcon onClick={() => cancelModification()} color='action' titleAccess={'Cancel'}/>
             </Button>
           </>}
         </div>}

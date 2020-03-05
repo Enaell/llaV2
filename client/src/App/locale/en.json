@@ -32,5 +32,10 @@
     "Fr": "French",
     "En": "English",
     "Cn": "Chinese"
+  },
+  "moduleBlock": {
+    "news": "News",
+    "fastExercice": "Quick Exercice",
+    "wordOfTheDay": "Word of the Day"
   }
 }

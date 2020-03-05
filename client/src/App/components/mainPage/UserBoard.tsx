@@ -41,6 +41,7 @@ function updateLayout(layout: Layout, newPos: PositionType) {
   return newLayout;
 }
 
+
 function layoutsAreResizable(layouts: {lg: Layout[];md: Layout[];sm: Layout[];xs: Layout[];}, onModify: boolean) {
   return ({
     lg: layouts.lg.map((l: Layout)=> ({...l, isResizable: onModify, isDraggable: onModify })),
@@ -49,7 +50,6 @@ function layoutsAreResizable(layouts: {lg: Layout[];md: Layout[];sm: Layout[];xs
     xs: layouts.xs.map((l: Layout)=> ({...l, isResizable: onModify, isDraggable: onModify })),
   })
 }
-
 
 function getBlocksLayoutsFromModule(modules: UserModulesType) {
   return {
@@ -61,12 +61,13 @@ function getBlocksLayoutsFromModule(modules: UserModulesType) {
 }
 
 
-export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules} 
-  : {
-    userModules: UserModulesType, 
-    onModify: boolean, 
-    setNewUserModules: React.Dispatch<React.SetStateAction<{}>>,
-    setOnModify: React.Dispatch<React.SetStateAction<boolean>> 
+export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules, saveModules, cancelModification} : {
+    userModules: UserModulesType; 
+    onModify: boolean;
+    setNewUserModules: React.Dispatch<React.SetStateAction<{}>>;
+    setOnModify: React.Dispatch<React.SetStateAction<boolean>>;
+    saveModules: () => void;
+    cancelModification: () => void;
   }) => {
 
   const [layouts, setLayouts] = useState(getBlocksLayoutsFromModule({...userModules}))
@@ -78,6 +79,15 @@ export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules
     layout.forEach(element => 
       newModules[element.i][breakPoint] = {x: element.x, y: element.y, w: element.w, h:element.h}
     );
+    setNewUserModules(newModules);
+  }
+
+  const deleteModule = (moduleName: string ) => {
+    console.log(`DeleteModule ${moduleName}`);
+    let newModules = {...userModules};
+    delete newModules[moduleName];
+    console.log(newModules[moduleName]);
+    console.log(newModules);
     setNewUserModules(newModules);
   }
 
@@ -93,7 +103,7 @@ export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules
   return (
     <ResponsiveGridLayout 
       onLayoutChange={(layout)=>onLayoutChange(layout)}
-      onBreakpointChange={(newBreakpoint: BreakpointType, _newCols: number) => {console.log(newBreakpoint); setBreakPoint(newBreakpoint)}}
+      onBreakpointChange={(newBreakpoint: BreakpointType, _newCols: number) => { setBreakPoint(newBreakpoint)}}
       style={{ width:'80%', maxWidth:'1300px'}} 
       className="layout" 
       layouts={layouts}
@@ -102,7 +112,14 @@ export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules
       width={1300}>
         {Object.keys(userModules).map(m =>  
           <Column style={{with:'100%'}} key={m}>
-            <ModuleBlock onModify={onModify} setOnModify={setOnModify} name={ m }/> 
+            <ModuleBlock 
+              onModify={onModify} 
+              setOnModify={setOnModify} 
+              name={ m } 
+              deleteModule={deleteModule} 
+              saveModules={saveModules}
+              cancelModification={cancelModification}
+            /> 
           </Column>)}
     </ResponsiveGridLayout>
   )

@@ -32,5 +32,10 @@
     "Fr": "Francais",
     "En": "Anglais",
     "Cn": "Chinois"
+  },
+  "moduleBlock": {
+    "news": "Nouvelles",
+    "fastExercice": "Exercice Rapide",
+    "wordOfTheDay": "Mot du Jour"
   }
 }

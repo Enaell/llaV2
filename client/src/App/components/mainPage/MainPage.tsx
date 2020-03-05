@@ -21,16 +21,18 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
     history: any
   }) => {
 
-  const saveAndStopModify = async (userboard: any, token: any) => {
-    console.log('Board to save');
-    console.log(userboard)
-    await updateUserBoard(userboard, token);
-    setOnModify(false);
-  }
 
   const [onModify, setOnModify] = useState(false);
 
   const [newUserModules, setNewUserModules] = useState({...(user.userBoard)});
+
+  const saveAndStopModify = async () => {
+    if (newUserModules) 
+    {
+      await updateUserBoard(newUserModules, user.token);
+      setOnModify(false);
+    }
+  }
 
   const handleOnCardTrainingClick = () => {
     history.push('/cardTraining');  
@@ -64,16 +66,24 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
 
           */
           }
-          <UserBoard onModify={onModify} setNewUserModules={setNewUserModules} userModules={user && user.userBoard ? user.userBoard : {} } setOnModify={setOnModify} />
+          <UserBoard 
+            onModify={onModify}
+            setNewUserModules={setNewUserModules}
+            userModules={
+              user && user.userBoard ?
+              user.userBoard
+              : {} } 
+            setOnModify={setOnModify}
+            saveModules={saveAndStopModify}
+            cancelModification={() => setOnModify(false)}
+          />
           { onModify &&
             <Row>
               <Button onClick={()=> setOnModify(false) }>
                   Cancel
               </Button>
               <Button onClick={()=> {
-                  console.log(newUserModules);
-                  if (newUserModules) 
-                  saveAndStopModify(newUserModules, user.token);
+                  saveAndStopModify();
                 }
               }>
                   Save
