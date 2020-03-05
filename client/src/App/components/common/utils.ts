@@ -8,7 +8,7 @@ import localeCn from '../../locale/cn.json';
 export const fullNameLanguages: {[key in LanguageType | string]: string} = {
     Fr: "Francais",
     En: "English",
-    Cn: "ZhongWen"
+    Cn: "中文"
 };
 
 export const fileLanguage: {[key in LanguageType]: any} = {

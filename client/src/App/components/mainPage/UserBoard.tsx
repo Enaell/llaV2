@@ -8,32 +8,32 @@ import { UserModulesType, PositionType, BreakpointType } from '../common/types'
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-export const lgGridLayouts: {[key: string]: Layout} = {
-  news: {i: 'news', x: 0, y: 0, w: 3, h: 2, minW: 2, maxW: 4, minH: 2, maxH: 3, isResizable: false, isDraggable: false},
+const lgGridLayouts: {[key: string]: Layout} = {
+  news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
   fastExercice : {i: 'fastExercice', x: 5, y: 0, w: 6, h: 2, isResizable: false, isDraggable: false},
   wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
 }
 
-export const mdGridLayouts: {[key: string]: Layout} = {
-  news: {i: 'news', x: 0, y: 0, w: 3, h: 2, minW: 2, maxW: 4, minH: 2, maxH: 3, isResizable: false, isDraggable: false},
+const mdGridLayouts: {[key: string]: Layout} = {
+  news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
   fastExercice : {i: 'fastExercice', x: 5, y: 0, w: 6, h: 2, isResizable: false, isDraggable: false},
   wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
 }
 
-export const smGridLayouts: {[key: string]: Layout} = {
-  news: {i: 'news', x: 0, y: 0, w: 2, h: 2, minW: 2, maxW: 4, minH: 2, maxH: 3, isResizable: false, isDraggable: false},
+const smGridLayouts: {[key: string]: Layout} = {
+  news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
   fastExercice : {i: 'fastExercice', x: 3, y: 0, w: 3, h: 4, isResizable: false, isDraggable: false},
   wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
 }
 
-export const xsGridLayouts: {[key: string]: Layout} = {
-    news: {i: 'news', x: 0, y: 0, w: 1, h: 1, minW: 2, maxW: 4, minH: 2, maxH: 3, isResizable: false, isDraggable: false},
+const xsGridLayouts: {[key: string]: Layout} = {
+    news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
     fastExercice : {i: 'fastExercice', x: 3, y: 0, w: 3, h: 4, isResizable: false, isDraggable: false},
     wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 1, w: 3, h: 2, isResizable: false, isDraggable: false}
 }
 
 function updateLayout(layout: Layout, newPos: PositionType) {
-  const newLayout = layout;
+  const newLayout = {...layout};
   newLayout.x = newPos.x;
   newLayout.y = newPos.y;
   newLayout.w = newPos.w;
@@ -61,18 +61,20 @@ function getBlocksLayoutsFromModule(modules: UserModulesType) {
 }
 
 
-export const UserBoard = ({userModules, onModify, setNewUserModules} 
+export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules} 
   : {
     userModules: UserModulesType, 
     onModify: boolean, 
-    setNewUserModules: React.Dispatch<React.SetStateAction<UserModulesType | undefined>>}) => {
+    setNewUserModules: React.Dispatch<React.SetStateAction<{}>>,
+    setOnModify: React.Dispatch<React.SetStateAction<boolean>> 
+  }) => {
 
-  const [layouts, setLayouts] = useState(getBlocksLayoutsFromModule(userModules))
+  const [layouts, setLayouts] = useState(getBlocksLayoutsFromModule({...userModules}))
 
   const [breakPoint, setBreakPoint] = useState('lg' as BreakpointType);
 
   const onLayoutChange = (layout: Layout[]) => {
-    const newModules = userModules;
+    let newModules = {...userModules};
     layout.forEach(element => 
       newModules[element.i][breakPoint] = {x: element.x, y: element.y, w: element.w, h:element.h}
     );
@@ -100,7 +102,7 @@ export const UserBoard = ({userModules, onModify, setNewUserModules}
       width={1300}>
         {Object.keys(userModules).map(m =>  
           <Column style={{with:'100%'}} key={m}>
-            <ModuleBlock name={ m }/> 
+            <ModuleBlock onModify={onModify} setOnModify={setOnModify} name={ m }/> 
           </Column>)}
     </ResponsiveGridLayout>
   )

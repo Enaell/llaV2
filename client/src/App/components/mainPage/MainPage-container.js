@@ -11,8 +11,8 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return{
-    connectAsVisitor: (language, learningLanguage) => {
-      dispatch({type: 'LOGIN_AS_VISITOR', payload: {language: language, learningLanguage: learningLanguage}})
+    connectAsVisitor: (language, targetLanguage) => {
+      dispatch({type: 'LOGIN_AS_VISITOR', payload: {language: language, targetLanguage: targetLanguage}})
     },
     onLogin:(emailAddress, password) => {
       const loginBody = { user: { "email":emailAddress,"password":password }};
@@ -30,19 +30,16 @@ function mapDispatchToProps(dispatch){
         })
         .then((json) => {
           if (json.error){
-            dispatch({type: 'TOGGLE_LOGIN_MODAL'});
             dispatch({type: 'SET_NAV_SNACKBAR', payload: {variant: 'error', message: "Login Error !"}});
             dispatch({type: 'TOGGLE_NAV_SNACKBAR'})
           }
           else
           {
             dispatch({type: 'LOGIN', payload: json.user});
-            dispatch({type: 'TOGGLE_LOGIN_MODAL'});
           }
         })
         .catch((e) => {
           console.log(e);
-          dispatch({type: 'TOGGLE_LOGIN_MODAL'});
           dispatch({type: 'SET_NAV_SNACKBAR', payload: {variant: 'error', message: "Login Error !"}});
           dispatch({type: 'TOGGLE_NAV_SNACKBAR'})
         });
@@ -63,19 +60,16 @@ function mapDispatchToProps(dispatch){
         })
         .then((json) => {
           if (json.error){
-            dispatch({type: 'TOGGLE_LOGIN_MODAL'});
             dispatch({type: 'SET_NAV_SNACKBAR', payload: {variant: 'error', message: "Signin Error !"}});
             dispatch({type: 'TOGGLE_NAV_SNACKBAR'})
           }
           else
           {
             dispatch({type: 'LOGIN', payload: json.user});
-            dispatch({type: 'TOGGLE_LOGIN_MODAL'});
           }
         })
         .catch((e) => {
           console.log(e);
-          dispatch({type: 'TOGGLE_LOGIN_MODAL'});
           dispatch({type: 'SET_NAV_SNACKBAR', payload: {variant: 'error', message: "Signin Error !"}});
           dispatch({type: 'TOGGLE_NAV_SNACKBAR'})
         });
@@ -83,13 +77,19 @@ function mapDispatchToProps(dispatch){
     changeTabNumber:(tabNumber) =>{
       dispatch({type: 'CHANGE_LOGIN_MODAL_TAB', payload: tabNumber});
     },
-    closeModal:() => {
-      dispatch({type: 'TOGGLE_LOGIN_MODAL'});
-    },
-    updateUserBoard: (userBoard) => {
+    updateUserBoard: async (userBoard, token) => {
+      fetch("http://localhost:5000/api/usergridBlocks",
+      {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+              },
+          method: "PUT",
+          body: JSON.stringify(userBoard)
+      })
       dispatch({type: 'UPDATE_USERBOARD', payload: userBoard})
     } 
-
   }
 }
 

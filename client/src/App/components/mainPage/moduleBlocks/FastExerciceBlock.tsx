@@ -150,8 +150,8 @@ export const FastExerciceBlock = ({style = {}, words = tempWords, rank = 5}: {st
 
     return (
         <Row wrap horizontal='center' style={ { width:'100%' ,...style} }>
-            <WordCard style={{ width: '40%', minWidth: '250px' }} word={answer} align={'center'} wordDetailAlign={'center'}/>
-            <TranslationList style={{ width: '40%', minWidth: '250px', marginLeft: '25px' }} scoreMax={scoreMax} translations={translations} answer={answer} onAnswer={nextWord}/>
+            <WordCard style={{ width: '40%', minWidth: '244px' }} word={answer} align={'center'} wordDetailAlign={'center'}/>
+            <TranslationList style={{ width: '40%', minWidth: '244px', marginLeft: '25px' }} scoreMax={scoreMax} translations={translations} answer={answer} onAnswer={nextWord}/>
         </Row>
     )
 }

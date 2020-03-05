@@ -9,7 +9,7 @@ const UsersSchema = new Schema({
   email: {type: String, required: true} ,
   role: {type: String, default: ROLES.Customer},
   language: {type: String, default: LANGUAGES.Fr},
-  learningLanguage: {type: String, default: LANGUAGES.Fr},
+  targetLanguage: {type: String, default: LANGUAGES.Fr},
   userBoard: [{ type: Schema.Types.ObjectId, ref: 'UserGridBlocks' }],
   hash: String,
   salt: String,
@@ -35,7 +35,7 @@ UsersSchema.methods.generateJWT = function() {
     email: this.email,
     role: this.role,
     language: this.language,
-    learningLanguage: this.learningLanguage,
+    targetLanguage: this.targetLanguage,
     exp: parseInt(expirationDate.getTime() / 1000, 10),
   }, 'secret');
 }
@@ -45,7 +45,7 @@ UsersSchema.methods.toAuthJSON = function() {
     name: this.name,
     role: this.role,
     language: this.language,
-    learningLanguage: this.learningLanguage,
+    targetLanguage: this.targetLanguage,
     userBoard: this.userBoard,
     token: this.generateJWT(),
   };

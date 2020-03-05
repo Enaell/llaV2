@@ -8,14 +8,14 @@ import translate from 'counterpart';
 
 type IntroductionColumnType = {
   language: LanguageType,
-  learningLanguage: LanguageType, 
+  targetLanguage: LanguageType, 
   setLanguage: React.Dispatch<React.SetStateAction<LanguageType>>, 
-  setLearningLanguage: React.Dispatch<React.SetStateAction<LanguageType>>, 
-  connectAsVisitor: (language: LanguageType, learningLanguage: LanguageType) => {}
+  setTargetLanguage: React.Dispatch<React.SetStateAction<LanguageType>>, 
+  connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => {}
 }
 
 
-export const IntroductionColumn = ({language, learningLanguage, setLanguage, setLearningLanguage, connectAsVisitor}: IntroductionColumnType) => {
+export const IntroductionColumn = ({language, targetLanguage, setLanguage, setTargetLanguage, connectAsVisitor}: IntroductionColumnType) => {
   return (
     <>
       <Typography variant="body2" color={'initial'}>{translate('mainPage.welcomeText1')}</Typography>
@@ -32,22 +32,22 @@ export const IntroductionColumn = ({language, learningLanguage, setLanguage, set
               ;setLanguage(event.target.value as LanguageType)
             }}
           >
-            {Object.keys(fullNameLanguages).map((key) => <MenuItem value={key}>{ fullNameLanguages[key] }</MenuItem>)}
+            {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
           </Select>
         </FormControl>
         <FormControl>
-          <InputLabel id="demo-simple-select-label">{translate('mainPage.learningLanguage')}</InputLabel>
+          <InputLabel id="demo-simple-select-label">{translate('mainPage.targetLanguage')}</InputLabel>
           <Select
             style={{minWidth: '120px'}}
-            labelId="selectLearningLanguage"
-            value={learningLanguage}
-            onChange={(event: React.ChangeEvent<{ value: unknown }>) => setLearningLanguage(event.target.value as LanguageType)}
+            labelId="selectTargetLanguage"
+            value={targetLanguage}
+            onChange={(event: React.ChangeEvent<{ value: unknown }>) => setTargetLanguage(event.target.value as LanguageType)}
           >
-            {Object.keys(fullNameLanguages).map((key) => <MenuItem value={key}>{ translate(`language.${key}`) }</MenuItem>)}
+            {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ translate(`language.${key}`) }</MenuItem>)}
           </Select>
         </FormControl>
       </Row>
-      <Button onClick={()=> language && learningLanguage && connectAsVisitor(language, learningLanguage)}>{translate('connection.visitor')}</Button>
+      <Button onClick={()=> language && targetLanguage && connectAsVisitor(language, targetLanguage)}>{translate('connection.visitor')}</Button>
 
     </>
     

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {ModuleBlockHeader} from './ModuleBlockHeader'
 import { FastExerciceBlock } from "./FastExerciceBlock";
 import { NewsBlock } from "./NewsBlock";
-import { Column } from '../../common/Flexbox';
+import { Column, Row } from '../../common/Flexbox';
   
   
 const getBlockFromModule = (moduleName: string) => {
@@ -12,10 +13,17 @@ const getBlockFromModule = (moduleName: string) => {
         return <NewsBlock name={moduleName} />
     }
   }
-  
 
-export const ModuleBlock = ({ name }: { name: string }) => {
-    return (
+export const ModuleBlock = ({ name, onModify, setOnModify }
+  : { 
+      name: string, 
+      onModify: boolean, 
+      setOnModify: React.Dispatch<React.SetStateAction<boolean>> 
+    }) => {
+  const [onHover, setOnHover] = useState(false);
+  return (
+      <div style={{ width: '100%', height: '100%' }} onMouseEnter={() => {setOnHover(true)}} onMouseLeave={()=>{setOnHover(false)}}>
+        <ModuleBlockHeader name={name} displayed={ onHover } onModify= {onModify} setOnModify={setOnModify} />
         <Column 
           horizontal={'center'} 
           vertical={'center'} 
@@ -24,5 +32,6 @@ export const ModuleBlock = ({ name }: { name: string }) => {
         >
           {getBlockFromModule(name)} 
         </Column>
+      </div>
     )
 }

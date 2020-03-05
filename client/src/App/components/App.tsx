@@ -19,7 +19,6 @@ import { Column } from './common/Flexbox';
 import {ThemeProvider} from '@material-ui/core/styles';
 import theme from '../theme';
 import { withStyles } from '@material-ui/core/styles';
-import {UserBoard} from './mainPage/UserBoard';
 
 console.log(React.version);
 
@@ -78,32 +77,3 @@ class App extends Component {
 }
 
 export default withStyles(styles)(App);
-
-
-  // useEffect(() => {
-  //   fetch('http://localhost:5000/api/words', {method: "GET", headers: {
-  //               "Content-Type": "application/json"
-  //             }})
-//     fetch("http://localhost:5000/api/users", {
-//       method: "POST",
-//       headers: {
-// //        'Authorization': 'Token ' + UserTokenFromLogin
-//         "Content-Type": "application/json"
-//       },          
-//       body: JSON.stringify({
-//         "user": {
-//           "email": "enael@enael.com",
-//           "password": "enael"
-//         }
-//       })
-//     })
-//     .then(res => res.json())
-//     .then(json => {
-//       console.log('=================== create user =======================');
-//       console.log(json);
-//       fetch('http://localhost:5000/api/words', {method: "GET", headers: {
-//                 'Authorization': 'Token ' + json.user.token,
-//                 "Content-Type": "application/json"
-//               }})
-//     }).catch(e => console.log(e));
-//     },[])

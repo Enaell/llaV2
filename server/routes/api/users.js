@@ -1,26 +1,11 @@
 const mongoose = require('mongoose');
 const passport = require('passport');
 const router = require('express').Router();
+const formatter = require('../utils');
 const auth = require('../auth');
 const Users = mongoose.model('Users');
 const UserGridBlock = mongoose.model('UserGridBlocks');
 const userGridBlocks = require('../../models/Default/userGridBlocks');
-
-const formatUserBoard = (array, key) => {
-  const initialValue = {};
-  return array.reduce((obj, item) => {
-    return {
-      ...obj,
-      [item[key]]: {
-        lg: item.lg, 
-        md: item.md, 
-        sm: item.sm, 
-        xs: item.xs
-      }
-    };
-  }, initialValue);
-};
-
 
 //POST new user route (optional, everyone has access)
 router.post('/', auth.optional, (req, res, next) => {
@@ -52,7 +37,7 @@ router.post('/', auth.optional, (req, res, next) => {
 
   return finalUser.save()
     .then(()=> finalUser.populate('userBoard'))
-    .then(foundUser => ({...(finalUser.toAuthJSON()), userBoard: formatUserBoard(foundUser.userBoard, 'name')}))
+    .then(foundUser => ({...(finalUser.toAuthJSON()), userBoard: formatter.formatUserBoard(foundUser.userBoard, 'name')}))
     .then(frontUser => res.json({ user: frontUser }))
     .catch((error) => {
       res.status(500).json({ error });
@@ -97,7 +82,7 @@ router.post('/login', auth.optional, (req, res, next) => {
       return Users.findOne({ _id: user._id })
       .populate('userBoard')
       .then((foundUser) => {
-        return { ...(user.toAuthJSON()), userBoard: formatUserBoard(foundUser.userBoard, 'name')}
+        return { ...(user.toAuthJSON()), userBoard: formatter.formatUserBoard(foundUser.userBoard, 'name')}
       })
       .then(finalUser => res.json({user: finalUser}))
       .catch((error) => {

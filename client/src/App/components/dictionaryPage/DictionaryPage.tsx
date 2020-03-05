@@ -39,8 +39,8 @@ const DictionaryPage = ({
 
   useEffect(()=>{
     const token = user && user.token ? user.token : undefined;
-    const learningLanguage = user && user.learningLanguage ? user.learningLanguage : undefined; 
-    getAllWords(learningLanguage, token);
+    const targetLanguage = user && user.targetLanguage ? user.targetLanguage : undefined; 
+    getAllWords(targetLanguage, token);
     },[]);
 
   return(

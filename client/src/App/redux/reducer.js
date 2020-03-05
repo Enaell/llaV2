@@ -1,6 +1,6 @@
 import {shuffle, sample} from 'underscore';
 import theme from '../theme';
-import { combineReducers } from 'redux';
+import { combineReducers, compose } from 'redux';
 
 import counterpart from 'counterpart';
 
@@ -20,7 +20,12 @@ const themeReducer = (state = initialThemeState, action) => {
 } 
 
 // user
-const login = (state, user) => ({ ...state, ...user });
+const login = (state, user) => { 
+  console.log('login state');
+   console.log(user);
+   console.log({...state, ...user});
+  return ({ ...state, ...user })
+};
 
 const logout = () => ({});
 
@@ -37,27 +42,13 @@ const loginAsVisitor = (state, languages) => {
     username: 'Visitor', 
     role: 'Visitor', 
     language: languages.language, 
-    learningLanguage: languages.learningLanguage
+    targetLanguage: languages.targetLanguage
   }
 }
 
 const updateUserboard = (state, userBoard) => ({ ...state, userBoard: { ...userBoard }});
 
 const initialUserState = {
-  userBoard: {
-    news: {
-      lg: {x: 0, y: 0, w: 3, h: 2 }, 
-      md: {x: 0, y: 0, w: 3, h: 2 }, 
-      sm: {x: 0, y: 0, w: 2, h: 2 }, 
-      xs: {x: 0, y: 0, w: 1, h: 1 }
-    },
-    fastExercice: {
-      lg: {x: 5, y: 0, w: 6, h: 2 }, 
-      md: {x: 5, y: 0, w: 6, h: 2 }, 
-      sm: {x: 3, y: 0, w: 3, h: 4 }, 
-      xs: {x: 3, y: 0, w: 3, h: 4 }
-    }
-  }
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -126,8 +117,6 @@ const dictionaryReducer = (state = initialDictionaryState, action) => {
     case 'TOGGLE_SIDE_PANEL':
       return toggleSidePanel(state);
     case 'UPDATE_SELECTED_WORDS':
-      console.log('reducer update selcted words : ')
-      console.log(action.payload)
       return updateSelectedWords(state, action.payload);
     case 'CLEAN_SELECTED_WORDS':
       return cleanSelectedWords(state);
@@ -141,7 +130,6 @@ const dictionaryReducer = (state = initialDictionaryState, action) => {
       return toggleWordPreview(state);
     default: 
       return state;
-
   }
 }
 

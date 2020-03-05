@@ -13,14 +13,14 @@ export const WelcomeSection = ({ onLogin, onSignin, connectAsVisitor, tabNumber,
   : {
     onLogin: (emailAddress: string, password: string) => {}, 
     onSignin: (username: string, emailAddress: string, password: string) => {},
-    connectAsVisitor: (language: LanguageType, learningLanguage: LanguageType) => {},
+    connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => {},
     tabNumber: number,
     changeTabNumber: (num: number) => void,
     isLogged: boolean 
   }) => {
 
   const [language, setLanguage] = useState('' as LanguageType);
-  const [learningLanguage, setLearningLanguage] = useState('' as LanguageType);
+  const [targetLanguage, setTargetLanguage] = useState('' as LanguageType);
 
   const [username, setUsername] = React.useState("");
   const [emailAddress, setEmailAddress] = React.useState("");
@@ -84,9 +84,9 @@ export const WelcomeSection = ({ onLogin, onSignin, connectAsVisitor, tabNumber,
             <Column vertical={'space-around'} style={{ borderRight: '#a8c1a3 solid 2px', width: '50%', height: '250px', paddingRight: '25px' }}>
               <IntroductionColumn 
                 language={language} 
-                learningLanguage={learningLanguage} 
+                targetLanguage={targetLanguage} 
                 setLanguage={setLanguage} 
-                setLearningLanguage={setLearningLanguage} 
+                setTargetLanguage={setTargetLanguage} 
                 connectAsVisitor={connectAsVisitor}
               />
             </Column>
