@@ -21,9 +21,6 @@ const themeReducer = (state = initialThemeState, action) => {
 
 // user
 const login = (state, user) => { 
-  console.log('login state');
-   console.log(user);
-   console.log({...state, ...user});
   return ({ ...state, ...user })
 };
 

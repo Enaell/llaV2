@@ -1,4 +1,4 @@
-import { LanguageType } from './types';
+import { LanguageType, ModuleUrlType } from './types';
 import counterpart from 'counterpart';
 
 import localeFr from '../../locale/fr.json';
@@ -15,6 +15,12 @@ export const fileLanguage: {[key in LanguageType]: any} = {
     Fr: localeFr,
     En: localeEn,
     Cn: localeCn
+}
+
+export const moduleUrl: {[key in ModuleUrlType]: string} = {
+    news: '/',
+    fastExercice: '/cardTraining',
+    wordOfTheDay: '/dictionary'
 }
 
 

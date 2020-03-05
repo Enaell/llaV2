@@ -7,6 +7,7 @@ import { UserType, LanguageType, UserModulesType } from '../common/types';
 import {WelcomeSection} from './WelcomeSection';
 import {UserBoard} from './UserBoard';
 import { WidthProvider } from 'react-grid-layout';
+import { moduleUrl } from '../common/utils';
 
 
 const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, changeTabNumber, updateUserBoard, history }
@@ -34,13 +35,9 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
     }
   }
 
-  const handleOnCardTrainingClick = () => {
-    history.push('/cardTraining');  
-  }
-
-  const handleOnDictionaryClick = () => {
-    history.push('/dictionary');
-  }
+  function goToPage (url: string) {
+    history.push(url)
+  } 
 
   return(
     <>
@@ -76,6 +73,7 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
             setOnModify={setOnModify}
             saveModules={saveAndStopModify}
             cancelModification={() => setOnModify(false)}
+            goToPage={goToPage}
           />
           { onModify &&
             <Row>

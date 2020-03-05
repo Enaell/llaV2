@@ -26,7 +26,9 @@ export type PositionType = {
     w: number; 
     h: number;
 } 
-  
+
+export type ModuleUrlType = 'news' | 'fastExercice' | 'wordOfTheDay';
+
 export type UserModulesType = {
     [key: string]: {
         lg: PositionType;

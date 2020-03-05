@@ -11,7 +11,7 @@ import InputOutlinedIcon from '@material-ui/icons/InputOutlined';
 
 import { Typography, Button } from '@material-ui/core';
 
-export const ModuleBlockHeader = ({displayed, prettyName, onModify,  setOnModify, deleteModule, saveModules, cancelModification} : 
+export const ModuleBlockHeader = ({displayed, prettyName, onModify,  setOnModify, deleteModule, saveModules, cancelModification, goToModulePage} : 
 {
     displayed: boolean; 
     prettyName: string
@@ -19,7 +19,8 @@ export const ModuleBlockHeader = ({displayed, prettyName, onModify,  setOnModify
     setOnModify: React.Dispatch<React.SetStateAction<boolean>>;
     deleteModule: () => void;
     saveModules: () => void;
-    cancelModification: () => void
+    cancelModification: () => void;
+    goToModulePage:() => void;
 }) => {
   return (
       <Row horizontal={'space-between'} vertical={'center'} style={{width: 'calc(100% + 4px)', height:'50px', position: 'absolute', zIndex: '100'}}>
@@ -31,7 +32,7 @@ export const ModuleBlockHeader = ({displayed, prettyName, onModify,  setOnModify
             <Button onClick={() => setOnModify(true)}>
               <CreateOutlinedIcon color='action' titleAccess={'Modify'}/>
             </Button>
-            <Button onClick={() => {}}>
+            <Button onClick={() => goToModulePage()}>
               <DoubleArrowOutlinedIcon color='action' titleAccess={'Modify'}/>
             </Button>
             {/* <Button onClick={() => setOnModify(true)}>

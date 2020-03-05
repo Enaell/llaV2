@@ -3,7 +3,7 @@ import { Responsive, WidthProvider } from "react-grid-layout";
 import { ModuleBlock } from './moduleBlocks/ModuleBlock';
 import { Column } from "../common/Flexbox";
 import {Layout} from 'react-grid-layout';
-import { UserModulesType, PositionType, BreakpointType } from '../common/types'
+import { UserModulesType, PositionType, BreakpointType, ModuleUrlType } from '../common/types'
 
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -61,13 +61,14 @@ function getBlocksLayoutsFromModule(modules: UserModulesType) {
 }
 
 
-export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules, saveModules, cancelModification} : {
+export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules, saveModules, cancelModification, goToPage} : {
     userModules: UserModulesType; 
     onModify: boolean;
     setNewUserModules: React.Dispatch<React.SetStateAction<{}>>;
     setOnModify: React.Dispatch<React.SetStateAction<boolean>>;
     saveModules: () => void;
     cancelModification: () => void;
+    goToPage: (url: string) => void
   }) => {
 
   const [layouts, setLayouts] = useState(getBlocksLayoutsFromModule({...userModules}))
@@ -110,15 +111,16 @@ export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules
       breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480}}
       cols={{lg: 12, md: 10, sm: 6, xs: 4}}
       width={1300}>
-        {Object.keys(userModules).map(m =>  
+        {Object.keys(userModules).map((m) =>  
           <Column style={{with:'100%'}} key={m}>
             <ModuleBlock 
               onModify={onModify} 
               setOnModify={setOnModify} 
-              name={ m } 
+              name={ m as ModuleUrlType } 
               deleteModule={deleteModule} 
               saveModules={saveModules}
               cancelModification={cancelModification}
+              goToPage={goToPage}
             /> 
           </Column>)}
     </ResponsiveGridLayout>
