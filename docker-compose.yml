@@ -29,3 +29,12 @@ services:
         ports:
             - "27017:27017"
             
+    mongo-seed:
+        build: ./mongo-seed
+        links:
+            - mongo
+        volumes:
+            - ./mongo-seed:/mongo-seed
+        command:
+            /mongo-seed/import.sh
+

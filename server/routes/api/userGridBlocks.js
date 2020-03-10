@@ -9,14 +9,9 @@ const Users = mongoose.model('Users');
 router.put('/', auth.required, async (req, res, next) => {
     const { payload, body } = req;
 
-    console.log('------------------------------------------------------');
-    console.log(payload);
     const userGridBlocks = formatter.formatGrid(body);
 
     const user = await Users.findById(payload.id);
-
-
-    console.log('================================');
 
     UserGridBlocks.deleteMany(
         {

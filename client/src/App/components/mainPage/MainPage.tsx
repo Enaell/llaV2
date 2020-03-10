@@ -52,17 +52,6 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
       { user && user.language !== undefined && user.targetLanguage !== undefined &&
       <Fade timeout={4000} in={user && user.language !== undefined && user.targetLanguage !== undefined}>
         <Column horizontal='center' style={{ width:'100%', paddingTop: '350px' }}>
-          {
-          /* <PageTitle title={translate('mainPage.title')} ></PageTitle>
-          <Button onClick={handleOnDictionaryClick}>
-            Dictionary
-          </Button>
-                    <Button onClick={handleOnCardTrainingClick}>
-            Modify
-          </Button>
-
-          */
-          }
           <UserBoard 
             onModify={onModify}
             setNewUserModules={setNewUserModules}
