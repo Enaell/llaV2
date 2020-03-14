@@ -62,13 +62,9 @@ class App extends Component {
               <Navbar/>
               <RouterSwitch>
                 <Route exact path="/" component={MainPage}/>
-                { store.getState().user && store.getState().user.language &&
-                <>
-                  <Route path="/cardTraining" component={CardTrainingPage} />
-                  <Route path="/addCard" component={AddCardForm} />
-                  <Route path="/dictionary" component={DictionaryPage}/>
-                </>
-                }
+                <Route path="/cardTraining" component={CardTrainingPage} />
+                <Route path="/addCard" component={AddCardForm} />
+                <Route path="/dictionary" component={DictionaryPage}/>
                 <Route component={RouteNotFound} />
               </RouterSwitch>
               <Footer />

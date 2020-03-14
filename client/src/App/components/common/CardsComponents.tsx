@@ -66,7 +66,7 @@ export const TranslationList = ( { word }: { word: WordType }) => {
   return (
     <div style={{margin: '20px 0'}}>
     {word && word.translations && word.translations.map((translation) => (
-      <ExpansionPanel>
+      <ExpansionPanel key={translation.name}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{translation.name}</Typography>
         </ExpansionPanelSummary>
@@ -75,7 +75,7 @@ export const TranslationList = ( { word }: { word: WordType }) => {
         <List >
           {translation.sentences.map((sentence) => (
             <ListItem >
-              <ListItemText primary={ sentence.sentence} secondary={ sentence.translatedSentence } />
+              <ListItemText key={sentence.sentence} primary={ sentence.sentence} secondary={ sentence.translatedSentence } />
             </ListItem>
           ))}
         </List >

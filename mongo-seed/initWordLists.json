@@ -1,0 +1,16 @@
+[
+    {
+        "_id" : {"$oid": "5e6516d4e4b93e0012d8e000"}, 
+        "owner":{"$oid":"5e6516d4e4b93e0012d8e701"},
+        "name": "Basique",
+        "words" : [{"$oid":"5e6516d4e4b93e0012d00000"},{"$oid":"5e6516d4e4b93e0012d00001"},{"$oid":"5e6516d4e4b93e0012d00002"},{"$oid":"5e6516d4e4b93e0012d00003"},{"$oid":"5e6516d4e4b93e0012d00004"}],
+        "language": "Cn",
+        "subject": "General",
+        "level": 0,
+        "rank": 0,
+        "validated": true,
+        "visibility": "visitor",
+        "comments": "",
+        "__v" : 0
+    }
+]
