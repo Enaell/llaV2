@@ -2,20 +2,33 @@ import React from 'react';
 import { Column, Row } from '../common/Flexbox';
 import TextField from '@material-ui/core/TextField';
 import translate from 'counterpart';
+import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { fullNameLanguages } from '../common/utils';
+import { LanguageType } from '../common/types';
 
 type SigninFormType = {
+  language: LanguageType,
+  targetLanguage: LanguageType,
   handleEmailChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, 
   handleUserNameChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, 
-  handlePasswordChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, 
+  handlePasswordChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
+  handleLanguageChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
+  handleTargetLanguageChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
   passwordError: boolean, 
   usernameError: boolean, 
-  emailAddressError: boolean
+  emailAddressError: boolean,
+  languageError: boolean, 
+  targetLanguageError: boolean, 
 };
 
 export const SigninForm = ({
+  language,
+  targetLanguage,
   handleEmailChange, 
   handleUserNameChange, 
-  handlePasswordChange, 
+  handlePasswordChange,
+  handleLanguageChange,
+  handleTargetLanguageChange,
   passwordError, 
   usernameError, 
   emailAddressError
@@ -56,5 +69,32 @@ export const SigninForm = ({
         onChange={handlePasswordChange}
         fullWidth
       />
+      <Row horizontal={'space-around'}>
+        <FormControl>
+          <InputLabel id="demo-simple-select-label">{translate('mainPage.language')}</InputLabel>
+          <Select
+            style={{minWidth: '120px'}}
+            labelId="selectLanguage"
+            value={language}
+            onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+              translate.setLocale(event.target.value as string);
+              handleLanguageChange(event.target.value as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)
+            }}
+          >
+            {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel id="demo-simple-select-label">{translate('mainPage.targetLanguage')}</InputLabel>
+          <Select
+            style={{minWidth: '120px'}}
+            labelId="selectTargetLanguage"
+            value={targetLanguage}
+            onChange={(event: React.ChangeEvent<{ value: unknown }>) => handleTargetLanguageChange(event.target.value as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)}
+          >
+            {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ translate(`language.${key}`) }</MenuItem>)}
+          </Select>
+        </FormControl>
+      </Row>
   </Column>  );
 }

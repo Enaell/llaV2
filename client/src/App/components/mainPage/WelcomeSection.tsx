@@ -12,7 +12,7 @@ import { IntroductionColumn } from './introductionColumn';
 export const WelcomeSection = ({ onLogin, onSignin, connectAsVisitor, tabNumber, changeTabNumber, isLogged = false }
   : {
     onLogin: (emailAddress: string, password: string) => {}, 
-    onSignin: (username: string, emailAddress: string, password: string) => {},
+    onSignin: (username: string, emailAddress: string, password: string, language: string, targetLanguage: string) => {},
     connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => {},
     tabNumber: number,
     changeTabNumber: (num: number) => void,
@@ -29,6 +29,9 @@ export const WelcomeSection = ({ onLogin, onSignin, connectAsVisitor, tabNumber,
   const [usernameError, setUsernameError] = React.useState(false);
   const [emailAddressError, setEmailAddressError] = React.useState(false);
   const [passwordError, setPasswordError] = React.useState(false);
+  const [targetLanguageError, setTargetLanguageError] = React.useState(false);
+  const [languageError, setLanguageError] = React.useState(false);
+
 
   function handleUserNameChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
     setUsername(event.target.value);
@@ -47,13 +50,17 @@ export const WelcomeSection = ({ onLogin, onSignin, connectAsVisitor, tabNumber,
     const usError = !username;
     const pError =  !password;
     const eaError = !(emailAddress && emailAddress.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i));
+    const lError = !language;
+    const tlError = !targetLanguage;
 
     setUsernameError(usError);
     setPasswordError(pError);
     setEmailAddressError(eaError);
+    setTargetLanguageError(tlError);
+    setLanguageError(lError);
 
-    if (!(usError || pError || eaError))
-      onSignin(username, emailAddress, password);
+    if (!(usError || pError || eaError || tlError || lError))
+      onSignin(username, emailAddress, password, language, targetLanguage);
   }
 
   const onLoginClick = () => {
@@ -93,12 +100,18 @@ export const WelcomeSection = ({ onLogin, onSignin, connectAsVisitor, tabNumber,
             <Column horizontal='center' style={{width: '50%', height: '250px'}}>
               <LoginTabs
                 tabNumber={tabNumber}
+                language={language}
+                targetLanguage={targetLanguage}
                 handleTabChange={handleTabChange} 
                 handleEmailChange={handleEmailChange} 
-                handlePasswordChange={handlePasswordChange} 
+                handlePasswordChange={handlePasswordChange}
+                handleLanguageChange={setLanguage}
+                handleTargetLanguageChange={setTargetLanguage}
                 passwordError={passwordError} 
                 emailAddressError={emailAddressError} 
-                usernameError={usernameError} 
+                usernameError={usernameError}
+                languageError={languageError}
+                targetLanguageError={targetLanguageError}
                 handleUserNameChange={handleUserNameChange}
               />
               {tabNumber === 0 && 

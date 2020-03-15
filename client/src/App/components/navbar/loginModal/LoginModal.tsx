@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import {LoginTabs} from '../../login/LoginTabs'; 
 import translate from 'counterpart';
+import { LanguageType } from '../../common/types';
 
 type LoginModalType = {
   onLogin: any,
@@ -17,13 +18,18 @@ type LoginModalType = {
 
 const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNumber} : LoginModalType) => {
 
-  const [username, setUsername] = React.useState("");
-  const [emailAddress, setEmailAddress] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [language, setLanguage] = useState('' as LanguageType);
+  const [targetLanguage, setTargetLanguage] = useState('' as LanguageType);
 
-  const [usernameError, setUsernameError] = React.useState(false);
-  const [emailAddressError, setEmailAddressError] = React.useState(false);
-  const [passwordError, setPasswordError] = React.useState(false);
+  const [username, setUsername] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [usernameError, setUsernameError] = useState(false);
+  const [emailAddressError, setEmailAddressError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [targetLanguageError, setTargetLanguageError] = React.useState(false);
+  const [languageError, setLanguageError] = React.useState(false);
 
   function handleUserNameChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
     setUsername(event.target.value);
@@ -42,13 +48,17 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
     const usError = !username;
     const pError =  !password;
     const eaError = !(emailAddress && emailAddress.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i));
+    const lError = !language;
+    const tlError = !targetLanguage;
 
     setUsernameError(usError);
     setPasswordError(pError);
     setEmailAddressError(eaError);
+    setTargetLanguageError(tlError);
+    setLanguageError(lError);
 
-    if (!(usError || pError || eaError))
-      onSignin(username, emailAddress, password);
+    if (!(usError || pError || eaError || tlError || lError))
+      onSignin(username, emailAddress, password, language, targetLanguage);
   }
 
   const onLoginClick = () => {
@@ -74,15 +84,21 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
     <div>
       <Dialog open={open} onClose={closeModal} aria-labelledby="form-dialog-title">
           <DialogContent>
-            <LoginTabs 
-              tabNumber={tabNumber}
-              handleTabChange={handleTabChange} 
-              handleEmailChange={handleEmailChange} 
-              handlePasswordChange={handlePasswordChange} 
-              passwordError={passwordError} 
-              emailAddressError={emailAddressError} 
-              usernameError={usernameError} 
-              handleUserNameChange={handleUserNameChange}
+            <LoginTabs
+                tabNumber={tabNumber}
+                language={language}
+                targetLanguage={targetLanguage}
+                handleTabChange={handleTabChange} 
+                handleEmailChange={handleEmailChange} 
+                handlePasswordChange={handlePasswordChange}
+                handleLanguageChange={setLanguage}
+                handleTargetLanguageChange={setTargetLanguage}
+                passwordError={passwordError} 
+                emailAddressError={emailAddressError} 
+                usernameError={usernameError}
+                languageError={languageError}
+                targetLanguageError={targetLanguageError}
+                handleUserNameChange={handleUserNameChange}
             />
           </DialogContent>
           <DialogActions>
