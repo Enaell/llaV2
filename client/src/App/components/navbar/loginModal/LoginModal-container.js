@@ -46,8 +46,21 @@ function mapDispatchToProps(dispatch){
           dispatch({type: 'TOGGLE_NAV_SNACKBAR'})
         });
     },
-    onSignin:(username, emailAddress, password) => {
-      const signinBody =  {'user': {"name": username, "email": emailAddress, "username": username,"password": password}};
+    onSignin:(username, emailAddress, password, language, targetLanguage) => {
+      const signinBody =  {
+        'user': {
+          "name": username,
+          "email": emailAddress,
+          "username": username,
+          "password": password,
+          "language": language,
+          "targetLanguage": targetLanguage,
+          "levels": [
+            {"language": language, "rank": 6},
+            {"language": targetLanguage, "rank": 1}
+          ]
+        }
+      };
       fetch("http://localhost:5000/api/users",
         {
             headers: {

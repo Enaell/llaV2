@@ -10,15 +10,17 @@ import { WidthProvider } from 'react-grid-layout';
 import { moduleUrl } from '../common/utils';
 
 
-const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, changeTabNumber, updateUserBoard, history }
+const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, changeTabNumber, updateUserBoard, setLanguage, setTargetLanguage, history }
   : {
     user: UserType,
-    onLogin: (emailAddress: string, password: string) => {}, 
-    onSignin: (username: string, emailAddress: string, password: string) => {},
-    connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => {},
+    onLogin: (emailAddress: string, password: string) => void, 
+    onSignin: (username: string, emailAddress: string, password: string) => void,
+    connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => void,
     tabNumber: number,
     changeTabNumber: (num: number) => void,
     updateUserBoard: (userBoard: UserModulesType, token: string | undefined) => Promise<void>,
+    setLanguage: (language: LanguageType, token: string | undefined) => void,
+    setTargetLanguage: (targetLanguage: LanguageType, token: string | undefined) => void,
     history: any
   }) => {
 
@@ -48,6 +50,9 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
         connectAsVisitor={connectAsVisitor} 
         tabNumber={tabNumber} 
         changeTabNumber={changeTabNumber}
+        user={user || undefined}
+        setUserLanguage={newLanguage => {if (user.language !== newLanguage) setLanguage(newLanguage, user.token)}}
+        setUserTargetLanguage={newTargetLanguage => {if (user.targetLanguage !== newTargetLanguage) setTargetLanguage(newTargetLanguage, user.token)}}
       />
       { user && user.language !== undefined && user.targetLanguage !== undefined &&
       <Fade timeout={4000} in={user && user.language !== undefined && user.targetLanguage !== undefined}>

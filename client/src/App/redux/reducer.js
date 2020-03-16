@@ -45,6 +45,21 @@ const loginAsVisitor = (state, languages) => {
 
 const updateUserboard = (state, userBoard) => ({ ...state, userBoard: { ...userBoard }});
 
+const setLanguage = (state, language) => {
+  counterpart.setLocale(language);
+  return {
+    ...state,
+    language: language
+  };
+};
+
+const setTargetLanguage = (state, language) => {
+  return {
+    ...state,
+    targetLanguage: language
+  };
+};
+
 const initialUserState = {
 };
 
@@ -60,6 +75,10 @@ const userReducer = (state = initialUserState, action) => {
       return loginAsVisitor(state, action.payload);
     case 'UPDATE_USERBOARD':
       return updateUserboard(state, action.payload);
+    case 'SET_LANGUAGE':
+      return setLanguage(state, action.payload);
+    case 'SET_TARGET_LANGUAGE':
+      return setTargetLanguage(state, action.payload);
     default: 
       return state;
   }
@@ -223,7 +242,7 @@ const reducer = combineReducers({
   loginModal: loginModalReducer,
   navSnackBar: navSnackbarReducer,
   exercices: exercicesReducer,
-  theme: themeReducer
+  theme: themeReducer,
 })
 
 export default reducer;

@@ -11,6 +11,32 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return{
+    setLanguage: (language, token) => {
+      dispatch({type: 'SET_LANGUAGE', payload: language});
+      fetch("http://localhost:5000/api/users/",
+      {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "PUT",
+          body: JSON.stringify({language: language})
+      })
+    },
+    setTargetLanguage: (targetLanguage, token) => {
+      dispatch({type: 'SET_TARGET_LANGUAGE', payload: targetLanguage});
+      fetch("http://localhost:5000/api/users/",
+      {
+          headers: {
+            'Authorization': `Token ${token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "PUT",
+          body: JSON.stringify({targetLanguage: targetLanguage})
+      })
+    },
     connectAsVisitor: (language, targetLanguage) => {
       dispatch({type: 'LOGIN_AS_VISITOR', payload: {language: language, targetLanguage: targetLanguage}})
     },
@@ -45,7 +71,20 @@ function mapDispatchToProps(dispatch){
         });
     },
     onSignin:(username, emailAddress, password, language, targetLanguage) => {
-      const signinBody =  {'user': {"name": username, "email": emailAddress, "username": username,"password": password, "language": language, "targetLanguage": targetLanguage}};
+      const signinBody =  {
+        'user': {
+          "name": username,
+          "email": emailAddress,
+          "username": username,
+          "password": password,
+          "language": language,
+          "targetLanguage": targetLanguage,
+          "levels": [
+            {"language": language, "rank": 6},
+            {"language": targetLanguage, "rank": 1}
+          ]
+        }
+      };
       fetch("http://localhost:5000/api/users",
         {
             headers: {
@@ -89,7 +128,7 @@ function mapDispatchToProps(dispatch){
           body: JSON.stringify(userBoard)
       })
       dispatch({type: 'UPDATE_USERBOARD', payload: userBoard})
-    } 
+    }
   }
 }
 

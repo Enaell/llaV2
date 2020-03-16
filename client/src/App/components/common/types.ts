@@ -6,7 +6,8 @@ export type UserType = {
     username: string,
     role?: RoleType,
     language: LanguageType,
-    targetLanguage: LanguageType
+    targetLanguage: LanguageType,
+    levels?: {language: string, rank: number}[]
 } 
 
 export type RoleType = 'Admin' | 'Customer' | 'Moderator' | 'Visitor';

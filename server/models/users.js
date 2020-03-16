@@ -11,6 +11,7 @@ const UsersSchema = new Schema({
   language: {type: String, default: LANGUAGES.Fr},
   targetLanguage: {type: String, default: LANGUAGES.Fr},
   userBoard: [{ type: Schema.Types.ObjectId, ref: 'UserGridBlocks' }],
+  levels: [{type: Object, default: {language: LANGUAGES.Fr, rank: 1}}],
   hash: String,
   salt: String,
 });
@@ -42,11 +43,12 @@ UsersSchema.methods.generateJWT = function() {
 
 UsersSchema.methods.toAuthJSON = function() {
   return {
-    name: this.name,
+    username: this.username,
     role: this.role,
     language: this.language,
     targetLanguage: this.targetLanguage,
     userBoard: this.userBoard,
+    levels: this.levels,
     token: this.generateJWT(),
   };
 };

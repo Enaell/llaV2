@@ -11,7 +11,7 @@ type IntroductionColumnType = {
   targetLanguage: LanguageType, 
   setLanguage: React.Dispatch<React.SetStateAction<LanguageType>>, 
   setTargetLanguage: React.Dispatch<React.SetStateAction<LanguageType>>, 
-  connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => {}
+  connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => void
 }
 
 

@@ -35,7 +35,7 @@ export const SigninForm = ({
 }: SigninFormType) => {
   
   return(
-    <Column vertical={'space-between'} horizontal={'center'} style={{minWidth: '75%'}}>
+    <Column vertical={'space-between'} horizontal={'center'} style={{minWidth: '75%', paddingBottom: '10px'}}>
       <TextField
         error = {usernameError}
         helperText = {usernameError ? translate('connection.usernameError') : null}       
@@ -69,7 +69,7 @@ export const SigninForm = ({
         onChange={handlePasswordChange}
         fullWidth
       />
-      <Row horizontal={'space-around'}>
+      <Row style={{width: '100%'}} horizontal={'space-around'}>
         <FormControl>
           <InputLabel id="demo-simple-select-label">{translate('mainPage.language')}</InputLabel>
           <Select
