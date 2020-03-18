@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { ModuleBlock } from './moduleBlocks/ModuleBlock';
-import { Column } from "../common/Flexbox";
+import { Column, Row } from "../common/Flexbox";
 import {Layout} from 'react-grid-layout';
 import { UserModulesType, PositionType, BreakpointType, ModuleUrlType } from '../common/types'
 
@@ -11,25 +11,33 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 const lgGridLayouts: {[key: string]: Layout} = {
   news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
   fastExercice : {i: 'fastExercice', x: 5, y: 0, w: 6, h: 2, isResizable: false, isDraggable: false},
-  wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
+  wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
+  culture: {i: 'culture', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
+  manga: {i: 'manga', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
 }
 
 const mdGridLayouts: {[key: string]: Layout} = {
   news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
   fastExercice : {i: 'fastExercice', x: 5, y: 0, w: 6, h: 2, isResizable: false, isDraggable: false},
-  wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
+  wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
+  culture: {i: 'culture', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
+  manga: {i: 'manga', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
 }
 
 const smGridLayouts: {[key: string]: Layout} = {
   news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
   fastExercice : {i: 'fastExercice', x: 3, y: 0, w: 3, h: 4, isResizable: false, isDraggable: false},
-  wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
+  wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
+  culture: {i: 'culture', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
+  manga: {i: 'manga', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
 }
 
 const xsGridLayouts: {[key: string]: Layout} = {
     news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
     fastExercice : {i: 'fastExercice', x: 3, y: 0, w: 3, h: 4, isResizable: false, isDraggable: false},
-    wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 1, w: 3, h: 2, isResizable: false, isDraggable: false}
+    wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 1, w: 3, h: 2, isResizable: false, isDraggable: false},
+    culture: {i: 'culture', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
+    manga: {i: 'manga', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}  
 }
 
 function updateLayout(layout: Layout, newPos: PositionType) {
@@ -61,14 +69,16 @@ function getBlocksLayoutsFromModule(modules: UserModulesType) {
 }
 
 
-export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules, saveModules, cancelModification, goToPage} : {
+export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules, saveModules, cancelModification, goToPage, handleBreakpointChange, marginLeft} : {
     userModules: UserModulesType; 
     onModify: boolean;
     setNewUserModules: React.Dispatch<React.SetStateAction<{}>>;
     setOnModify: React.Dispatch<React.SetStateAction<boolean>>;
     saveModules: () => void;
     cancelModification: () => void;
-    goToPage: (url: string) => void
+    goToPage: (url: string) => void;
+    handleBreakpointChange: (bp: BreakpointType) => void;
+    marginLeft: string;
   }) => {
 
   const [layouts, setLayouts] = useState(getBlocksLayoutsFromModule({...userModules}))
@@ -98,18 +108,23 @@ export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules
 
 
   useEffect(() => {
-    setLayouts(layoutsAreResizable(layouts, onModify))
+    setLayouts(layoutsAreResizable(layouts, onModify));
   }, [onModify]);
+
+  useEffect(() => {
+    handleBreakpointChange(breakPoint);
+  }, [breakPoint]);
 
   return (
     <ResponsiveGridLayout 
       onLayoutChange={(layout)=>onLayoutChange(layout)}
       onBreakpointChange={(newBreakpoint: BreakpointType, _newCols: number) => { setBreakPoint(newBreakpoint)}}
-      style={{ width:'80%', maxWidth:'1300px'}} 
+      style={{ width:'80%', maxWidth:'1300px', marginLeft: marginLeft}} 
       className="layout" 
       layouts={layouts}
       breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480}}
       cols={{lg: 12, md: 10, sm: 6, xs: 4}}
+      rowHeight={150}
       width={1300}>
         {Object.keys(userModules).map((m) =>  
           <Column style={{with:'100%'}} key={m}>

@@ -5,9 +5,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import SaveAltOutlinedIcon from '@material-ui/icons/SaveAltOutlined';
 import DoubleArrowOutlinedIcon from '@material-ui/icons/DoubleArrowOutlined';
-import FastForwardOutlinedIcon from '@material-ui/icons/FastForwardOutlined';
-import ForwardOutlinedIcon from '@material-ui/icons/ForwardOutlined';
-import InputOutlinedIcon from '@material-ui/icons/InputOutlined';
 
 import { Typography, Button } from '@material-ui/core';
 
@@ -35,15 +32,6 @@ export const ModuleBlockHeader = ({displayed, prettyName, onModify,  setOnModify
             <Button onClick={() => goToModulePage()}>
               <DoubleArrowOutlinedIcon color='action' titleAccess={'Modify'}/>
             </Button>
-            {/* <Button onClick={() => setOnModify(true)}>
-              <FastForwardOutlinedIcon color='action' titleAccess={'Modify'}/>
-            </Button>
-            <Button onClick={() => setOnModify(true)}>
-              <ForwardOutlinedIcon color='action' titleAccess={'Modify'}/>
-            </Button>
-            <Button onClick={() => setOnModify(true)}>
-              <InputOutlinedIcon color='action' titleAccess={'Modify'}/>
-            </Button> */}
           </>
           : 
           <>

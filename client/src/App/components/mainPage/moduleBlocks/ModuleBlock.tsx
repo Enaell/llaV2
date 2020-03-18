@@ -48,7 +48,7 @@ export const ModuleBlock = ({ name, onModify, setOnModify, deleteModule, saveMod
           titleAccess={'Deleted'} 
           style={{position: 'absolute', zIndex: 50, width: '100%', height: '100%'}}
         />}
-        <div style={{ width: '100%', height: '100%', ...deleted }} onMouseEnter={() => {setOnHover(true)}} onMouseLeave={()=>{setOnHover(false)}}>
+        <div style={{ width: '100%', height: '100%', ...deleted }} onMouseOver={() => {setOnHover(true)}} onMouseLeave={()=>{setOnHover(false)}}>
           <ModuleBlockHeader
             prettyName={translate(`moduleBlock.${name}`)} 
             displayed={ onHover } 

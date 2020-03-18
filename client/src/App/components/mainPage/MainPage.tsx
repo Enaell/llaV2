@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Select, MenuItem, Fade } from '@material-ui/core';
+import React, { useState, useRef } from 'react';
+import { Button, Fade } from '@material-ui/core';
 import translate from 'counterpart';
 import { Column, Row } from '../common/Flexbox';
-import  { PageTitle }  from '../common/GenericComponents';
-import { UserType, LanguageType, UserModulesType } from '../common/types';
+import { UserType, LanguageType, UserModulesType, BreakpointType } from '../common/types';
 import {WelcomeSection} from './WelcomeSection';
 import {UserBoard} from './UserBoard';
-import { WidthProvider } from 'react-grid-layout';
-import { moduleUrl } from '../common/utils';
-
+import { ModifyPanel } from './ModifyPanel';
 
 const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, changeTabNumber, updateUserBoard, setLanguage, setTargetLanguage, history }
   : {
@@ -29,6 +26,8 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
 
   const [newUserModules, setNewUserModules] = useState({...(user.userBoard)});
 
+  const [marginWidth, setMarginWidth] = useState('150px');
+
   const saveAndStopModify = async () => {
     if (newUserModules) 
     {
@@ -40,6 +39,17 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
   function goToPage (url: string) {
     history.push(url)
   } 
+
+  function onBpChange(bp: BreakpointType){
+    if (bp === 'lg')
+      setMarginWidth('110px');
+    if (bp === 'md')
+      setMarginWidth('90px');
+    if (bp === 'sm')
+      setMarginWidth('70px');
+    if (bp === 'xs')
+      setMarginWidth('50px');
+  }
 
   return(
     <>
@@ -56,7 +66,7 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
       />
       { user && user.language !== undefined && user.targetLanguage !== undefined &&
       <Fade timeout={4000} in={user && user.language !== undefined && user.targetLanguage !== undefined}>
-        <Column horizontal='center' style={{ width:'100%', paddingTop: '350px' }}>
+        <Row horizontal='center' style={{ width:'100%', paddingTop: '350px' }}>
           <UserBoard 
             onModify={onModify}
             setNewUserModules={setNewUserModules}
@@ -68,21 +78,17 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
             saveModules={saveAndStopModify}
             cancelModification={() => setOnModify(false)}
             goToPage={goToPage}
+            handleBreakpointChange={onBpChange}
+            marginLeft={marginWidth}
           />
-          { onModify &&
-            <Row>
-              <Button onClick={()=> setOnModify(false) }>
-                  Cancel
-              </Button>
-              <Button onClick={()=> {
-                  saveAndStopModify();
-                }
-              }>
-                  Save
-              </Button>
-            </Row>
-          }
-        </Column>
+          <ModifyPanel
+            squareSide={marginWidth} 
+            onModify={onModify}
+            setOnModify={setOnModify}
+            saveModules={saveAndStopModify}
+            cancelModification={() => setOnModify(false)}
+          />
+        </Row>
       </Fade>}
     </>
   );
