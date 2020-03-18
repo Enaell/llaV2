@@ -26,7 +26,7 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
 
   const [newUserModules, setNewUserModules] = useState({...(user.userBoard)});
 
-  const [marginWidth, setMarginWidth] = useState('150px');
+  const [marginWidth, setMarginWidth] = useState(150);
 
   const saveAndStopModify = async () => {
     if (newUserModules) 
@@ -42,13 +42,13 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
 
   function onBpChange(bp: BreakpointType){
     if (bp === 'lg')
-      setMarginWidth('110px');
+      setMarginWidth(110);
     if (bp === 'md')
-      setMarginWidth('90px');
+      setMarginWidth(90);
     if (bp === 'sm')
-      setMarginWidth('70px');
+      setMarginWidth(70);
     if (bp === 'xs')
-      setMarginWidth('50px');
+      setMarginWidth(50);
   }
 
   return(

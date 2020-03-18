@@ -4,14 +4,16 @@ import AddIcon from '@material-ui/icons/Add';
 import SaveAltOutlinedIcon from '@material-ui/icons/SaveAltOutlined';
 import CloseIcon from '@material-ui/icons/Close';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import { Select, MenuItem } from '@material-ui/core';
 
 
-const SideButton = ({children, onClick, squareSide}: {children: any, onClick: () => void, squareSide: string}) => {
+const SideButton = ({children, onClick, squareSide}: {children: any, onClick: () => void, squareSide: number}) => {
   const buttonStyle = { 
     border: '#a8c1a3 solid 2px', 
-    width: squareSide, 
-    height: squareSide, 
-    marginTop:'10px', 
+    width: `${squareSide}px`, 
+    height: `${squareSide}px`, 
+    marginLeft:'20px',
+    marginBottom: '10px',
     borderRadius:'20px', 
     cursor:'pointer'
   };  
@@ -29,32 +31,54 @@ const SideButton = ({children, onClick, squareSide}: {children: any, onClick: ()
 )};
 
 export const ModifyPanel = ({squareSide, onModify, setOnModify, saveModules, cancelModification}: {
-  squareSide: string, 
+  squareSide: number, 
   onModify: boolean,
   setOnModify: React.Dispatch<React.SetStateAction<boolean>>;
   saveModules: () => void;
   cancelModification: () => void;
 }) => {
-  const [opacity, setOpacity] = useState({opacity: 0.3} as {opacity: 0.3} | {})
+  const [opacity, setOpacity] = useState({opacity: 0.2} as {opacity: 0.2} | {})
 
   return (
     <div
-      style={{
+      style={!onModify ? {
         ...opacity,
         height:'100%',
         transitionProperty: 'opacity',
         transitionDuration: '0.3s',
         transitionTimingFunction: 'ease-in-out'
-      }}
+      } : { height:'100%'}}
       onMouseOver={()=>{setOpacity({})}}
-      onMouseLeave={()=>{setOpacity({opacity: 0.3})}}
+      onMouseLeave={()=>{setOpacity({opacity: 0.2})}}
     >
       <SideButton squareSide={squareSide} onClick={() => {}}>
+        <Column vertical={'center'} horizontal='center' style={{width: '100%', height:'100%'}}>
         <AddIcon
           htmlColor={'#6b8268'} 
           titleAccess={'Add'} 
-          style={{zIndex: 50, width: '80%', height: '80%'}}
+          style={{
+            position: 'absolute',
+            zIndex: -1,
+            width: `${squareSide * 0.8}px`,
+            height: `${squareSide * 0.8}px`
+          }}
         />
+        <Select
+          disableUnderline
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={'truc'}
+          onChange={()=>{}}
+          SelectDisplayProps={{style: {height: squareSide, border: 0, backgroundColor:'transparent'}}}
+          inputProps={{style:{border:0, backgroundColor:'transparent'}}}
+          style={{width: squareSide, height: squareSide, border: 0, zIndex:20}}
+          IconComponent={()=><></>}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+        </Column>
       </SideButton>
       { onModify ?
       <>

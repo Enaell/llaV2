@@ -78,7 +78,7 @@ export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules
     cancelModification: () => void;
     goToPage: (url: string) => void;
     handleBreakpointChange: (bp: BreakpointType) => void;
-    marginLeft: string;
+    marginLeft: number;
   }) => {
 
   const [layouts, setLayouts] = useState(getBlocksLayoutsFromModule({...userModules}))
@@ -119,7 +119,7 @@ export const UserBoard = ({userModules, onModify, setOnModify, setNewUserModules
     <ResponsiveGridLayout 
       onLayoutChange={(layout)=>onLayoutChange(layout)}
       onBreakpointChange={(newBreakpoint: BreakpointType, _newCols: number) => { setBreakPoint(newBreakpoint)}}
-      style={{ width:'80%', maxWidth:'1300px', marginLeft: marginLeft}} 
+      style={{ width:'80%', maxWidth:'1300px', marginLeft: `${marginLeft}px`}} 
       className="layout" 
       layouts={layouts}
       breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480}}
