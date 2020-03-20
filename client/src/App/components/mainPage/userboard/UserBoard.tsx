@@ -97,8 +97,8 @@ export const UserBoard = ({
     newModules[moduleToAdd] = modules;
     newUserBoardModules[moduleToAdd] = modules;
     
-    setNewUserModules(newModules);
     await updateUserBoard(newUserBoardModules);
+    setNewUserModules(newModules);
     setAddingModule(true);
     setOnModify(true);
   }
