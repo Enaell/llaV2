@@ -1,3 +1,5 @@
+import { Layout } from "react-grid-layout";
+
 export type UserType = {
     _id?: string,
     userBoard?: UserModulesType,
@@ -21,21 +23,26 @@ export type SentencesType = {
     translatedSentence: string
 }
 
+export type UserBoardType = {
+    userModules: UserModulesType;
+    updateUserBoard: (userBoard: UserModulesType) => Promise<void>;
+    goToPage: (url: string) => void;
+    handleBreakpointChange: (bp: BreakpointType) => void;
+    marginLeft: number;
+}
+
 export type PositionType = {
     x: number; 
     y: number; 
     w: number; 
     h: number;
-} 
+}
 
 export type ModuleUrlType = 'news' | 'fastExercice' | 'wordOfTheDay';
 
 export type UserModulesType = {
     [key: string]: {
-        lg: PositionType;
-        md: PositionType;
-        sm: PositionType;
-        xs: PositionType;    
+        [bp in BreakpointType]: PositionType;
     }
 }
 

@@ -128,7 +128,7 @@ function mapDispatchToProps(dispatch){
           body: JSON.stringify(userBoard)
       })
       dispatch({type: 'UPDATE_USERBOARD', payload: userBoard})
-    }
+    },
   }
 }
 

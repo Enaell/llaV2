@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { Button, Fade } from '@material-ui/core';
-import translate from 'counterpart';
-import { Column, Row } from '../common/Flexbox';
+import React, { useState } from 'react';
+import { Fade } from '@material-ui/core';
+import { Row } from '../common/Flexbox';
 import { UserType, LanguageType, UserModulesType, BreakpointType } from '../common/types';
 import {WelcomeSection} from './WelcomeSection';
 import {UserBoard} from './UserBoard';
-import { ModifyPanel } from './ModifyPanel';
+import { Layout } from 'react-grid-layout';
 
 const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, changeTabNumber, updateUserBoard, setLanguage, setTargetLanguage, history }
   : {
@@ -21,24 +20,11 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
     history: any
   }) => {
 
-
-  const [onModify, setOnModify] = useState(false);
-
-  const [newUserModules, setNewUserModules] = useState({...(user.userBoard)});
-
   const [marginWidth, setMarginWidth] = useState(150);
-
-  const saveAndStopModify = async () => {
-    if (newUserModules) 
-    {
-      await updateUserBoard(newUserModules, user.token);
-      setOnModify(false);
-    }
-  }
 
   function goToPage (url: string) {
     history.push(url)
-  } 
+  }
 
   function onBpChange(bp: BreakpointType){
     if (bp === 'lg')
@@ -50,6 +36,11 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
     if (bp === 'xs')
       setMarginWidth(50);
   }
+
+  async function updateBoard(userBoard: UserModulesType) {
+    await updateUserBoard(userBoard, user.token)
+  }
+
 
   return(
     <>
@@ -68,25 +59,14 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
       <Fade timeout={4000} in={user && user.language !== undefined && user.targetLanguage !== undefined}>
         <Row horizontal='center' style={{ width:'100%', paddingTop: '350px' }}>
           <UserBoard 
-            onModify={onModify}
-            setNewUserModules={setNewUserModules}
             userModules={
               user && user.userBoard ?
-              user.userBoard
-              : {} } 
-            setOnModify={setOnModify}
-            saveModules={saveAndStopModify}
-            cancelModification={() => setOnModify(false)}
+              {...user.userBoard}
+              : {} }
+            updateUserBoard={updateBoard}
             goToPage={goToPage}
             handleBreakpointChange={onBpChange}
             marginLeft={marginWidth}
-          />
-          <ModifyPanel
-            squareSide={marginWidth} 
-            onModify={onModify}
-            setOnModify={setOnModify}
-            saveModules={saveAndStopModify}
-            cancelModification={() => setOnModify(false)}
           />
         </Row>
       </Fade>}
