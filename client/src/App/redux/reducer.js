@@ -61,6 +61,32 @@ const setTargetLanguage = (state, language) => {
 };
 
 const initialUserState = {
+  userBoard: {
+    news: { 
+      lg: { x: 8, y: 0, w: 4, h: 4 },
+      md: { x: 0, y: 0, w: 4, h: 4 },
+      sm: { x: 0, y: 0, w: 4, h: 4 },
+      xs: { x: 0, y: 0, w: 4, h: 4 }
+    },
+    fastExercice: {
+      lg: { x: 0, y: 2, w: 8, h: 2 },
+      md: { x: 5, y: 0, w: 6, h: 2 },
+      sm: { x: 3, y: 0, w: 3, h: 4 },
+      xs: { x: 3, y: 0, w: 3, h: 4 }
+    },
+    culture: {
+      lg: { x: 0, y: 0, w: 5, h: 2 },
+      md: { x: 0, y: 2, w: 3, h: 2 },
+      sm: { x: 0, y: 2, w: 3, h: 2 },
+      xs: { x: 0, y: 2, w: 3, h: 2 }
+    },
+    wordOfTheDay: {
+      lg: { x: 5, y: 0, w: 3, h: 2 },
+      md: { x: 0, y: 2, w: 3, h: 2 },
+      sm: { x: 0, y: 2, w: 3, h: 2 },
+      xs: { x: 0, y: 1, w: 3, h: 2 }
+    }
+  }
 };
 
 const userReducer = (state = initialUserState, action) => {
