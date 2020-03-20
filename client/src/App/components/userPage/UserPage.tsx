@@ -5,7 +5,7 @@ import { UserType, LanguageType, UserModulesType, BreakpointType } from '../comm
 import {WelcomeSection} from './WelcomeSection';
 import {UserBoard} from './userboard/UserBoard';
 
-const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, changeTabNumber, updateUserBoard, setLanguage, setTargetLanguage, history }
+export const UserPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, changeTabNumber, updateUserBoard, setLanguage, setTargetLanguage, history }
   : {
     user: UserType,
     onLogin: (emailAddress: string, password: string) => void, 
@@ -72,5 +72,3 @@ const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, change
     </>
   );
 }
-
-export default MainPage;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Column, Row } from '../common/Flexbox';
+import { Row } from '../common/Flexbox';
 import { fullNameLanguages } from '../common/utils';
 import { Button, Select, MenuItem, FormControl, InputLabel, Typography } from '@material-ui/core';
 import { LanguageType } from '../common/types';
@@ -48,7 +48,6 @@ export const IntroductionColumn = ({language, targetLanguage, setLanguage, setTa
         </FormControl>
       </Row>
       <Button onClick={()=> language && targetLanguage && connectAsVisitor(language, targetLanguage)}>{translate('connection.visitor')}</Button>
-
     </>
     
   )

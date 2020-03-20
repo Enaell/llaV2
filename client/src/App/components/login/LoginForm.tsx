@@ -1,5 +1,5 @@
 import React from 'react';
-import { Column, Row } from '../common/Flexbox';
+import { Column } from '../common/Flexbox';
 import TextField from '@material-ui/core/TextField';
 import translate from 'counterpart';
 
@@ -8,8 +8,7 @@ type LoginFormType = {
   handlePasswordChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, 
   passwordError: boolean, 
   emailAddressError: boolean
-};
-
+}
 
 export const LoginForm = ({
   handleEmailChange, 

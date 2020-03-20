@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {ModuleBlockHeader} from './ModuleBlockHeader'
 import { FastExerciceBlock } from "./FastExerciceBlock";
 import { NewsBlock } from "./NewsBlock";
-import { Column, Row } from '../../../common/Flexbox';
+import { Column } from '../../../common/Flexbox';
 import { moduleUrl } from '../../../common/utils';
 import { ModuleUrlType } from '../../../common/types';
 import translate from 'counterpart';

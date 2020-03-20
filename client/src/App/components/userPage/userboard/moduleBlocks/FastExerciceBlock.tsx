@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { WordCard } from '../../../common/CardsComponents'
 import { WordType, TranslationType } from '../../../common/types';
 import { Row } from '../../../common/Flexbox';

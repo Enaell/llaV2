@@ -3,7 +3,7 @@ import CardTrainingPage from './cardTraining/CardTrainingPage-container';
 import Navbar from './navbar'
 import Footer from './footer/Footer'
 import AddCardForm from './addCard/AddCardForm'
-import MainPage from './mainPage'
+import UserPage from './userPage'
 import DictionaryPage from './dictionaryPage'
 import { BrowserRouter, Route, Switch as RouterSwitch } from 'react-router-dom'
 import * as Redux from 'redux';
@@ -61,7 +61,7 @@ class App extends Component {
             <Column horizontal='center' style={{ width:'100%' }}>
               <Navbar/>
               <RouterSwitch>
-                <Route exact path="/" component={MainPage}/>
+                <Route exact path="/" component={UserPage}/>
                 <Route path="/cardTraining" component={CardTrainingPage} />
                 <Route path="/addCard" component={AddCardForm} />
                 <Route path="/dictionary" component={DictionaryPage}/>

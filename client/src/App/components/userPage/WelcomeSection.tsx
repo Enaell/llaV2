@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Column, Row } from '../common/Flexbox';
-import { welcomeSection, welcomeSectionLogged, backgroundImg, backgroundImgLogged, connectionDiv, statusReminderDiv } from './styles.d';
 import { LanguageType, UserType } from '../common/types';
 import { Button, Typography, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { welcomeSection, welcomeSectionLogged, backgroundImg, backgroundImgLogged, connectionDiv, statusReminderDiv } from './styles.d';
+
 import translate from 'counterpart';
 import { LoginTabs } from '../login/LoginTabs';
 import { IntroductionColumn } from './introductionColumn';
