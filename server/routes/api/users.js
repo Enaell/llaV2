@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
 const passport = require('passport');
 const router = require('express').Router();
+const formatter = require('../utils');
 const auth = require('../auth');
 const Users = mongoose.model('Users');
+const UserGridBlock = mongoose.model('UserGridBlocks');
+const userGridBlocks = require('../../models/Default/userGridBlocks');
 
 //POST new user route (optional, everyone has access)
 router.post('/', auth.optional, (req, res, next) => {
@@ -25,10 +28,20 @@ router.post('/', auth.optional, (req, res, next) => {
 
   const finalUser = new Users(user);
   finalUser.setPassword(user.password);
-console.log('=============== user creation response ====================');
-  console.log(finalUser.toAuthJSON());
+
+  finalUser.userBoard = userGridBlocks.map(gridBlock => {
+    const userGridBlock = new UserGridBlock(gridBlock);
+    userGridBlock.save();
+    return userGridBlock;
+  });
+
   return finalUser.save()
-    .then(() => res.json({ user: finalUser.toAuthJSON() }));
+    .then(()=> finalUser.populate('userBoard'))
+    .then(foundUser => ({...(finalUser.toAuthJSON()), userBoard: formatter.formatUserBoard(foundUser.userBoard, 'name')}))
+    .then(frontUser => res.json({ user: frontUser }))
+    .catch((error) => {
+      res.status(500).json({ error });
+    });
 });
 
 //POST login route (optional, everyone has access)
@@ -60,38 +73,75 @@ router.post('/login', auth.optional, (req, res, next) => {
       const user = passportUser;
       user.token = passportUser.generateJWT();
 
-      return res.json({ user: user.toAuthJSON() });
+      return Users.findOne({ _id: user._id })
+      .populate('userBoard')
+      .then((foundUser) => {
+        return { ...(user.toAuthJSON()), userBoard: formatter.formatUserBoard(foundUser.userBoard, 'name')}
+      })
+      .then(finalUser => res.json({user: finalUser}))
+      .catch((error) => {
+        res.status(500).json({ error });
+      });;
     }
 
     return status(400).info;
   })(req, res, next);
 });
 
+router.get('/logout', function(req, res, next) {
+  if (req.session) {
+    // delete session object
+    req.session.destroy(function(err) {
+      if(err) {
+        return next(err);
+      } else {
+        return res.redirect('/');
+      }
+    });
+  }
+});
+
+
 //GET user by id route (required, only authenticated users have access)
-router.get('/users/:id', auth.required, (req, res, next) => {
+router.get('/users/:id', auth.required, async (req, res, next) => {
   const userId = req.params.id;
 
-  return Users.findById(userId)
-    .then((user) => {
-      if (!user) {
-        return res.sendStatus(400); 
-      }
-      return res.json({ user: user.toAuthJSON()})
-    });
+  const user = await Users.findById(userId);
+  if (!user) {
+    return res.sendStatus(400);
+  }
+  return res.json({ user: user.toAuthJSON() });
 });
 
 //GET current route (required, only authenticated users have access)
-router.get('/current', auth.required, (req, res, next) => {
+router.get('/current', auth.required, async (req, res, next) => {
   const { payload: { id } } = req;
 
-  return Users.findById(id)
-    .then((user) => {
-      if(!user) {
-        return res.sendStatus(400);
-      }
-
-      return res.json({ user: user.toAuthJSON() });
-    });
+  const user = await Users.findById(id);
+  if (!user) {
+    return res.sendStatus(400);
+  }
+  return res.json({ user: user.toAuthJSON() });
 });
+
+router.put('/', auth.required, async (req, res, next) => {
+  const { payload, body: updates} = req;
+
+  delete updates.username;
+  delete updates.email;
+  delete updates.role;
+  delete updates.userBoard;
+
+  try {
+    const user = await Users.findByIdAndUpdate(payload.id, updates);
+    res.json({ user });
+  }
+  catch( error ){
+    console.log(error);
+    res.status(500).json({ error });
+  }
+});
+
+
 
 module.exports = router;

@@ -39,11 +39,13 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
+mongoose.set('useFindAndModify', false);
 mongoose.set('debug', true);
 
 require('./models/users');
 require('./models/words');
 require('./models/wordLists');
+require('./models/userGridBlocks');
 require('./config/passport');
 
  var indexRouter = require('./routes/index');

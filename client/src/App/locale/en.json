@@ -1,0 +1,44 @@
+{
+  "application-name": "Let's learn!",
+  "connection":{
+    "signin": "Signin",
+    "login": "Login",
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "or": "Or*",
+    "usernameError": "Please fill the username field",
+    "usernameOrEmailError": "Please fill the username or email field",
+    "emailError": "Please fill the email field with a valid email address",
+    "emailInvalidError": "Please enter a valid email address",
+    "passwordError": "Please fill the password field",
+    "visitor": "Connect as Visitor"
+  },
+  "mainPage": {
+    "title": "Welcome to LLA!",
+    "welcomeText1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
+    "welcomeText2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+    "language": "Language",
+    "targetLanguage": "Target language",
+    "level": "Level"
+  },
+  "dictionaryPage": {
+    "title": "Dictionary",
+    "subject": "Subject",
+    "alphabeticOrder": "Alphabetic Order",
+    "levelOrder": "Level Order",
+    "filter": "filtre"
+  },
+  "language": {
+    "Fr": "French",
+    "En": "English",
+    "Cn": "Chinese"
+  },
+  "moduleBlock": {
+    "news": "News",
+    "fastExercice": "Quick Exercice",
+    "wordOfTheDay": "Word of the Day",
+    "manga": "Manga",
+    "culture": "Culture"
+  }
+}

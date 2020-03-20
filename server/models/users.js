@@ -2,15 +2,16 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const { ROLES, LANGUAGES } = require('./utils');
-
 const { Schema } = mongoose;
 
 const UsersSchema = new Schema({
-  name: String,
+  username: String,
   email: {type: String, required: true} ,
   role: {type: String, default: ROLES.Customer},
   language: {type: String, default: LANGUAGES.Fr},
-  learningLanguage: {type: String, default: LANGUAGES.Fr},
+  targetLanguage: {type: String, default: LANGUAGES.Fr},
+  userBoard: [{ type: Schema.Types.ObjectId, ref: 'UserGridBlocks' }],
+  levels: [{type: Object, default: {language: LANGUAGES.Fr, rank: 1}}],
   hash: String,
   salt: String,
 });
@@ -35,18 +36,19 @@ UsersSchema.methods.generateJWT = function() {
     email: this.email,
     role: this.role,
     language: this.language,
-    learningLanguage: this.learningLanguage,
+    targetLanguage: this.targetLanguage,
     exp: parseInt(expirationDate.getTime() / 1000, 10),
   }, 'secret');
 }
 
 UsersSchema.methods.toAuthJSON = function() {
   return {
-    _id: this._id,
-    email: this.email,
+    username: this.username,
     role: this.role,
     language: this.language,
-    learningLanguage: this.learningLanguage,
+    targetLanguage: this.targetLanguage,
+    userBoard: this.userBoard,
+    levels: this.levels,
     token: this.generateJWT(),
   };
 };

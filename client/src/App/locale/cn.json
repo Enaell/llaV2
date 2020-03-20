@@ -1,0 +1,44 @@
+{
+  "application-name": "Let's learn!",
+  "connection":{
+    "signin": "注册",
+    "login": "登陆",
+    "username": "用户名",
+    "password": "密码",
+    "email": "邮件",
+    "or": "或者*",
+    "usernameError": "请完整用户名信息",
+    "usernameOrEmailError": "请完整用户名及邮箱信息",
+    "emailError": "请填写有效邮箱信息",
+    "emailInvalidError": "请填写有效邮箱",
+    "passwordError": "请填写有效密码",
+    "visitor": "无账号登陆"
+  },
+  "mainPage": {
+    "title": "欢迎!",
+    "welcomeText1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
+    "welcomeText2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+    "language": "语言",
+    "targetLanguage": "您所期望的目标语言",
+    "level": "Level:"
+  },
+  "dictionaryPage": {
+    "title": "字典",
+    "subject": "按主题分类",
+    "alphabeticOrder": "按字母表排序",
+    "levelOrder": "简易程度",
+    "filter": "过滤筛选"
+  },
+  "language": {
+    "Fr": "法语",
+    "En": "英语",
+    "Cn": "中文"
+  },
+  "moduleBlock": {
+    "news": "News",
+    "fastExercice": "Quick Exercice",
+    "wordOfTheDay": "Word of the Day",
+    "manga": "Manga",
+    "culture": "Culture"
+  }
+}

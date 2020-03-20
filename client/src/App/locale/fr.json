@@ -1,0 +1,44 @@
+{
+  "application-name": "Let's learn !",
+  "connection":{
+    "signin": "s'enregistrer",
+    "login": "se connecter",
+    "username": "Nom",
+    "password": "Mot de Passe",
+    "email": "Email",
+    "or": "Ou*",
+    "usernameError": "Veuillez entrer un nom",
+    "usernameOrEmailError": "Veuillez entrer un nom ou une adresse email",
+    "emailError": "Veuillez entrer une adresse email valide",
+    "emailInvalidError": "Merci d'entrer une adresse email valide",
+    "passwordError": "Veuillez entrer votre mot de passe",
+    "visitor": "Connexion en temps que visiteur"
+  },
+  "mainPage": {
+    "title": "Bienvenue sur LLA!",
+    "welcomeText1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
+    "welcomeText2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+    "language": "Langue",
+    "targetLanguage": "Langue cible",
+    "level": "Niveau"
+  },
+  "dictionaryPage": {
+    "title": "Dictionaire",
+    "subject": "Sujet",
+    "alphabeticOrder": "Ordre Alphabétique",
+    "levelOrder": "Ordre par Niveau",
+    "filter": "filtre"
+  },
+  "language": {
+    "Fr": "Francais",
+    "En": "Anglais",
+    "Cn": "Chinois"
+  },
+  "moduleBlock": {
+    "news": "Nouvelles",
+    "fastExercice": "Exercice Rapide",
+    "wordOfTheDay": "Mot du Jour",
+    "manga": "Manga",
+    "culture": "Culture"
+  }
+}
