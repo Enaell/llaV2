@@ -20,7 +20,9 @@ export const fileLanguage: {[key in LanguageType]: any} = {
 export const moduleUrl: {[key in ModuleUrlType]: string} = {
     news: '/',
     fastExercice: '/cardTraining',
-    wordOfTheDay: '/dictionary'
+    wordOfTheDay: '/dictionary',
+    manga: '/',
+    culture: '/'
 }
 
 

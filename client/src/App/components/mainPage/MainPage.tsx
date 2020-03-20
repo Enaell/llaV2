@@ -3,8 +3,7 @@ import { Fade } from '@material-ui/core';
 import { Row } from '../common/Flexbox';
 import { UserType, LanguageType, UserModulesType, BreakpointType } from '../common/types';
 import {WelcomeSection} from './WelcomeSection';
-import {UserBoard} from './UserBoard';
-import { Layout } from 'react-grid-layout';
+import {UserBoard} from './userboard/UserBoard';
 
 const MainPage = ({user, onLogin, onSignin, connectAsVisitor,  tabNumber, changeTabNumber, updateUserBoard, setLanguage, setTargetLanguage, history }
   : {

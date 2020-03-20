@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row } from '../../common/Flexbox';
+import { Row } from '../../../common/Flexbox';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';

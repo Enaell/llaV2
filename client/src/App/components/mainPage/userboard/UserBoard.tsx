@@ -1,44 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { ModuleBlock } from './moduleBlocks/ModuleBlock';
-import { Column, Row } from "../common/Flexbox";
+import { Column } from "../../common/Flexbox";
 import {Layout} from 'react-grid-layout';
-import { UserModulesType, PositionType, BreakpointType, ModuleUrlType, UserBoardType } from '../common/types'
+import { UserModulesType, PositionType, BreakpointType, ModuleUrlType, UserBoardType } from '../../common/types'
 import { ModifyPanel } from "./ModifyPanel";
-
+import { gridLayouts } from "./defauldGridLayouts";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-
-const gridLayouts : {[bp in BreakpointType]: {[key: string]: Layout;};} = { 
-  lg: {
-    news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
-    fastExercice : {i: 'fastExercice', x: 5, y: 0, w: 6, h: 2, isResizable: false, isDraggable: false},
-    wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
-    culture: {i: 'culture', x: 0, y: 0, w: 3, h: 2, isResizable: false, isDraggable: false},
-    manga: {i: 'manga', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
-  },
-  md: {
-    news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
-    fastExercice : {i: 'fastExercice', x: 5, y: 0, w: 6, h: 2, isResizable: false, isDraggable: false},
-    wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
-    culture: {i: 'culture', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
-    manga: {i: 'manga', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
-  }, 
-  sm: {
-    news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
-    fastExercice : {i: 'fastExercice', x: 3, y: 0, w: 3, h: 4, isResizable: false, isDraggable: false},
-    wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
-    culture: {i: 'culture', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
-    manga: {i: 'manga', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}
-  }, 
-  xs: {
-    news: {i: 'news', x: 0, y: 0, w: 4, h: 4, minW: 1, maxW: 4, minH: 1, maxH: 4, isResizable: false, isDraggable: false},
-    fastExercice : {i: 'fastExercice', x: 3, y: 0, w: 3, h: 4, isResizable: false, isDraggable: false},
-    wordOfTheDay: {i: 'wordOfTheDay', x: 0, y: 1, w: 3, h: 2, isResizable: false, isDraggable: false},
-    culture: {i: 'culture', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false},
-    manga: {i: 'manga', x: 0, y: 2, w: 3, h: 2, isResizable: false, isDraggable: false}  
-  }
-}
 
 function updateLayout(layout: Layout, newPos: PositionType, onModify: boolean) {
   const newLayout = {...layout};
@@ -78,7 +47,6 @@ function getBlocksLayoutsFromModule(modules: UserModulesType, onModify: boolean)
     xs: Object.keys(modules).map(moduleName => updateLayout(gridLayouts.xs[moduleName], modules[moduleName].xs, onModify))
   }
 }
-
 
 export const UserBoard = ({
   userModules,
@@ -120,33 +88,25 @@ export const UserBoard = ({
   const addModule = async (moduleToAdd: string, gridLayouts: {[bp in BreakpointType]: {[key: string]: Layout;};}) => {
     let newModules: UserModulesType = {...newUserModules};
     let newUserBoardModules: UserModulesType = {...userModules};
-
-    newModules[moduleToAdd] = {
+    const modules = {
       lg:{x: gridLayouts.lg[moduleToAdd].x, y: gridLayouts.lg[moduleToAdd].y, w: gridLayouts.lg[moduleToAdd].w, h: gridLayouts.lg[moduleToAdd].h},
       md:{x: gridLayouts.md[moduleToAdd].x, y: gridLayouts.md[moduleToAdd].y, w: gridLayouts.md[moduleToAdd].w, h: gridLayouts.md[moduleToAdd].h},
       sm:{x: gridLayouts.sm[moduleToAdd].x, y: gridLayouts.sm[moduleToAdd].y, w: gridLayouts.sm[moduleToAdd].w, h: gridLayouts.sm[moduleToAdd].h},
       xs:{x: gridLayouts.xs[moduleToAdd].x, y: gridLayouts.xs[moduleToAdd].y, w: gridLayouts.xs[moduleToAdd].w, h: gridLayouts.xs[moduleToAdd].h},
     }
-
-    newUserBoardModules[moduleToAdd] = {
-      lg:{x: gridLayouts.lg[moduleToAdd].x, y: gridLayouts.lg[moduleToAdd].y, w: gridLayouts.lg[moduleToAdd].w, h: gridLayouts.lg[moduleToAdd].h},
-      md:{x: gridLayouts.md[moduleToAdd].x, y: gridLayouts.md[moduleToAdd].y, w: gridLayouts.md[moduleToAdd].w, h: gridLayouts.md[moduleToAdd].h},
-      sm:{x: gridLayouts.sm[moduleToAdd].x, y: gridLayouts.sm[moduleToAdd].y, w: gridLayouts.sm[moduleToAdd].w, h: gridLayouts.sm[moduleToAdd].h},
-      xs:{x: gridLayouts.xs[moduleToAdd].x, y: gridLayouts.xs[moduleToAdd].y, w: gridLayouts.xs[moduleToAdd].w, h: gridLayouts.xs[moduleToAdd].h},
-    }
-
+    newModules[moduleToAdd] = modules;
+    newUserBoardModules[moduleToAdd] = modules;
+    
     setNewUserModules(newModules);
     await updateUserBoard(newUserBoardModules);
     setAddingModule(true);
     setOnModify(true);
   }
 
-
   useEffect(()=> {
     setLayouts(getBlocksLayoutsFromModule({...userModules}, onModify));
     setNewUserModules(userModules);
   }, [userModules])
-
 
   useEffect(() => {
     setLayouts(layoutsAreResizable(layouts, onModify));
@@ -176,7 +136,7 @@ export const UserBoard = ({
                 name={ m as ModuleUrlType } 
                 deleteModule={deleteModule} 
                 saveModules={saveUserBoard}
-                cancelModification={()=>{setOnModify(false);}}
+                cancelModification={()=>{setNewUserModules(userModules); setOnModify(false);}}
                 goToPage={goToPage}
               /> 
             </Column>)}
@@ -186,7 +146,7 @@ export const UserBoard = ({
         onModify={onModify}
         setOnModify={setOnModify}
         saveModules={saveUserBoard}
-        cancelModification={() => setOnModify(false)}
+        cancelModification={() => {setNewUserModules(userModules); setOnModify(false)}}
         addOptions={getLayoutToAdd(newUserModules, gridLayouts, breakPoint)}
         handleAddSelect={moduleName => addModule(moduleName, gridLayouts)}
         addingModule={addingModule}

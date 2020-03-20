@@ -38,7 +38,7 @@ export type PositionType = {
     h: number;
 }
 
-export type ModuleUrlType = 'news' | 'fastExercice' | 'wordOfTheDay';
+export type ModuleUrlType = 'news' | 'fastExercice' | 'wordOfTheDay' | 'manga' | 'culture';
 
 export type UserModulesType = {
     [key: string]: {

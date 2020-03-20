@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Column } from '../common/Flexbox';
+import { Column } from '../../common/Flexbox';
 import AddIcon from '@material-ui/icons/Add';
 import SaveAltOutlinedIcon from '@material-ui/icons/SaveAltOutlined';
 import CloseIcon from '@material-ui/icons/Close';
@@ -7,7 +7,7 @@ import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import { Select, MenuItem } from '@material-ui/core';
 
 
-const SideButton = ({children, onClick, squareSide}: {children: any, onClick: () => void, squareSide: number}) => {
+const SideButton = ({children, onClick, squareSide}: {children: JSX.Element, onClick: () => void, squareSide: number}) => {
   const buttonStyle = { 
     border: '#a8c1a3 solid 2px', 
     width: `${squareSide}px`, 

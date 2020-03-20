@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { WordCard } from '../../common/CardsComponents'
-import { WordType, TranslationType } from '../../common/types';
-import { Row } from '../../common/Flexbox';
+import { WordCard } from '../../../common/CardsComponents'
+import { WordType, TranslationType } from '../../../common/types';
+import { Row } from '../../../common/Flexbox';
 import {sample} from 'underscore';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';

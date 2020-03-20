@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {ModuleBlockHeader} from './ModuleBlockHeader'
 import { FastExerciceBlock } from "./FastExerciceBlock";
 import { NewsBlock } from "./NewsBlock";
-import { Column, Row } from '../../common/Flexbox';
-import { moduleUrl } from '../../common/utils';
-import { ModuleUrlType } from '../../common/types';
+import { Column, Row } from '../../../common/Flexbox';
+import { moduleUrl } from '../../../common/utils';
+import { ModuleUrlType } from '../../../common/types';
 import translate from 'counterpart';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
   
@@ -34,6 +34,11 @@ export const ModuleBlock = ({ name, onModify, setOnModify, deleteModule, saveMod
   const [onHover, setOnHover] = useState(false);
 
   const [deleted, setDeleted] = useState(undefined as {} | undefined)
+
+  useEffect(()=> {
+    if (!onModify)
+      setDeleted(false);
+  }, [onModify])
 
   const deleteModulePreview = () => {
     setDeleted({opacity: 0.4});

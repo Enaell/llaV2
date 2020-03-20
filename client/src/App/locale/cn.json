@@ -37,6 +37,8 @@
   "moduleBlock": {
     "news": "News",
     "fastExercice": "Quick Exercice",
-    "wordOfTheDay": "Word of the Day"
+    "wordOfTheDay": "Word of the Day",
+    "manga": "Manga",
+    "culture": "Culture"
   }
 }
