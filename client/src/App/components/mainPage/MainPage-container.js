@@ -117,16 +117,17 @@ function mapDispatchToProps(dispatch){
       dispatch({type: 'CHANGE_LOGIN_MODAL_TAB', payload: tabNumber});
     },
     updateUserBoard: async (userBoard, token) => {
-      fetch("http://localhost:5000/api/usergridBlocks",
-      {
-          headers: {
-            'Authorization': `Token ${token}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-              },
-          method: "PUT",
-          body: JSON.stringify(userBoard)
-      })
+      if (token)
+        fetch("http://localhost:5000/api/usergridBlocks",
+        {
+            headers: {
+              'Authorization': `Token ${token}`,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+                },
+            method: "PUT",
+            body: JSON.stringify(userBoard)
+        })
       dispatch({type: 'UPDATE_USERBOARD', payload: userBoard})
     },
   }
