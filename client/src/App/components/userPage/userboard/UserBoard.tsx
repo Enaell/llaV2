@@ -52,8 +52,6 @@ export const UserBoard = ({
   userModules,
   updateUserBoard,
   goToPage,
-  handleBreakpointChange,
-  marginLeft
 } : UserBoardType) => {
 
   const [onModify, setOnModify] = useState(false);
@@ -66,6 +64,8 @@ export const UserBoard = ({
 
   const [addingModule, setAddingModule] = useState(false);
 
+  const [marginWidth, setMarginWidth] = useState(150);
+
   const onLayoutChange = (layout: Layout[]) => {
     let newModules: UserModulesType = {...newUserModules};
     layout.forEach(element => {
@@ -74,6 +74,18 @@ export const UserBoard = ({
     });
     setNewUserModules(newModules);
   }
+
+  function handleBreakpointChange(bp: BreakpointType){
+    if (bp === 'lg')
+      setMarginWidth(110);
+    if (bp === 'md')
+      setMarginWidth(90);
+    if (bp === 'sm')
+      setMarginWidth(70);
+    if (bp === 'xs')
+      setMarginWidth(50);
+  }
+
   const saveUserBoard = async () => {
       await updateUserBoard(newUserModules);
       setAddingModule(false);
@@ -121,7 +133,7 @@ export const UserBoard = ({
       <ResponsiveGridLayout 
         onLayoutChange={(layout)=>onLayoutChange(layout)}
         onBreakpointChange={(newBreakpoint: BreakpointType, _newCols: number) => { setBreakPoint(newBreakpoint)}}
-        style={{ width:'80%', maxWidth:'1300px', marginLeft: `${marginLeft}px`}} 
+        style={{ width:'80%', maxWidth:'1300px', marginLeft: `${marginWidth}px`}} 
         className="layout" 
         layouts={layouts}
         breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480}}
@@ -142,7 +154,7 @@ export const UserBoard = ({
             </Column>)}
       </ResponsiveGridLayout>
       <ModifyPanel
-        squareSide={marginLeft} 
+        squareSide={marginWidth} 
         onModify={onModify}
         setOnModify={setOnModify}
         saveModules={saveUserBoard}

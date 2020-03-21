@@ -27,8 +27,6 @@ export type UserBoardType = {
     userModules: UserModulesType;
     updateUserBoard: (userBoard: UserModulesType) => Promise<void>;
     goToPage: (url: string) => void;
-    handleBreakpointChange: (bp: BreakpointType) => void;
-    marginLeft: number;
 }
 
 export type PositionType = {

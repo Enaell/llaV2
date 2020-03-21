@@ -19,6 +19,7 @@ import { Column } from './common/Flexbox';
 import {ThemeProvider} from '@material-ui/core/styles';
 import theme from '../theme';
 import { withStyles } from '@material-ui/core/styles';
+import MainHeader from './mainHeader'
 
 console.log(React.version);
 
@@ -53,13 +54,15 @@ store.getState().user && store.getState().user.language
 : counterpart.setLocale('Fr');
 
 class App extends Component {
+
   render() {
     return (
       <ReactRedux.Provider store={store}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <Column horizontal='center' style={{ width:'100%' }}>
+            <Column horizontal='center' style={{ width:'100%', overflowY:'hidden' }}>
               <Navbar/>
+              <MainHeader/>
               <RouterSwitch>
                 <Route exact path="/" component={UserPage}/>
                 <Route path="/cardTraining" component={CardTrainingPage} />

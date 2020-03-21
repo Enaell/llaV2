@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Navbar from './Navbar';
+import {Navbar} from './Navbar';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
 

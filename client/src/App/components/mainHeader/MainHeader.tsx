@@ -9,17 +9,31 @@ import { LoginTabs } from '../login/LoginTabs';
 import { IntroductionColumn } from './introductionColumn';
 import { fullNameLanguages } from '../common/utils';
 
-export const WelcomeSection = ({ onLogin, onSignin, connectAsVisitor, tabNumber, changeTabNumber, isLogged = false, user, setUserLanguage, setUserTargetLanguage } : {
-    onLogin: (emailAddress: string, password: string) => void, 
-    onSignin: (username: string, emailAddress: string, password: string, language: string, targetLanguage: string) => void,
-    connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => void,
-    tabNumber: number,
-    changeTabNumber: (num: number) => void,
-    isLogged: boolean,
-    user?: UserType,
-    setUserLanguage: (language: LanguageType) => void,
-    setUserTargetLanguage: (targetLanguage: LanguageType) => void,
-  }) => {
+type MainHeaderType = {
+  onLogin: (emailAddress: string, password: string) => void, 
+  onSignin: (username: string, emailAddress: string, password: string, language: string, targetLanguage: string) => void,
+  connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => void,
+  tabNumber: number,
+  changeTabNumber: (num: number) => void,
+  isLogged: boolean,
+  user?: UserType,
+  setUserLanguage: (language: LanguageType) => void,
+  setUserTargetLanguage: (targetLanguage: LanguageType) => void,
+  history: any
+}
+
+export const MainHeader = ({ 
+  onLogin,
+  onSignin,
+  connectAsVisitor,
+  tabNumber,
+  changeTabNumber,
+  isLogged = false,
+  user,
+  setUserLanguage,
+  setUserTargetLanguage,
+  history
+} : MainHeaderType) => {
   const [language, setLanguage] = useState('' as LanguageType);
   const [targetLanguage, setTargetLanguage] = useState('' as LanguageType);
 
@@ -82,6 +96,8 @@ export const WelcomeSection = ({ onLogin, onSignin, connectAsVisitor, tabNumber,
     changeTabNumber(newValue);
   }
 
+  console.log(history);
+
   return (
     <Column horizontal='center' vertical={'center'} className='welcomeSection' style={isLogged ? welcomeSectionLogged : welcomeSection}>
       <div style={isLogged ? backgroundImgLogged : backgroundImg}></div>
@@ -127,21 +143,19 @@ export const WelcomeSection = ({ onLogin, onSignin, connectAsVisitor, tabNumber,
           </> :
           <Row style={{width: '100%'}} vertical={'center'}>
             <Column style={{width: '49%'}}>
-              {user?.username && 
               <>
-                <Typography color={'primary'} variant={'h3'}>{user.username}</Typography>
-                <Typography variant={'h6'}>{translate('mainPage.level')}:{user.levels?.find(level => level.language === user.targetLanguage)?.rank}</Typography>
-              </>}
+                <Typography color={'primary'} variant={'h3'}>{user?.username}</Typography>
+                <Typography variant={'h6'}>{translate('mainPage.level')}:{user?.levels?.find(level => level.language === user.targetLanguage)?.rank}</Typography>
+              </>
             </Column>
             <Column style={{width: '49%'}} horizontal={'end'}>
-              {user?.username && 
               <>
                 <FormControl>
                   <InputLabel>{translate('mainPage.language')}</InputLabel>
                   <Select
                     style={{minWidth: '120px'}}
                     labelId="selectLanguage"
-                    value={user.language}
+                    value={user?.language}
                     onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
                       setUserLanguage(event.target.value as LanguageType)
                     }}
@@ -154,14 +168,14 @@ export const WelcomeSection = ({ onLogin, onSignin, connectAsVisitor, tabNumber,
                   <Select
                     style={{minWidth: '120px'}}
                     labelId="selectTargetLanguage"
-                    value={user.targetLanguage}
+                    value={user?.targetLanguage}
                     onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
                       setUserTargetLanguage(event.target.value as LanguageType)
                     }}                  >
                     {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ translate(`language.${key}`) }</MenuItem>)}
                   </Select>
                 </FormControl>
-              </>}
+              </>
             </Column>
           </Row>
           }

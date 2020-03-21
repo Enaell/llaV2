@@ -19,7 +19,7 @@ type NavbarType = {
   history: any
 }
 
-const Navbar = ({
+export const Navbar = ({
   user, 
   openLoginModal, 
   openSigninModal, 
@@ -66,4 +66,3 @@ const Navbar = ({
   );
 }
 
-export default Navbar;

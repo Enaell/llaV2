@@ -8,7 +8,8 @@ export const welcomeSection = {
     zIndex: '1000',
     transitionProperty: 'height',
     transitionDuration: '1s',
-    transitionTimingFunction: 'ease-in-out'
+    transitionTimingFunction: 'ease-in-out',
+    overflow: 'hidden'
 }
 
 export const welcomeSectionLogged = {
