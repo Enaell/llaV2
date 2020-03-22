@@ -19,7 +19,7 @@ import { Column } from './common/Flexbox';
 import {ThemeProvider} from '@material-ui/core/styles';
 import theme from '../theme';
 import { withStyles } from '@material-ui/core/styles';
-import MainHeader from './mainHeader'
+import MainHeader from './headerView'
 
 console.log(React.version);
 
@@ -63,13 +63,15 @@ class App extends Component {
             <Column horizontal='center' style={{ width:'100%', overflowY:'hidden' }}>
               <Navbar/>
               <MainHeader/>
-              <RouterSwitch>
-                <Route exact path="/" component={UserPage}/>
-                <Route path="/cardTraining" component={CardTrainingPage} />
-                <Route path="/addCard" component={AddCardForm} />
-                <Route path="/dictionary" component={DictionaryPage}/>
-                <Route component={RouteNotFound} />
-              </RouterSwitch>
+              <div style={{marginTop:'350px', width:'100%'}}>
+                <RouterSwitch>
+                  <Route exact path="/" component={UserPage}/>
+                  <Route path="/cardTraining" component={CardTrainingPage} />
+                  <Route path="/addCard" component={AddCardForm} />
+                  <Route path="/dictionary" component={DictionaryPage}/>
+                  <Route component={RouteNotFound} />
+                </RouterSwitch>
+              </div>
               <Footer />
             </Column>
           </BrowserRouter>

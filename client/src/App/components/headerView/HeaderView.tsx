@@ -7,9 +7,9 @@ import { welcomeSection, welcomeSectionLogged, backgroundImg, backgroundImgLogge
 import translate from 'counterpart';
 import { LoginTabs } from '../login/LoginTabs';
 import { IntroductionColumn } from './introductionColumn';
-import { fullNameLanguages } from '../common/utils';
+import { MainHeader } from './MainHeader';
 
-type MainHeaderType = {
+type HeaderViewType = {
   onLogin: (emailAddress: string, password: string) => void, 
   onSignin: (username: string, emailAddress: string, password: string, language: string, targetLanguage: string) => void,
   connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => void,
@@ -19,10 +19,9 @@ type MainHeaderType = {
   user?: UserType,
   setUserLanguage: (language: LanguageType) => void,
   setUserTargetLanguage: (targetLanguage: LanguageType) => void,
-  history: any
 }
 
-export const MainHeader = ({ 
+export const HeaderView = ({ 
   onLogin,
   onSignin,
   connectAsVisitor,
@@ -32,20 +31,19 @@ export const MainHeader = ({
   user,
   setUserLanguage,
   setUserTargetLanguage,
-  history
-} : MainHeaderType) => {
+} : HeaderViewType) => {
   const [language, setLanguage] = useState('' as LanguageType);
   const [targetLanguage, setTargetLanguage] = useState('' as LanguageType);
 
-  const [username, setUsername] = React.useState("");
-  const [emailAddress, setEmailAddress] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [username, setUsername] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [usernameError, setUsernameError] = React.useState(false);
-  const [emailAddressError, setEmailAddressError] = React.useState(false);
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [targetLanguageError, setTargetLanguageError] = React.useState(false);
-  const [languageError, setLanguageError] = React.useState(false);
+  const [usernameError, setUsernameError] = useState(false);
+  const [emailAddressError, setEmailAddressError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [targetLanguageError, setTargetLanguageError] = useState(false);
+  const [languageError, setLanguageError] = useState(false);
 
 
   function handleUserNameChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
@@ -96,8 +94,6 @@ export const MainHeader = ({
     changeTabNumber(newValue);
   }
 
-  console.log(history);
-
   return (
     <Column horizontal='center' vertical={'center'} className='welcomeSection' style={isLogged ? welcomeSectionLogged : welcomeSection}>
       <div style={isLogged ? backgroundImgLogged : backgroundImg}></div>
@@ -141,43 +137,7 @@ export const MainHeader = ({
                 <Button onClick={onSigninClick}> {translate('connection.signin')}</Button>}
             </Column> 
           </> :
-          <Row style={{width: '100%'}} vertical={'center'}>
-            <Column style={{width: '49%'}}>
-              <>
-                <Typography color={'primary'} variant={'h3'}>{user?.username}</Typography>
-                <Typography variant={'h6'}>{translate('mainPage.level')}:{user?.levels?.find(level => level.language === user.targetLanguage)?.rank}</Typography>
-              </>
-            </Column>
-            <Column style={{width: '49%'}} horizontal={'end'}>
-              <>
-                <FormControl>
-                  <InputLabel>{translate('mainPage.language')}</InputLabel>
-                  <Select
-                    style={{minWidth: '120px'}}
-                    labelId="selectLanguage"
-                    value={user?.language}
-                    onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-                      setUserLanguage(event.target.value as LanguageType)
-                    }}
-                  >
-                    {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
-                  </Select>
-                </FormControl>
-                <FormControl>
-                  <InputLabel>{translate('mainPage.targetLanguage')}</InputLabel>
-                  <Select
-                    style={{minWidth: '120px'}}
-                    labelId="selectTargetLanguage"
-                    value={user?.targetLanguage}
-                    onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-                      setUserTargetLanguage(event.target.value as LanguageType)
-                    }}                  >
-                    {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ translate(`language.${key}`) }</MenuItem>)}
-                  </Select>
-                </FormControl>
-              </>
-            </Column>
-          </Row>
+          <MainHeader user={user} setUserLanguage={setUserLanguage} setUserTargetLanguage={setUserTargetLanguage}/>
           }
         </Row>
       </Column>

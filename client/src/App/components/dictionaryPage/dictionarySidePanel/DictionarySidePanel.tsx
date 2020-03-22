@@ -33,9 +33,9 @@ const styles = (theme: any) => ({
     flexShrink: 0,
   },
   drawerPaper: {
-    top:'70px',
+    top:'250px',
     width: 300,
-    paddingBottom: '70px'
+    position: 'absolute' as "absolute",
   },
   drawerHeader: {
     display: 'flex',

@@ -88,7 +88,7 @@ const DictionaryTabs = ({ words }: { words: WordType[] }) =>{
   return (
     <Column
       horizontal='center'
-      style={{width: '100%', maxWidth: '100%'}}
+      style={{width: '100%', maxWidth: '1200px'}}
     >
       <Tabs
       value={tabNumber}

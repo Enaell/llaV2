@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { MainHeader } from './MainHeader';
+import { HeaderView } from './HeaderView';
 import { withRouter } from "react-router-dom";
 
 function mapStateToProps(state){
@@ -121,4 +121,4 @@ function mapDispatchToProps(dispatch){
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MainHeader))
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderView)

@@ -10,18 +10,21 @@ import { UserType, LanguageType } from '../common/types';
 const styles = (theme: any) => ({
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    width: '100%',
+    marginRight:0,
   },
   contentShift: {
+    flexGrow: 1,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginRight: 300,
+    width: '100%',
+    marginLeft: -300,
   }
 });
 
@@ -44,17 +47,10 @@ const DictionaryPage = ({
     },[]);
 
   return(
-    <Column 
-      style={{width: '100%', maxWidth: '1200px'}}
-      horizontal='center'
-      className={`${classes.content} ${contentShiftClasses}`}
-    >
-      <PageTitle title={translate('dictionaryPage.title')} ></PageTitle>
-      <Row style={{width: '100%'}}>
+      <Row horizontal={'center'} className={openSidePanel ? `${classes.contentShift}`: `${classes.content}`}>
         <DictionaryTabs />
         <DictionarySidePanel />
       </Row>
-    </Column>
   );
 }
 
