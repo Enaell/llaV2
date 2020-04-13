@@ -5,7 +5,9 @@ import  { PageTitle }  from '../common/GenericComponents';
 import DictionaryTabs from './tabs';
 import DictionarySidePanel from './dictionarySidePanel';
 import { withStyles } from '@material-ui/core/styles';
-import { UserType, LanguageType } from '../common/types';
+import { UserType, LanguageType, WordListType } from '../common/types';
+import { Route } from 'react-router-dom';
+import { WordListsPanel } from './wordListsPanel/WordListsPanel';
 
 const styles = (theme: any) => ({
   content: {
@@ -31,10 +33,11 @@ const styles = (theme: any) => ({
 
 const DictionaryPage = ({ 
   user, 
-  getAllWords, 
+  getAllWordLists,
+  wordlists,
   openSidePanel, 
   classes
-}: { user: UserType, getAllWords: (language: LanguageType | undefined, token: string | undefined) => void, openSidePanel: boolean, classes: any }) => {
+}: { user: UserType, getAllWordLists: (language: LanguageType | undefined, targetLanguage: LanguageType | undefined, token: string | undefined) => void, openSidePanel: boolean, classes: any, wordlists: WordListType[] }) => {
 
   const contentShiftClasses = {
     [classes.contentShift]: openSidePanel,
@@ -42,16 +45,22 @@ const DictionaryPage = ({
 
   useEffect(()=>{
     const token = user && user.token ? user.token : undefined;
-    const targetLanguage = user && user.targetLanguage ? user.targetLanguage : undefined; 
-    getAllWords(targetLanguage, token);
-    },[]);
+    // getAllWords(targetLanguage, token);
+    getAllWordLists(user?.language, user.targetLanguage, user?.token)
+    },[user.token]);
 
   return(
-      <Row horizontal={'center'} className={openSidePanel ? `${classes.contentShift}`: `${classes.content}`}>
-        <DictionaryTabs />
-        <DictionarySidePanel />
-      </Row>
-  );
+      // <Row horizontal={'center'} className={openSidePanel ? `${classes.contentShift}`: `${classes.content}`}>
+      //   <DictionaryTabs />
+      //   <DictionarySidePanel />
+      // </Row>
+      <Route
+        key={'dictionary_wordlists'}
+        path={'/dictionary/wordlists'}
+        render={props => <WordListsPanel {...props} wordLists={wordlists}/>}
+      />
+      
+    );
 }
 
 export default withStyles(styles, {withTheme: true })(DictionaryPage);

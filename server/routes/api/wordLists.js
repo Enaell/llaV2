@@ -7,31 +7,33 @@ const { VISIBILITY, ROLES } = require('../../models/utils')
 
 router.get('/', auth.optional, (req, res, next) => {
     const {payload} = req;
+    const language = req.query && req.query.language ? {language: req.query.language} : {};
+    const targetLanguage = req.query && req.query.targetlanguage ? {targetLanguage: req.query.targetlanguage} : {};
 
     if (payload && payload.id && payload.role !== ROLES.Customer)
     {
-        Words.find({})
-        .then(words => {
-            console.log('API WORDLISTS get all words as ADMIN or MODERATOR')
-            console.log(words);
-            return res.json({ words: words })
+        WordLists.find({...language, ...targetLanguage} )
+        .then(wordLists => {
+            console.log('API WORDLISTS get all wordLists as ADMIN or MODERATOR')
+            console.log(wordLists);
+            return res.json({ wordLists: wordLists })
          })
     }
     else if (payload && payload.id)
     {
-        Words.find({$or:[{ visibility: VISIBILITY.Visitor, validated: true }, { visibility: VISIBILITY.LoggedIn, validated: true }, {visibility: VISIBILITY.Owner, owner: payload.id }] })
-        .then(words => {
+        WordLists.find({$or:[{ visibility: VISIBILITY.Visitor, validated: true }, { visibility: VISIBILITY.LoggedIn, validated: true }, {visibility: VISIBILITY.Owner, owner: payload.id }] })
+        .then(wordLists => {
             console.log('API WORDLISTS get all words as CUSTOMER')
-            console.log(words);
-            return res.json({ words: words })
+            console.log(wordLists);
+            return res.json({ wordLists: wordLists })
          }) 
     }
     else{
-        Words.find({ visibility: VISIBILITY.Visitor, validated: true })
-        .then(words => {
+        WordLists.find({ visibility: VISIBILITY.Visitor, validated: true })
+        .then(wordLists => {
             console.log('API WORDLISTS get all words as VISITOR')
-            console.log(words);
-            return res.json({ words: words })
+            console.log(wordLists);
+            return res.json({ wordLists: wordLists })
          })
     }
 });
@@ -42,8 +44,8 @@ router.post('/', auth.required, (req, res, next) => {
     const { body: { wordLists } } = req;
 
     const finalWordLists = role === ROLES.Admin || role === ROLES.Moderator 
-        ? wordLists.map(wordList => {return new WordLists({...wordList, owner: id})})
-        : words.map(word => {return new Words({...word, owner: id, validated: false})});
+        ? wordLists.map(wordList => {return new WordLists({...wordList, owner: id, validated: true})})
+        : wordLists.map(wordList => {return new Words({...wordList, owner: id, validated: false})});
 
     WordLists.collection.insertMany(finalWordLists)
     .then(data => res.json({wordLists: data}))

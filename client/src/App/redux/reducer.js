@@ -114,6 +114,8 @@ const userReducer = (state = initialUserState, action) => {
 
 const getWords = (state, wordList) => ({...state, words: wordList.sort((a, b) => {return a.internationalName > b.internationalName;}) || [] })
 
+const getWordLists = (state, wordLists) => ({...state, wordLists: wordLists});
+
 const openSidePanel = (state) => ({ ...state, openSidePanel: true });
 
 const toggleSidePanel = (state) => ({ ...state, openSidePanel: !openSidePanel });
@@ -142,6 +144,7 @@ const toggleWordPreview = state => ({ ...state, openWordPreview: !state.openWord
 
 const initialDictionaryState = {
   words: [],
+  wordLists: [],
   selectedWords: [],
   wordPreview: {},
   openSidePanel: false,
@@ -154,6 +157,9 @@ const dictionaryReducer = (state = initialDictionaryState, action) => {
   switch (action.type) {
     case 'GET_WORDS':
       return getWords(state, action.payload);
+    case 'GET_WORD_LISTS':
+      console.log(action.payload)
+      return getWordLists(state, action.payload);  
     case 'OPEN_SIDE_PANEL':
       return openSidePanel(state);
     case 'TOGGLE_SIDE_PANEL':

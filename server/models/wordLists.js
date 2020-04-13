@@ -9,6 +9,7 @@ const WordListsSchema = new Schema({
     name: {type: String, required: true},
     words : [{ type: Schema.Types.ObjectId, ref: 'Words' }],
     language: {type: String, default: LANGUAGES.Fr},
+    targetLanguage: {type: String, default: LANGUAGES.Fr},
     subject: {type: [String], default: 'other'},
     level: {type: Number, default: 0},
     rank: {type: Number, default: 0},

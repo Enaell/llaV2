@@ -68,6 +68,19 @@ export type WordType= {
     visibility: VisibilityType, //(rank of visibility wanted by the card owner)
 }
 
+export type WordListType= {
+    owner?: string,
+    name: string,
+    words : WordType[],
+    language: string,
+    subject: string[],
+    level: number,
+    rank: number,
+    comments?: string,
+    validated: boolean, //(this field is to differenciate cards validated by admin from others)
+    visibility: VisibilityType, //(rank of visibility wanted by the card owner)
+}
+
 export type HorizontalType= 'center' | 'start' | 'end' | 'stretch' | 'baseline';
 
 export type VariantType= 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'subtitle1' | 'subtitle2' | 'body1' | 'body2' | 'caption' | 'button' | 'overline' | 'srOnly' | 'inherit';

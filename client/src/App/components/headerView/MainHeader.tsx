@@ -22,8 +22,6 @@ type MainHeaderType = {
 }
 
 export const MainHeader = withRouter(({user, setUserLanguage, setUserTargetLanguage, location}: MainHeaderType) => {
-  console.log(location.pathname.split('/'));
-  console.log(location.pathname.split('/').length);
   return (
   <Row style={{width: '100%'}} vertical={'center'}>
     <Column style={{width: '49%'}}>
