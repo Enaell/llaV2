@@ -3,23 +3,23 @@ import { NavLink } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import { IconButton, Typography } from '@material-ui/core';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
-import { WordListType } from '../../common/types';
-
+import { WordType } from '../../../common/types';
 
 const DragHandle = SortableHandle(() => <span style={{position: "relative", top: '1px', display:'block', width: '18px', height:'11px', opacity:'0.25', marginRight: '9px', cursor: 'grab', background: 'linear-gradient(180deg, #000, #000 20%, #fff 0, #fff 40%, #000 0, #000 60%, #fff 0, #fff 80%, #000 0, #000)'}}/>)
 
-type WordListsCardType = {
+type WordTileType = {
   path: string;
-  wordlist: WordListType;
-  onDeleteCategory: (wordlistId: number | undefined) => void;
+  word: WordType;
+  onDeleteWord: (wordName: string | undefined) => void;
 };
-export const WordListsCard = SortableElement(WordListsCardComponent);
 
-function WordListsCardComponent({ path, wordlist }: WordListsCardType) {
+export const WordTile = SortableElement(WordTileComponent);
+
+function WordTileComponent({ path, word, onDeleteWord }: WordTileType) {
   return (
     <NavLink
-      key={wordlist.name}
-      to={`${path}/${wordlist.name}`}
+      key={word.name}
+      to={`${path}/${word.name}`}
       replace
       style={{
         display: 'flex',
@@ -41,7 +41,7 @@ function WordListsCardComponent({ path, wordlist }: WordListsCardType) {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <DragHandle />
         <Typography style={{ marginLeft: '15px', color: '#595959', fontWeight: 500, fontSize: '13px', lineHeight: '17px' }}>
-          {wordlist.name}
+          {word.name}
         </Typography>
       </div>
       <IconButton

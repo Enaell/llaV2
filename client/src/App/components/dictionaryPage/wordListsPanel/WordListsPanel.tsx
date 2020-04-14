@@ -1,20 +1,15 @@
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
 import { TranslationType, WordListType, WordType } from '../../common/types';
 import { Column, Row } from '../../common/Flexbox';
 import { Typography } from '@material-ui/core';
 import translate from 'counterpart';
 import { Route } from 'react-router-dom';
-import { WordLists } from './WordLists';
+import { WordLists } from './wordLists';
+import { Words } from './words';
 
 
 type WordListsPanelType = {
-  wordLists: WordListType[];
+  wordLists: {[key: string]: WordListType};
   history?: any;
   match?: any;
 }
@@ -46,33 +41,28 @@ export const WordListsPanel = ({ wordLists, history, ...props}: WordListsPanelTy
         <WordLists
           path={url && `${url}/wordlists`}
           wordLists={wordLists}
-          onAddCategory={() => history.replace(`${url}/wordlist-create`)}
-          onDeleteCategory={id => {}}
+          onAddWordList={() => history.replace(`${url}/wordlist-create`)}
+          onDeleteWordList={name => {}}
           onSortEnd={()=>{}}
         />
-        {/* <Route
+        <Route
           path={`${url}/wordlists/:wordlistname`}
           render={({ match }) => {
             const wordListName = String(match.params.wordlistname);
-            const words = getWordsFromWordListName(wordListName);
             return (
-              <SubCategories
-                path={`${url}/wordlists/${wordListId}/word`}
-                catId={catId}
-                subCategories={subCategories.filter(cat =>
-                  filteredCat.find(fcat => cat.categoryId === fcat.categoryId)
-                )}
-                onAddSubCategory={() => history.replace(`${url}/categories/${catId}/subcategories-create`)}
-                onDeleteSubCategory={(id: number | undefined) => {
-                  deleteCategory(id);
-                  history.replace(`${url}/categories/${catId}`);
+              <Words
+                path={`${url}/wordlists/${wordListName}/words`}
+                words={wordLists[wordListName].words}
+                onAddWord={() => history.replace(`${url}/wordlists/${wordListName}/word-create`)}
+                onDeleteWord={(name: string | undefined) => {
+                  history.replace(`${url}/wordlists/${wordListName}`);
                 }}
-                onSortEnd={order => sortSubCategories(order, catId)}
+                onSortEnd={() => {}}
               />
             );
           }}
         />
-        <div style={{ display: 'flex', width: '100%', marginLeft: '20px' }}>
+        {/* <div style={{ display: 'flex', width: '100%', marginLeft: '20px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             <Route
               exact

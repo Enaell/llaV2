@@ -64,8 +64,8 @@ export type WordType= {
     level: number,
     translations: TranslationType[],
     comments?: string,
-    validated: boolean, //(this field is to differenciate cards validated by admin from others)
-    visibility: VisibilityType, //(rank of visibility wanted by the card owner)
+    validated?: boolean, //(this field is to differenciate cards validated by admin from others)
+    visibility?: VisibilityType, //(rank of visibility wanted by the card owner)  ---------- two last fields shown in case of owner wants to know on their lists
 }
 
 export type WordListType= {
@@ -73,12 +73,13 @@ export type WordListType= {
     name: string,
     words : WordType[],
     language: string,
+    targetLanguage: string,
     subject: string[],
     level: number,
     rank: number,
     comments?: string,
-    validated: boolean, //(this field is to differenciate cards validated by admin from others)
-    visibility: VisibilityType, //(rank of visibility wanted by the card owner)
+    validated?: boolean, //(this field is to differenciate cards validated by admin from others)
+    visibility?: VisibilityType, //(rank of visibility wanted by the card owner) ---------- two last fields shown in case of owner wants to know on their lists
 }
 
 export type HorizontalType= 'center' | 'start' | 'end' | 'stretch' | 'baseline';
