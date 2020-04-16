@@ -27,7 +27,13 @@
     "subject": "按主题分类",
     "alphabeticOrder": "按字母表排序",
     "levelOrder": "简易程度",
-    "filter": "过滤筛选"
+    "filter": "过滤筛选",
+    "wordListPanel": {
+      "title": "List Manager",
+      "wordLists": "Word lists",
+      "words": "Words",
+      "add": "加"
+    }
   },
   "language": {
     "Fr": "法语",

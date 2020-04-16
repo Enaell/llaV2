@@ -13,7 +13,6 @@ const formatter = {
         }))
     },
     formatUserBoard : (array, key) => {
-        const initialValue = {};
         return array.reduce((obj, item) => {
           return {
             ...obj,
@@ -24,7 +23,24 @@ const formatter = {
               xs: item.xs
             }
           };
-        }, initialValue);
+        }, {});
+    },
+    formatWordLists : (array, key) => {
+      return array.reduce((obj, item) => {
+        return {
+          ...obj,
+          [item[key]]: {
+             name: item.name,
+             words: item.words,
+             subject: item.subject,
+             level: item.level,
+             rank: item.rank,
+             validated: item.validated,
+             visibility: item.visibility,
+             comments: item.comments
+          }
+        }
+      }, {})
     }
 }
 

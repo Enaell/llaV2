@@ -1,17 +1,18 @@
 import React from 'react';
-import { TranslationType, WordListType, WordType } from '../../common/types';
+import { TranslationType, WordListType, UserType } from '../../common/types';
 import { Column, Row } from '../../common/Flexbox';
 import { Typography } from '@material-ui/core';
 import translate from 'counterpart';
 import { Route } from 'react-router-dom';
 import { WordLists } from './wordLists';
 import { Words } from './words';
+import { useWordLists } from './useWordLists';
 
 
 type WordListsPanelType = {
-  wordLists: {[key: string]: WordListType};
-  history?: any;
-  match?: any;
+  user: UserType;
+  history: any;
+  match: any;
 }
 
 const translationsToString = (translations: TranslationType[]) => {
@@ -25,18 +26,16 @@ const translationsToString = (translations: TranslationType[]) => {
   return s;
 }
 
-export const WordListsPanel = ({ wordLists, history, ...props}: WordListsPanelType) => {
+export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) => {
+
+  const { wordLists } = useWordLists(user);
 
   const { url } = props.match;
-
-  function getWordsFromWordListName(wordListName: string) {
-    return [] as WordType[];
-  }
 
   return(
     <div style={{ paddingLeft: '20px'}}>
     <Column>
-        <Typography variant='h2'>{translate('title')}</Typography>
+        <Typography variant='h4'>{translate('dictionaryPage.wordListPanel.title')}</Typography>
       <Row>
         <WordLists
           path={url && `${url}/wordlists`}
@@ -52,7 +51,7 @@ export const WordListsPanel = ({ wordLists, history, ...props}: WordListsPanelTy
             return (
               <Words
                 path={`${url}/wordlists/${wordListName}/words`}
-                words={wordLists[wordListName].words}
+                words={wordLists && wordLists[wordListName] && wordLists[wordListName].words ? wordLists[wordListName].words : [] }
                 onAddWord={() => history.replace(`${url}/wordlists/${wordListName}/word-create`)}
                 onDeleteWord={(name: string | undefined) => {
                   history.replace(`${url}/wordlists/${wordListName}`);

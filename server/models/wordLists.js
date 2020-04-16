@@ -18,4 +18,6 @@ const WordListsSchema = new Schema({
     comments: String
 });
 
+
+
 mongoose.model('WordLists', WordListsSchema);

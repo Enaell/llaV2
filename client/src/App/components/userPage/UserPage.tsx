@@ -24,7 +24,7 @@ export const UserPage = ({user, updateUserBoard, history }: {
     <>
       { user && user.language !== undefined && user.targetLanguage !== undefined &&
       <Fade timeout={2000} in={user && user.language !== undefined && user.targetLanguage !== undefined}>
-        <Row horizontal='center' style={{ width:'100%'}}>
+        <Row horizontal='center' style={{ width:'100%', marginTop:'50px'}}>
           <UserBoard 
             userModules={
               user && user.userBoard ?

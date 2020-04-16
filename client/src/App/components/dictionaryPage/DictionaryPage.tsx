@@ -33,21 +33,19 @@ const styles = (theme: any) => ({
 
 const DictionaryPage = ({ 
   user, 
-  getAllWordLists,
-  wordlists,
   openSidePanel, 
   classes
-}: { user: UserType, getAllWordLists: (language: LanguageType | undefined, targetLanguage: LanguageType | undefined, token: string | undefined) => void, openSidePanel: boolean, classes: any, wordlists: WordListType[] }) => {
+}: { user: UserType, openSidePanel: boolean, classes: any, wordlists: {[key: string]: WordListType} }) => {
 
   const contentShiftClasses = {
     [classes.contentShift]: openSidePanel,
   }
 
-  useEffect(()=>{
-    const token = user && user.token ? user.token : undefined;
-    // getAllWords(targetLanguage, token);
-    getAllWordLists(user?.language, user.targetLanguage, user?.token)
-    },[user.token]);
+  // useEffect(()=>{
+  //   const token = user && user.token ? user.token : undefined;
+  //   // getAllWords(targetLanguage, token);
+  //   getAllWordLists(user?.language, user.targetLanguage, user?.token)
+  //   },[user.token]);
 
   return(
       // <Row horizontal={'center'} className={openSidePanel ? `${classes.contentShift}`: `${classes.content}`}>
@@ -57,7 +55,7 @@ const DictionaryPage = ({
       <Route
         key={'dictionary_wordlists'}
         path={'/dictionary/wordlists'}
-        render={props => <WordListsPanel {...props} wordLists={wordlists}/>}
+        render={props => <WordListsPanel {...props} user={user}/>}
       />
       
     );

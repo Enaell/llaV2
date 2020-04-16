@@ -2,40 +2,39 @@ const mongoose = require('mongoose');
 const auth = require('../auth');
 const WordLists = mongoose.model('WordLists');
 const router = require('express').Router();
+const formatter = require('../utils');
 const { VISIBILITY, ROLES } = require('../../models/utils')
 
 
-router.get('/', auth.optional, (req, res, next) => {
+router.get('/', auth.optional, async (req, res, next) => {
     const {payload} = req;
     const language = req.query && req.query.language ? {language: req.query.language} : {};
     const targetLanguage = req.query && req.query.targetlanguage ? {targetLanguage: req.query.targetlanguage} : {};
 
+    let wordLists = []
+
     if (payload && payload.id && payload.role !== ROLES.Customer)
     {
-        WordLists.find({...language, ...targetLanguage} )
-        .then(wordLists => {
-            console.log('API WORDLISTS get all wordLists as ADMIN or MODERATOR')
-            console.log(wordLists);
-            return res.json({ wordLists: wordLists })
-         })
+        console.log('API WORDLISTS get all wordLists as ADMIN or MODERATOR')
+        wordLists = await WordLists.find({...language, ...targetLanguage} ).populate('words');
+
     }
     else if (payload && payload.id)
     {
-        WordLists.find({$or:[{ visibility: VISIBILITY.Visitor, validated: true }, { visibility: VISIBILITY.LoggedIn, validated: true }, {visibility: VISIBILITY.Owner, owner: payload.id }] })
-        .then(wordLists => {
-            console.log('API WORDLISTS get all words as CUSTOMER')
-            console.log(wordLists);
-            return res.json({ wordLists: wordLists })
-         }) 
+        console.log('API WORDLISTS get all words as CUSTOMER')
+        wordLists = await WordLists.find({$or:[{ visibility: VISIBILITY.Visitor, validated: true }, { visibility: VISIBILITY.LoggedIn, validated: true }, {visibility: VISIBILITY.Owner, owner: payload.id }] }).populate('words');
     }
-    else{
-        WordLists.find({ visibility: VISIBILITY.Visitor, validated: true })
-        .then(wordLists => {
-            console.log('API WORDLISTS get all words as VISITOR')
-            console.log(wordLists);
-            return res.json({ wordLists: wordLists })
-         })
+    else
+    {
+        console.log('API WORDLISTS get all words as VISITOR')
+        wordLists = await WordLists.find({ visibility: VISIBILITY.Visitor, validated: true }).populate('words');
     }
+    console.log('-----------------------------------------------------')
+    console.log(wordLists);
+
+    formattedWordLists = formatter.formatWordLists(wordLists, 'name');
+    console.log(formattedWordLists);
+    return res.json({ wordLists: formattedWordLists })
 });
 
 

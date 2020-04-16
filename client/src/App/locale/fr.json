@@ -27,7 +27,13 @@
     "subject": "Sujet",
     "alphabeticOrder": "Ordre Alphabétique",
     "levelOrder": "Ordre par Niveau",
-    "filter": "filtre"
+    "filter": "filtre",
+    "wordListPanel": {
+      "title": "Gestionnaire de Liste",
+      "wordLists": "Liste de mots",
+      "words": "Mots",
+      "add": "Ajouter"
+    }
   },
   "language": {
     "Fr": "Francais",

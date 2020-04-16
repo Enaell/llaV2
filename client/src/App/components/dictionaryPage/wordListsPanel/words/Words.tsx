@@ -20,8 +20,8 @@ type WordsType = {
 export const Words = ({
   words,
   path = '/dictionary/wordlists',
-  title = translate('dictionary.word.title'),
-  labelBtnAdd = translate('dictionary.word.add'),
+  title = translate('dictionaryPage.wordListPanel.words'),
+  labelBtnAdd = translate('dictionaryPage.wordListPanel.add'),
   disabledBtnAdd = false,
   onAddWord,
   onDeleteWord,
@@ -30,7 +30,7 @@ export const Words = ({
   return (
     <Column>
       <div style={{ marginBottom: '10px', minWidth: '290px' }}>
-        <Typography variant={'h4'}>{title}</Typography>
+        <Typography variant={'h5'}>{title}</Typography>
         <Button variant='outlined' onClick={onAddWord} disabled={disabledBtnAdd}>
           {labelBtnAdd}
         </Button>
