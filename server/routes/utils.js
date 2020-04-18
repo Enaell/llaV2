@@ -25,13 +25,28 @@ const formatter = {
           };
         }, {});
     },
-    formatWordLists : (array, key) => {
+    formatWordLists : (array, key, language) => {
       return array.reduce((obj, item) => {
         return {
           ...obj,
           [item[key]]: {
+             owner: item.owner,
              name: item.name,
-             words: item.words,
+             words: item.words.reduce((o, i) => {
+               return {
+                 ...o,
+                 [i[key]]:
+                 {
+                   owner: i.owner,
+                   name: i.name,
+                   internationalName: i.internationalName,
+                   subject: i.subject,
+                   level: i.level,
+                   translations: i.translations.filter(translation => translation.language === language),
+                   validated: i.validated,
+                   visibility: i.visibility
+                 }
+                }}, {}),
              subject: item.subject,
              level: item.level,
              rank: item.rank,

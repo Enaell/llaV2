@@ -10,6 +10,11 @@ export function useWordLists(user: UserType) {
     dictionaryApi.getAllWordLists(user.language, user.targetLanguage, user.token).then(wl => setWordLists(wl));
   }, [user.token]);
 
-  return { wordLists }
+  function createWordList(){}
+  function createWord(){}
+  function saveWordList(){}
+  function saveWord(){}
+
+  return { wordLists, createWordList, createWord, saveWordList, saveWord }
 
 }

@@ -29,9 +29,6 @@ router.get('/', auth.optional, async (req, res, next) => {
         console.log('API WORDLISTS get all words as VISITOR')
         wordLists = await WordLists.find({ visibility: VISIBILITY.Visitor, validated: true }).populate('words');
     }
-    console.log('-----------------------------------------------------')
-    console.log(wordLists);
-
     formattedWordLists = formatter.formatWordLists(wordLists, 'name');
     console.log(formattedWordLists);
     return res.json({ wordLists: formattedWordLists })

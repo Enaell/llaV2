@@ -71,7 +71,7 @@ export type WordType= {
 export type WordListType= {
     owner?: string,
     name: string,
-    words : WordType[],
+    words : {[key: string]: WordType},
     language: string,
     targetLanguage: string,
     subject: string[],

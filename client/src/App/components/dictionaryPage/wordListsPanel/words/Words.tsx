@@ -7,7 +7,7 @@ import { SortableContainer } from 'react-sortable-hoc';
 import { WordTile } from './WordTile';
 
 type WordsType = {
-  words: WordType[];
+  words: {[key: string]: WordType};
   path: string;
   title?: string;
   labelBtnAdd?: string;
@@ -46,13 +46,13 @@ export const Words = ({
   )
 }
 
-const WordsContainer = SortableContainer(({ words, path, onDeleteWord }: {words: WordType[], path: string, onDeleteWord: (name: string | undefined) => void }) => (
+const WordsContainer = SortableContainer(({ words, path, onDeleteWord }: {words: {[key: string]: WordType}, path: string, onDeleteWord: (name: string | undefined) => void }) => (
   <div style={{ marginTop: '12px' }}>
-  {words?.map((word: WordType, index: number) => (
+  {Object.keys(words).map((wordName: string, index: number) => (
     <WordTile
-      key={word.name}
+      key={wordName}
       index={index}
-      word={word}
+      word={words[wordName]}
       path={path}
       onDeleteWord={onDeleteWord}
     />

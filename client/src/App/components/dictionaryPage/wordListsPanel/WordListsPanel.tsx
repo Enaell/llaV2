@@ -1,5 +1,6 @@
 import React from 'react';
-import { TranslationType, WordListType, UserType } from '../../common/types';
+import { Switch as RouterSwitch } from 'react-router-dom'
+import { TranslationType, UserType } from '../../common/types';
 import { Column, Row } from '../../common/Flexbox';
 import { Typography } from '@material-ui/core';
 import translate from 'counterpart';
@@ -7,6 +8,8 @@ import { Route } from 'react-router-dom';
 import { WordLists } from './wordLists';
 import { Words } from './words';
 import { useWordLists } from './useWordLists';
+import { WordListForm } from './wordLists/WordListForm';
+import { WordForm } from './words/WordForm';
 
 
 type WordListsPanelType = {
@@ -28,7 +31,7 @@ const translationsToString = (translations: TranslationType[]) => {
 
 export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) => {
 
-  const { wordLists } = useWordLists(user);
+  const { wordLists, createWordList, createWord, saveWordList, saveWord } = useWordLists(user);
 
   const { url } = props.match;
 
@@ -38,66 +41,66 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
         <Typography variant='h4'>{translate('dictionaryPage.wordListPanel.title')}</Typography>
       <Row>
         <WordLists
-          path={url && `${url}/wordlists`}
+          path={url && `${url}`}
           wordLists={wordLists}
           onAddWordList={() => history.replace(`${url}/wordlist-create`)}
           onDeleteWordList={name => {}}
           onSortEnd={()=>{}}
         />
-        <Route
-          path={`${url}/wordlists/:wordlistname`}
-          render={({ match }) => {
-            const wordListName = String(match.params.wordlistname);
-            return (
-              <Words
-                path={`${url}/wordlists/${wordListName}/words`}
-                words={wordLists && wordLists[wordListName] && wordLists[wordListName].words ? wordLists[wordListName].words : [] }
-                onAddWord={() => history.replace(`${url}/wordlists/${wordListName}/word-create`)}
-                onDeleteWord={(name: string | undefined) => {
-                  history.replace(`${url}/wordlists/${wordListName}`);
-                }}
-                onSortEnd={() => {}}
-              />
-            );
-          }}
-        />
-        {/* <div style={{ display: 'flex', width: '100%', marginLeft: '20px' }}>
+        <RouterSwitch>
+          <Route
+            exact
+            path={`${url}/wordlist-create`}
+            render={() => {
+              return <WordListForm onSave={createWordList} />;
+            }}
+          />
+          <Route
+            path={`${url}/:wordlistname`}
+            render={({ match }) => {
+              const wordListName = String(match.params.wordlistname);
+              return (
+                <Words
+                  path={`${url}/${wordListName}/words`}
+                  words={wordLists && wordLists[wordListName] && wordLists[wordListName].words}
+                  onAddWord={() => history.replace(`${url}/${wordListName}/word-create`)}
+                  onDeleteWord={(name: string | undefined) => {
+                    history.replace(`${url}/${wordListName}`);
+                  }}
+                  onSortEnd={() => {}}
+                />
+              );
+            }}
+          />
+        </RouterSwitch>
+        <div style={{ display: 'flex', width: '100%', marginLeft: '20px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             <Route
-              exact
-              path={`${url}/categories-create`}
-              render={() => {
-                const initCatCreated = getCatagoryToAdd();
-                return <FormCategory category={initCatCreated} onSave={createCategory} />;
-              }}
-            />
-            <Route
-              path={`${url}/categories/:idCat/subcategories-create`}
+              path={`${url}/:wordlistname/word-create`}
               render={({ match }) => {
-                const catId = Number(match.params.idCat);
-                const initCatCreated = getCatagoryToAdd(catId);
-                return <FormCategory category={initCatCreated} onSave={createCategory} />;
+                const wordListName = String(match.params.wordlistname);
+                return <WordForm wordList={wordLists[wordListName]} onSave={createWord} />;
               }}
             />
             <Route
               exact
-              path={`${url}/categories/:idCat`}
+              path={`${url}/:wordlistname`}
               render={({ match }) => {
-                const catId = Number(match.params.idCat);
-                const catSelected = getCategoryById(catId);
-                return <FormCategory category={catSelected} onSave={saveCategory} />;
+                const wordListName = String(match.params.wordlistname);
+                return <WordListForm wordList={wordLists[wordListName]} onSave={saveWordList} />;
               }}
             />
             <Route
-              path={`${url}/categories/:idCat/subCat/:idSubCat`}
+              path={`${url}/:wordlistname/words/:wordname`}
               render={({ match }) => {
-                const subcatId = Number(match.params.idSubCat);
-                const subcategorySelected = getCategoryById(subcatId);
-                return <FormCategory key={subcatId} category={subcategorySelected} onSave={saveCategory} />;
+                const wordName = String(match.params.wordname);
+                const wordListName = String(match.params.wordlistname);
+                // to edit with better way to index words in wordlist
+                return <WordForm wordList={wordLists[wordListName]} word={wordLists[wordListName].words[wordName]} onSave={saveWord} />;
               }}
             />
           </div>
-        </div> */}
+        </div>
       </Row>
     </Column>
   </div>
