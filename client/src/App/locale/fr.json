@@ -32,13 +32,41 @@
       "title": "Gestionnaire de Liste",
       "wordLists": "Liste de mots",
       "words": "Mots",
-      "add": "Ajouter"
+      "add": "Ajouter",
+      "newList": "Nouvelle Liste",
+      "wordListForm": {
+        "owner": "Créée par",
+        "name": "Nom",
+        "internationalName": "Ecriture latine",
+        "pinyin": "Pinyin",
+        "subject": "Sujet",
+        "level": "Niveau",
+        "rank": "Rang",
+        "comments": "Commentaires",
+        "status": "Statut",
+        "validation":"Validation",
+        "validated": "Validée",
+        "pending": "En attente de validation",
+        "visibility": "Visibilitée"
+      }
     }
   },
   "language": {
     "Fr": "Francais",
     "En": "Anglais",
     "Cn": "Chinois"
+  },
+  "subjects":{
+    "General": "General",
+    "Food": "Nourriture",
+    "Daily": "Vie quotidienne",
+    "House": "Maison",
+    "Number": "Nombre"
+  },
+  "visibility": {
+    "Visitor": "Tout le monde", 
+    "Loggedin": "Personnes connectées",
+    "Owner": "Moi"
   },
   "moduleBlock": {
     "news": "Nouvelles",

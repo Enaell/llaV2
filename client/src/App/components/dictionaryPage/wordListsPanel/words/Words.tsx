@@ -27,6 +27,8 @@ export const Words = ({
   onDeleteWord,
   onSortEnd,
 }: WordsType) => {
+  console.log('_____________________________________');
+  console.log(path);
   return (
     <Column>
       <div style={{ marginBottom: '10px', minWidth: '290px' }}>

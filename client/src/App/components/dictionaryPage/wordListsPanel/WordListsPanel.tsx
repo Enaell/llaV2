@@ -36,58 +36,56 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
   const { url } = props.match;
 
   return(
-    <div style={{ paddingLeft: '20px'}}>
-    <Column>
+    <Column horizontal='center' style={ {width:'100%'} }>
+      <div style={{ width:'80%', maxWidth: '1800px'}}>
         <Typography variant='h4'>{translate('dictionaryPage.wordListPanel.title')}</Typography>
-      <Row>
-        <WordLists
-          path={url && `${url}`}
-          wordLists={wordLists}
-          onAddWordList={() => history.replace(`${url}/wordlist-create`)}
-          onDeleteWordList={name => {}}
-          onSortEnd={()=>{}}
-        />
-        <RouterSwitch>
-          <Route
-            exact
-            path={`${url}/wordlist-create`}
-            render={() => {
-              return <WordListForm onSave={createWordList} />;
-            }}
+        <Row>
+          <WordLists
+            path={url && `${url}`}
+            wordLists={wordLists}
+            onAddWordList={() => history.replace(`${url}/wordlist-create`)}
+            onDeleteWordList={name => {}}
+            onSortEnd={()=>{}}
           />
-          <Route
-            path={`${url}/:wordlistname`}
-            render={({ match }) => {
-              const wordListName = String(match.params.wordlistname);
-              return (
-                <Words
-                  path={`${url}/${wordListName}/words`}
-                  words={wordLists && wordLists[wordListName] && wordLists[wordListName].words}
-                  onAddWord={() => history.replace(`${url}/${wordListName}/word-create`)}
-                  onDeleteWord={(name: string | undefined) => {
-                    history.replace(`${url}/${wordListName}`);
-                  }}
-                  onSortEnd={() => {}}
-                />
-              );
-            }}
-          />
-        </RouterSwitch>
-        <div style={{ display: 'flex', width: '100%', marginLeft: '20px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+          <RouterSwitch>
+            <Route
+              exact
+              path={`${url}/wordlist-create`}
+              render={() => {
+                return (
+                  <Column horizontal='center' style={{width: '100%'}}>
+                    <WordListForm modify onSave={createWordList} />;
+                  </Column>
+                )
+              }}
+            />
+            <Route
+              path={`${url}/:wordlistname`}
+              render={({ match }) => {
+                const wordListName = String(match.params.wordlistname);
+                if (wordLists && wordLists[wordListName])
+                  return (
+                    <Words
+                      path={`${url}/${wordListName}/words`}
+                      words={wordLists && wordLists[wordListName] && wordLists[wordListName].words}
+                      onAddWord={() => history.replace(`${url}/${wordListName}/word-create`)}
+                      onDeleteWord={(name: string | undefined) => {
+                        history.replace(`${url}/${wordListName}`);
+                      }}
+                      onSortEnd={() => {}}
+                    />
+                  );
+                return (<div></div>)
+              }}
+            />
+          </RouterSwitch>
+          <RouterSwitch>
             <Route
               path={`${url}/:wordlistname/word-create`}
               render={({ match }) => {
                 const wordListName = String(match.params.wordlistname);
-                return <WordForm wordList={wordLists[wordListName]} onSave={createWord} />;
-              }}
-            />
-            <Route
-              exact
-              path={`${url}/:wordlistname`}
-              render={({ match }) => {
-                const wordListName = String(match.params.wordlistname);
-                return <WordListForm wordList={wordLists[wordListName]} onSave={saveWordList} />;
+                if (wordLists && wordLists[wordListName])
+                  return <WordForm wordList={wordLists[wordListName]} onSave={createWord} />;
               }}
             />
             <Route
@@ -95,14 +93,24 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
               render={({ match }) => {
                 const wordName = String(match.params.wordname);
                 const wordListName = String(match.params.wordlistname);
-                // to edit with better way to index words in wordlist
-                return <WordForm wordList={wordLists[wordListName]} word={wordLists[wordListName].words[wordName]} onSave={saveWord} />;
+                if (wordLists && wordLists[wordListName] && wordLists[wordListName].words && wordLists[wordListName].words[wordName])
+                  return <WordForm wordList={wordLists[wordListName]} word={wordLists[wordListName].words[wordName]} onSave={saveWord} />;
+                return (<div></div>)
               }}
             />
-          </div>
-        </div>
-      </Row>
+            <Route
+              exact
+              path={`${url}/:wordlistname`}
+              render={({ match }) => {
+                const wordListName = String(match.params.wordlistname);
+                if (wordLists && wordLists[wordListName])
+                  return <WordListForm wordList={wordLists[wordListName]} onSave={saveWordList} />;
+                return <div></div>
+              }}
+            />
+          </RouterSwitch>
+        </Row>
+      </div>
     </Column>
-  </div>
-)
+  )
 }

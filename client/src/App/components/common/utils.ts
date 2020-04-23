@@ -11,6 +11,7 @@ export const fullNameLanguages: {[key in LanguageType | string]: string} = {
     Cn: "中文"
 };
 
+
 export const fileLanguage: {[key in LanguageType]: any} = {
     Fr: localeFr,
     En: localeEn,
@@ -25,6 +26,9 @@ export const moduleUrl: {[key in ModuleUrlType]: string} = {
     culture: '/'
 }
 
+export const subjects= ['General', 'Food', 'Daily', 'House', 'Number'];
+
+export const visibilities= ['Visitor', 'Loggedin', 'Owner'];
 
 export const setWebSiteLanguage = (language: LanguageType) => {
     counterpart.setLocale(language)

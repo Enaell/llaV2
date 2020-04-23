@@ -32,13 +32,42 @@
       "title": "List Manager",
       "wordLists": "Word lists",
       "words": "Words",
-      "add": "Add"
+      "add": "Add",
+      "newList": "Nouvelle Liste",
+      "wordListForm": {
+        "owner": "Created by",
+        "name": "Name",
+        "internationalName": "Latin writing",
+        "pinyin": "Pinyin",
+        "subject": "Subject",
+        "level": "Level",
+        "rank": "Rank",
+        "comments": "Comments",
+        "status": "Status",
+        "validation":"Validation",
+        "validated": "Validated",
+        "pending": "Pending Validation",
+        "visibility": "Visibility"
+      }
+
     }
   },
   "language": {
     "Fr": "French",
     "En": "English",
     "Cn": "Chinese"
+  },
+  "subjects": {
+    "General": "General",
+    "Food": "Food",
+    "Daily": "Daily",
+    "House": "House",
+    "Number": "Number"
+  },
+  "visibility": {
+    "Visitor": "Everybody", 
+    "Loggedin": "Registered people",
+    "Owner": "Me"
   },
   "moduleBlock": {
     "news": "News",

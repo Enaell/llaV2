@@ -52,12 +52,13 @@ const DictionaryPage = ({
       //   <DictionaryTabs />
       //   <DictionarySidePanel />
       // </Row>
-      <Route
-        key={'dictionary_wordlists'}
-        path={'/dictionary/wordlists'}
-        render={props => <WordListsPanel {...props} user={user}/>}
-      />
-      
+      <Row horizontal='center'>
+        <Route
+          key={'dictionary_wordlists'}
+          path={'/dictionary/wordlists'}
+          render={props => <WordListsPanel {...props} user={user}/>}
+        />
+      </Row>
     );
 }
 
