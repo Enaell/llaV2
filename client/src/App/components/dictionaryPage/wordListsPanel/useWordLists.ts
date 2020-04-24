@@ -10,10 +10,10 @@ export function useWordLists(user: UserType) {
     dictionaryApi.getAllWordLists(user.language, user.targetLanguage, user.token).then(wl => setWordLists(wl));
   }, [user.token]);
 
-  function createWordList(){console.log('create wordlist')}
-  function createWord(){console.log('create word')}
-  function saveWordList(){console.log('save wordlist')}
-  function saveWord(){console.log('save word')}
+  function createWordList(){console.log('add/create wordlist')}
+  function createWord(){console.log('add/create word')}
+  function saveWordList(){console.log('save/modify wordlist')}
+  function saveWord(){console.log('save/mofify word')}
 
   return { wordLists, createWordList, createWord, saveWordList, saveWord }
 

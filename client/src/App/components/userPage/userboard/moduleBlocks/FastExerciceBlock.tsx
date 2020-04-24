@@ -18,7 +18,7 @@ const tempWords: WordType[] = [{
     translations: [{name: 'Famille', internationalName: 'Famille', language: 'fr', sentences: [{sentence: '我想我的家', translatedSentence: 'Ma famille me manque'}], rank: 0}],
     comments: '',
     validated: true, //(this field is to differenciate cards validated by admin from others)
-    visibility: 'Visitor', //(rank of visibility wanted by the card owner)
+    visibility: 'visitor', //(rank of visibility wanted by the card owner)
 }, {
     name: '茶',
     internationalName: 'cha',
@@ -28,7 +28,7 @@ const tempWords: WordType[] = [{
     translations: [{name: 'Thé', internationalName: 'Thé', language: 'fr', sentences: [{sentence: '我喜欢喝茶', translatedSentence: 'Jaime boire du thé'}], rank: 0}],
     comments: '',
     validated: true, //(this field is to differenciate cards validated by admin from others)
-    visibility: 'Visitor', //(rank of visibility wanted by the card owner)
+    visibility: 'visitor', //(rank of visibility wanted by the card owner)
 }, {
     name: '月',
     internationalName: 'yue',
@@ -38,7 +38,7 @@ const tempWords: WordType[] = [{
     translations: [{name: 'Mois', internationalName: 'Mois', language: 'fr', sentences: [{sentence: '月', translatedSentence: 'Mois'}], rank: 0}],
     comments: '',
     validated: true, //(this field is to differenciate cards validated by admin from others)
-    visibility: 'Visitor', //(rank of visibility wanted by the card owner)
+    visibility: 'visitor', //(rank of visibility wanted by the card owner)
 }, {
     name: '太阳',
     internationalName: 'tai yang',
@@ -48,7 +48,7 @@ const tempWords: WordType[] = [{
     translations: [{name: 'Soleil', internationalName: 'Soleil', language: 'fr', sentences: [{sentence: '太阳', translatedSentence: 'Soleil'}], rank: 0}],
     comments: '',
     validated: true, //(this field is to differenciate cards validated by admin from others)
-    visibility: 'Visitor', //(rank of visibility wanted by the card owner)
+    visibility: 'visitor', //(rank of visibility wanted by the card owner)
 }, {
   name: '天',
   internationalName: 'tian',
@@ -58,7 +58,7 @@ const tempWords: WordType[] = [{
   translations: [{name: 'Ciel', internationalName: 'Ciel', language: 'fr', sentences: [{sentence: 'ciel', translatedSentence: 'Ciel'}], rank: 0}],
   comments: '',
   validated: true, //(this field is to differenciate cards validated by admin from others)
-  visibility: 'Visitor', //(rank of visibility wanted by the card owner)
+  visibility: 'visitor', //(rank of visibility wanted by the card owner)
 }]
 
 const Translation = ({translation, selectAnswer}:

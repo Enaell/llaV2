@@ -16,7 +16,7 @@ export type RoleType = 'Admin' | 'Customer' | 'Moderator' | 'Visitor';
 
 export type LanguageType = 'Fr'| 'En' | 'Cn';
 
-export type VisibilityType = 'Visitor' | 'Loggedin' | 'Owner' ;
+export type VisibilityType = 'visitor' | 'loggedin' | 'owner' ;
 
 export type SentencesType = {
     sentence: string,

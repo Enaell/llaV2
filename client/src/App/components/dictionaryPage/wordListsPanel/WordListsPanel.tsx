@@ -52,7 +52,7 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
               exact
               path={`${url}/wordlist-create`}
               render={() => {
-                return (<WordListForm modify onSave={createWordList} />)
+                return (<WordListForm create onSave={createWordList} />)
               }}
             />
             <Route
@@ -100,7 +100,7 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
               render={({ match }) => {
                 const wordListName = String(match.params.wordlistname);
                 if (wordLists && wordLists[wordListName])
-                  return <WordListForm wordList={wordLists[wordListName]} onSave={saveWordList} />;
+                  return <WordListForm wordList={wordLists[wordListName]} canModify onSave={saveWordList} />;
                 return <div></div>
               }}
             />

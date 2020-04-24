@@ -12,12 +12,15 @@ const styles = {
   column: {width: '44%'},
   width100: { width: '100%'},
   formInput: { width: '100%', minWidth: '130px', paddingBottom: '15px'},
-  commentsRow: { width: '80%', maxWidth: '800px', minWidth: '130px', paddingTop: '25px'}
+  commentsRow: { width: '80%', maxWidth: '800px', minWidth: '130px', paddingTop: '25px'},
+  button: { marginTop: '30px' }
 }
 
-export const WordListForm = ({ wordList=undefined, modify=false, onSave }: { wordList?: WordListType, modify?: boolean, onSave: ( )=> void }) => 
+export const WordListForm = ({ wordList=undefined, create=false, canModify=false, onSave }: { wordList?: WordListType, create?: boolean,  canModify?: boolean, onSave: () => void }) => 
 {
-console.log(wordList)
+
+  console.log(`create : ${create}`);
+  console.log(`canModify : ${canModify}`);
 
   const localListForm = 'dictionaryPage.wordListPanel.wordListForm';
 
@@ -26,11 +29,8 @@ console.log(wordList)
   const [level, setLevel] = useState(wordList?.level || 0);
   const [rank, setRank] = useState(wordList?.rank || 0);
   const [validated, setValidated] = useState(wordList?.validated || false);
-  const [visibility, setVisibility] = useState(wordList?.visibility || "Owner" as VisibilityType)
+  const [visibility, setVisibility] = useState(wordList?.visibility || "owner" as VisibilityType)
   const [comments, setComments] = useState(wordList?.comments || '');
-
-  useEffect(()=> console.log(visibility), [visibility])
-
 
   return (
     <form style={styles.width100}>
@@ -123,14 +123,15 @@ console.log(wordList)
           }}
           value={comments}
         />
+        { (create || canModify) &&
         <Button
-            type="submit"
-            disabled={modify}
-            color="primary"
-            onClick={(e)=> {e.preventDefault(); onSave()}}
-          >
-            {translate(`dictionaryPage.wordListPanel.add`)}
-          </Button>
+          style={styles.button}
+          type="submit"
+          color="primary"
+          onClick={(e)=> {e.preventDefault(); onSave()}}
+        >
+          { create ? translate(`dictionaryPage.wordListPanel.add`) : translate(`dictionaryPage.wordListPanel.save`)}
+        </Button>}
       </Column>
     </form>
   );
