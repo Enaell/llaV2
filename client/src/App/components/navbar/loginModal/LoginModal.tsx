@@ -83,6 +83,7 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
   return (
     <div>
       <Dialog open={open} onClose={closeModal} aria-labelledby="form-dialog-title">
+        <form>
           <DialogContent>
             <LoginTabs
                 tabNumber={tabNumber}
@@ -106,14 +107,15 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
               Cancel
             </Button>
             {tabNumber === 0 && 
-            <Button onClick={onLoginClick} color="primary">
+            <Button type='submit' onClick={(e)=>{e.preventDefault(); onLoginClick()}} color="primary">
               {translate('connection.login')}
             </Button>}
             {tabNumber === 1 && 
-            <Button onClick={onSigninClick} color="primary">
+            <Button type='submit' onClick={(e)=>{e.preventDefault(); onSigninClick()}} color="primary">
               {translate('connection.signin')}
             </Button>}
           </DialogActions>
+        </form>
       </Dialog>
     </div>
   );

@@ -1,131 +1,137 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { WordListType, VisibilityType } from '../../../common/types';
 import { subjects, visibilities } from '../../../common/utils';
 import { Column, Row } from '../../../common/Flexbox';
 import { Button, TextField, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, Typography } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import translate from 'counterpart';
 
 const styles = {
-  title: {width: '80%', maxWidth: '758px'},
-  row: {width: '100%', maxWidth: '800px'},
+  title: {width: '80%', maxWidth: '800px'},
+  row: {width: '80%', maxWidth: '800px'},
+  column: {width: '44%'},
   width100: { width: '100%'},
-  formInput: { width: '44%', minWidth: '130px', paddingBottom: '15px'},
-  commentsRow: { width: '92%', maxWidth: '730px', minWidth: '130px', height: '200px', paddingTop: '25px'}
+  formInput: { width: '100%', minWidth: '130px', paddingBottom: '15px'},
+  commentsRow: { width: '80%', maxWidth: '800px', minWidth: '130px', paddingTop: '25px'}
 }
 
 export const WordListForm = ({ wordList=undefined, modify=false, onSave }: { wordList?: WordListType, modify?: boolean, onSave: ( )=> void }) => 
 {
+console.log(wordList)
+
   const localListForm = 'dictionaryPage.wordListPanel.wordListForm';
 
-  const [name, setName] = useState('');
-  const [subject, setSubject] = useState([] as string[]);
-  const [level, setLevel] = useState(0);
-  const [rank, setRank] = useState(0);
-  const [validated, setValidated] = useState(false);
-  const [visibility, setVisibility] = useState("Owner" as VisibilityType)
-  const [comments, setComments] = useState('');
+  const [name, setName] = useState(wordList?.name || '');
+  const [subject, setSubject] = useState(wordList?.subject || []);
+  const [level, setLevel] = useState(wordList?.level || 0);
+  const [rank, setRank] = useState(wordList?.rank || 0);
+  const [validated, setValidated] = useState(wordList?.validated || false);
+  const [visibility, setVisibility] = useState(wordList?.visibility || "Owner" as VisibilityType)
+  const [comments, setComments] = useState(wordList?.comments || '');
+
+  useEffect(()=> console.log(visibility), [visibility])
+
 
   return (
-    <Column horizontal='center' style={styles.width100}>
-      <div style={styles.title}>
-        <Typography variant={'h5'}>{name || translate('dictionaryPage.wordListPanel.newList')}</Typography>
-      </div>
-      <Row horizontal='space-around' style={styles.row}>
+    <form style={styles.width100}>
+      <Column horizontal='center' style={styles.width100}>
+        <div style={styles.title}>
+          <Typography variant={'h5'}>{name || translate('dictionaryPage.wordListPanel.newList')}</Typography>
+        </div>
+        <Row horizontal='space-between' style={styles.row}>
+          <Column horizontal='center' style={styles.column}>
+            <TextField
+              style={styles.formInput}
+              label={translate(`${localListForm}.name`)} 
+              onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+                  setName(event.target.value as string);
+                }}
+              value={name}
+            />
+            <div style={styles.formInput}>
+            <Autocomplete
+              multiple
+              options={subjects}
+              getOptionLabel={(subject: string) => translate(`subjects.${subject}`)}
+              value={subject}
+              filterSelectedOptions
+              disableCloseOnSelect
+              onChange={(_event, values) => {setSubject(values)}}
+              renderInput={(params: any) => (
+                <TextField
+                  {...params}
+                  variant="standard"
+                  label={translate(`${localListForm}.subject`)}
+                  placeholder={translate(`${localListForm}.subject`)}
+                />
+              )}
+            />
+            </div>
+          </Column>
+          <Column horizontal='center' style={styles.column}>
+            <TextField
+              style={styles.formInput}
+              label={translate(`${localListForm}.level`)}
+              onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+                setLevel(event.target.value as number);
+              }}
+              value={level}
+            />
+            <TextField
+              style={styles.formInput}
+              label={translate(`${localListForm}.rank`)}
+              onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+                setRank(event.target.value as number);
+              }}
+              value={rank}
+            />
+            <TextField
+              style={styles.formInput}
+              label={translate(`${localListForm}.status`)}
+              onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+                setValidated(event.target.value as boolean);
+              }}
+              value={validated}
+            />
+            <div style={styles.formInput}>
+              <Autocomplete 
+                options={visibilities}
+                getOptionLabel={(visibility: string) => translate(`visibility.${visibility}`)}
+                value={visibility}
+                filterSelectedOptions
+                openOnFocus
+                onChange={(_event: React.ChangeEvent<{}>, value: string | null) => setVisibility(value as VisibilityType)}
+                renderInput={(params: any) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label={translate(`${localListForm}.visibility`)}
+                    placeholder={translate(`${localListForm}.visibility`)}
+                  />
+                )}
+              />
+            </div>
+          </Column>
+        </Row>
         <TextField
-          style={styles.formInput}
-          label={translate(`${localListForm}.name`)} 
+          style={styles.commentsRow} 
+          multiline
+          rowsMax={4}
+          label={translate(`${localListForm}.comments`)}
           onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-              setName(event.target.value as string);
-            }}
-          value={name}
+            setComments(event.target.value as string);
+          }}
+          value={comments}
         />
-        <FormControl style={styles.formInput}>
-          <InputLabel>{translate(`${localListForm}.subject`)}</InputLabel>
-          <Select
-            multiple
-            value={subject}
-            onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-              setSubject(event.target.value as string[]);
-            }}
-            input={<Input />}
-            renderValue={(selected) => (
-              <Row wrap>
-                {(selected as string[]).map((value) => (
-                  <Chip key={value} label={value} style={{margin:2}}/>
-                ))}
-              </Row>
-            )}
+        <Button
+            type="submit"
+            disabled={modify}
+            color="primary"
+            onClick={(e)=> {e.preventDefault(); onSave()}}
           >
-            {subjects.map((sub) => (
-              <MenuItem key={sub} value={sub}>
-                <Checkbox color='primary' checked={subject.indexOf(sub) > -1} />
-                <ListItemText primary={translate(`subjects.${sub}`)} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Row>
-      <Row horizontal='space-around' style={styles.row}>
-        <TextField
-          style={styles.formInput}
-          label={translate(`${localListForm}.level`)}
-          onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-            setLevel(event.target.value as number);
-          }}
-          value={level}
-       />
-        <TextField
-          style={styles.formInput}
-          label={translate(`${localListForm}.rank`)}
-          onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-            setRank(event.target.value as number);
-          }}
-          value={rank}
-        />
-      </Row>
-      <Row horizontal='space-around' style={styles.row}>
-        <TextField
-          style={styles.formInput}
-          label={translate(`${localListForm}.status`)}
-          onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-            setValidated(event.target.value as boolean);
-          }}
-          value={validated}
-        />
-        <FormControl style={styles.formInput}>
-          <InputLabel>{translate(`${localListForm}.visibility`)}</InputLabel>
-          <Select
-            value={visibility}
-            onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-              setVisibility(event.target.value as VisibilityType);
-            }}
-            input={<Input />}
-          >
-            {visibilities.map((v) => (
-              <MenuItem key={v} value={v}>
-                <ListItemText primary={translate(`visibility.${v}`)} />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Row>
-      <TextField
-        style={styles.commentsRow} 
-        multiline
-        label={translate(`${localListForm}.comments`)}
-        onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-          setComments(event.target.value as string);
-        }}
-        value={comments}
-      />
-      <Button
-          type="submit"
-          disabled
-          color="primary"
-          onClick={()=> onSave()}
-        >
-          Sign Up
-        </Button>
-    </Column>
+            {translate(`dictionaryPage.wordListPanel.add`)}
+          </Button>
+      </Column>
+    </form>
   );
 }

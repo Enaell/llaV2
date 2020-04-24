@@ -33,13 +33,14 @@
       "wordLists": "Liste de mots",
       "words": "Mots",
       "add": "Ajouter",
+      "save": "Sauvegarder",
       "newList": "Nouvelle Liste",
       "wordListForm": {
         "owner": "Créée par",
         "name": "Nom",
         "internationalName": "Ecriture latine",
         "pinyin": "Pinyin",
-        "subject": "Sujet",
+        "subject": "Sujets",
         "level": "Niveau",
         "rank": "Rang",
         "comments": "Commentaires",
@@ -57,16 +58,16 @@
     "Cn": "Chinois"
   },
   "subjects":{
-    "General": "General",
-    "Food": "Nourriture",
-    "Daily": "Vie quotidienne",
-    "House": "Maison",
-    "Number": "Nombre"
+    "general": "General",
+    "food": "Nourriture",
+    "daily": "Vie quotidienne",
+    "house": "Maison",
+    "number": "Nombre"
   },
   "visibility": {
-    "Visitor": "Tout le monde", 
-    "Loggedin": "Personnes connectées",
-    "Owner": "Moi"
+    "visitor": "Tout le monde", 
+    "loggedin": "Personnes connectées",
+    "owner": "Uniquement moi"
   },
   "moduleBlock": {
     "news": "Nouvelles",

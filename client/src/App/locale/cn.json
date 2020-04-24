@@ -33,7 +33,8 @@
       "wordLists": "Word lists",
       "words": "Words",
       "add": "加",
-      "newList": "Nouvelle Liste",
+      "save": "Save",
+      "newList": "New list",
       "wordListForm": {
         "owner": "Created by",
         "name": "Name",
@@ -57,16 +58,16 @@
     "Cn": "中文"
   },
   "subjects": {
-    "General": "General",
-    "Food": "Food",
-    "Daily": "Daily",
-    "House": "House",
-    "Number": "Number"
+    "general": "General",
+    "food": "Food",
+    "daily": "Daily",
+    "house": "House",
+    "number": "Number"
   },
   "visibility": {
-    "Visitor": "Everybody", 
-    "Loggedin": "Registered people",
-    "Owner": "Me"
+    "visitor": "Everybody", 
+    "loggedin": "Registered people",
+    "owner": "Only me"
   },
   "moduleBlock": {
     "news": "News",

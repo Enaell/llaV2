@@ -52,11 +52,7 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
               exact
               path={`${url}/wordlist-create`}
               render={() => {
-                return (
-                  <Column horizontal='center' style={{width: '100%'}}>
-                    <WordListForm modify onSave={createWordList} />;
-                  </Column>
-                )
+                return (<WordListForm modify onSave={createWordList} />)
               }}
             />
             <Route

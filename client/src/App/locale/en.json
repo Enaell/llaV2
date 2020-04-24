@@ -33,6 +33,7 @@
       "wordLists": "Word lists",
       "words": "Words",
       "add": "Add",
+      "save": "Save",
       "newList": "Nouvelle Liste",
       "wordListForm": {
         "owner": "Created by",
@@ -49,7 +50,6 @@
         "pending": "Pending Validation",
         "visibility": "Visibility"
       }
-
     }
   },
   "language": {
@@ -58,16 +58,16 @@
     "Cn": "Chinese"
   },
   "subjects": {
-    "General": "General",
-    "Food": "Food",
-    "Daily": "Daily",
-    "House": "House",
-    "Number": "Number"
+    "general": "General",
+    "food": "Food",
+    "daily": "Daily",
+    "house": "House",
+    "number": "Number"
   },
   "visibility": {
-    "Visitor": "Everybody", 
-    "Loggedin": "Registered people",
-    "Owner": "Me"
+    "visitor": "Everybody", 
+    "loggedin": "Registered people",
+    "owner": "Only me"
   },
   "moduleBlock": {
     "news": "News",

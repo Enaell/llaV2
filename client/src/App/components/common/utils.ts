@@ -26,9 +26,9 @@ export const moduleUrl: {[key in ModuleUrlType]: string} = {
     culture: '/'
 }
 
-export const subjects= ['General', 'Food', 'Daily', 'House', 'Number'];
+export const subjects= ['general', 'food', 'daily', 'house', 'number'];
 
-export const visibilities= ['Visitor', 'Loggedin', 'Owner'];
+export const visibilities= ['visitor', 'loggedin', 'owner'];
 
 export const setWebSiteLanguage = (language: LanguageType) => {
     counterpart.setLocale(language)

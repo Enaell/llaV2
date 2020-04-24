@@ -102,44 +102,44 @@ export const HeaderView = ({
         <Typography color="primary" variant='h3' noWrap>
           {translate('application-name')}
         </Typography>}
-        <Row style={{height: '100%', width: '100%'}} vertical={'center'}>
         {!isLogged ?
-          <>
-            <Column vertical={'space-around'} style={{ borderRight: '#a8c1a3 solid 2px', width: '50%', height: '250px', paddingRight: '25px' }}>
-              <IntroductionColumn 
-                language={language} 
-                targetLanguage={targetLanguage} 
-                setLanguage={setLanguage} 
-                setTargetLanguage={setTargetLanguage} 
-                connectAsVisitor={connectAsVisitor}
-              />
-            </Column>
-            <Column horizontal='center' style={{width: '50%', height: '250px'}}>
-              <LoginTabs
-                tabNumber={tabNumber}
-                language={language}
-                targetLanguage={targetLanguage}
-                handleTabChange={handleTabChange} 
-                handleEmailChange={handleEmailChange} 
-                handlePasswordChange={handlePasswordChange}
-                handleLanguageChange={setLanguage}
-                handleTargetLanguageChange={setTargetLanguage}
-                passwordError={passwordError} 
-                emailAddressError={emailAddressError} 
-                usernameError={usernameError}
-                languageError={languageError}
-                targetLanguageError={targetLanguageError}
-                handleUserNameChange={handleUserNameChange}
-              />
-              {tabNumber === 0 && 
-                <Button onClick={onLoginClick}> {translate('connection.login')}</Button>}
-              {tabNumber === 1 && 
-                <Button onClick={onSigninClick}> {translate('connection.signin')}</Button>}
-            </Column> 
-          </> :
+          <form style={{width: '100%', height: '100%'}}>
+            <Row style={{height: '100%', width: '100%'}} vertical={'center'}>
+              <Column vertical={'space-around'} style={{ borderRight: '#a8c1a3 solid 2px', width: '50%', height: '250px', paddingRight: '25px' }}>
+                <IntroductionColumn 
+                  language={language} 
+                  targetLanguage={targetLanguage} 
+                  setLanguage={setLanguage} 
+                  setTargetLanguage={setTargetLanguage} 
+                  connectAsVisitor={connectAsVisitor}
+                />
+              </Column>
+              <Column horizontal='center' style={{width: '50%', height: '250px'}}>
+                <LoginTabs
+                  tabNumber={tabNumber}
+                  language={language}
+                  targetLanguage={targetLanguage}
+                  handleTabChange={handleTabChange} 
+                  handleEmailChange={handleEmailChange} 
+                  handlePasswordChange={handlePasswordChange}
+                  handleLanguageChange={setLanguage}
+                  handleTargetLanguageChange={setTargetLanguage}
+                  passwordError={passwordError} 
+                  emailAddressError={emailAddressError} 
+                  usernameError={usernameError}
+                  languageError={languageError}
+                  targetLanguageError={targetLanguageError}
+                  handleUserNameChange={handleUserNameChange}
+                />
+                {tabNumber === 0 && 
+                  <Button type='submit' onClick={(e)=> {e.preventDefault();onLoginClick()}}> {translate('connection.login')}</Button>}
+                {tabNumber === 1 && 
+                  <Button type='submit' onClick={(e)=> {e.preventDefault();onSigninClick()}}> {translate('connection.signin')}</Button>}
+              </Column> 
+            </Row>
+          </form> :
           <MainHeader user={user} setUserLanguage={setUserLanguage} setUserTargetLanguage={setUserTargetLanguage}/>
           }
-        </Row>
       </Column>
     </Column>
   );
