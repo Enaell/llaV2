@@ -63,7 +63,7 @@ class App extends Component {
             <Column horizontal='center' style={{ width:'100%', overflowY:'hidden' }}>
               <Navbar/>
               <MainHeader/>
-              <div style={{marginTop:'300px', width:'100%'}}>
+              <div style={{marginTop:'300px', width:'100%', minHeight: 'calc(100vh - 400px)'}}>
                 <RouterSwitch>
                   <Route exact path="/" component={UserPage}/>
                   <Route path="/cardTraining" component={CardTrainingPage} />
