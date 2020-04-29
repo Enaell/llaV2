@@ -5,7 +5,7 @@ const { ROLES, LANGUAGES } = require('./utils');
 const { Schema } = mongoose;
 
 const UsersSchema = new Schema({
-  username: String,
+  username: {type: String, required: true},
   email: {type: String, required: true} ,
   role: {type: String, default: ROLES.Customer},
   language: {type: String, default: LANGUAGES.Fr},

@@ -5,7 +5,7 @@ import  { PageTitle }  from '../common/GenericComponents';
 import DictionaryTabs from './tabs';
 import DictionarySidePanel from './dictionarySidePanel';
 import { withStyles } from '@material-ui/core/styles';
-import { UserType, LanguageType, WordListType } from '../common/types';
+import { UserType, LanguageType, WordListType, WordType } from '../common/types';
 import { Route } from 'react-router-dom';
 import { WordListsPanel } from './wordListsPanel/WordListsPanel';
 
@@ -34,8 +34,16 @@ const styles = (theme: any) => ({
 const DictionaryPage = ({ 
   user, 
   openSidePanel, 
-  classes
-}: { user: UserType, openSidePanel: boolean, classes: any, wordlists: {[key: string]: WordListType} }) => {
+  classes,
+  setNewWords,
+  setNewWordLists
+}: { 
+  user: UserType,
+  openSidePanel: boolean,
+  classes: any,
+  setNewWords: (newWords: {[key: string]: WordType}) => void,
+  setNewWordLists: (newWordLists: {[key: string]: WordListType}) => void
+}) => {
 
   const contentShiftClasses = {
     [classes.contentShift]: openSidePanel,
@@ -56,7 +64,7 @@ const DictionaryPage = ({
         <Route
           key={'dictionary_wordlists'}
           path={'/dictionary/wordlists'}
-          render={props => <WordListsPanel {...props} user={user}/>}
+          render={props => <WordListsPanel {...props} user={user} setNewWords={setNewWords} setNewWordLists={setNewWordLists}/>}
         />
       </Row>
     );

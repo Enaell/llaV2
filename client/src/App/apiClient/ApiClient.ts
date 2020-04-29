@@ -19,20 +19,88 @@ export const dictionaryApi = {
     return json.words as WordType[];
   },
   getAllWordLists: async (language: string, targetLanguage: string, token?: string) => {
-    const getWordListsUrl = language && targetLanguage ? `http://localhost:5000/api/wordlists?language=${language}&targetlanguage=${targetLanguage}` : `http://localhost:5000/api/wordlists`;
-    const res = await fetch(getWordListsUrl,
-      {
-        headers: token ? {
+    try {
+      const getWordListsUrl = language && targetLanguage ? `http://localhost:5000/api/wordlists?language=${language}&targetlanguage=${targetLanguage}` : `http://localhost:5000/api/wordlists`;
+      const res = await fetch(getWordListsUrl,
+        {
+          headers: token ? {
+            'Authorization': `Token ${token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          } : {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method:"GET"
+        });
+      const json = await res.json();      
+      return json.wordLists as {[key: string]: WordListType};
+    } catch (error) {
+      console.log(error);
+      return {}
+    }
+  },
+  createWordLists: async (wordLists: WordListType[], token: string) => {
+    console.log('api client dictionary create wordlists');
+    console.log(wordLists);
+    try {
+      const res = await fetch('http://localhost:5000/api/wordlists',{
+        headers: {
           'Authorization': `Token ${token}`,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
-        } : {
+        },
+        method:"POST",
+        body: JSON.stringify({
+          wordLists
+        })
+      });
+      const json = await res.json();      
+      return {success: true, message: json};
+    } catch (error) {
+      console.log(error);
+      return {success: false, message: error.message}
+    }
+  },
+  updateWordList: async (wordList: WordListType, token: string) => {
+    console.log('api client dictionary update wordlist');
+    console.log(wordList);
+    try {
+      const res = await fetch('http://localhost:5000/api/wordlists',{
+        headers: {
+          'Authorization': `Token ${token}`,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        method:"GET"
+        method:"PATCH",
+        body: JSON.stringify({
+          wordList
+        })
       });
-    const json = await res.json();      
-    return json.wordLists as {[key: string]: WordListType};
+      const json = await res.json();      
+      return {success: true, message: json} ;
+    } catch (error) {
+      console.log(error);
+      return {success: false, message: error.message}
+    }
+  },
+  deleteWordList: async (wordListId: string, token: string) => {
+    console.log('api client dictionary delete wordlist');
+    console.log(wordListId);
+    try {
+      const res = await fetch(`http://localhost:5000/api/wordlists/${wordListId}`, {
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method:"DELETE"
+      });
+      const json = await res.json();
+      return {success: true, message: json};
+    } catch (error) {
+      console.log(error);
+      return {success: false, message: error.message};
+    }
   }
 }

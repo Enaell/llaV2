@@ -7,17 +7,19 @@ import { WordListTile } from './WordListTile';
 import { Column } from '../../../common/Flexbox';
 
 type WordListsType = {
+  userConnected?: boolean,
   wordLists: {[key: string]: WordListType};
   path?: string;
   title?: string;
   labelBtnAdd?: string;
   disabledBtnAdd?: boolean;
   onAddWordList: () => void;
-  onDeleteWordList: (wordlistId: string | undefined) => void;
+  onDeleteWordList: (wordList: WordListType) => Promise<{success: boolean; message: any;}>
   onSortEnd: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
 }
 
 export const WordLists = ({
+  userConnected= false,
   wordLists,
   path = '/dictionary/wordlists',
   title = translate('dictionaryPage.wordListPanel.wordLists'),
@@ -31,9 +33,10 @@ export const WordLists = ({
     <Column>
       <div style={{ marginBottom: '10px', minWidth: '290px' }}>
         <Typography variant={'h5'}>{title}</Typography>
+        {userConnected && 
         <Button variant='outlined' onClick={onAddWordList} disabled={disabledBtnAdd}>
           {labelBtnAdd}
-        </Button>
+        </Button>}
         <WordListsContainer
           useDragHandle
           wordlists={wordLists}
@@ -47,7 +50,11 @@ export const WordLists = ({
 }
 
 
-const WordListsContainer = SortableContainer(({ wordlists, path, onDeleteWordList }: {wordlists: {[key: string]: WordListType}, path: string, onDeleteWordList: (name: string | undefined) => void }) => (
+const WordListsContainer = SortableContainer(({ wordlists, path, onDeleteWordList }: {
+  wordlists: {[key: string]: WordListType},
+  path: string,
+  onDeleteWordList: (wordList: WordListType) => Promise<{success: boolean; message: any;}>
+}) => (
   <div style={{ marginTop: '12px' }}>
   {wordlists && Object.keys(wordlists).map((wordlistname: string, index: number) => {
     return (

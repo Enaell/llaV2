@@ -69,6 +69,7 @@ export type WordType= {
 }
 
 export type WordListType= {
+    id?: string,
     owner?: string,
     name: string,
     words : {[key: string]: WordType},

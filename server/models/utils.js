@@ -10,9 +10,9 @@ const UTILS = {
         Cn: 'Cn'
     },
     VISIBILITY: {
-        Visitor: 'Visitor',
-        LoggedIn: 'Loggedin',
-        Owner: 'Owner'
+        Visitor: 'visitor',
+        LoggedIn: 'loggedin',
+        Owner: 'owner'
     }
 }
 

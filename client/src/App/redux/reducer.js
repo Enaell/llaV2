@@ -1,6 +1,6 @@
 import {shuffle, sample} from 'underscore';
 import theme from '../theme';
-import { combineReducers, compose } from 'redux';
+import { combineReducers } from 'redux';
 
 import counterpart from 'counterpart';
 
@@ -112,9 +112,12 @@ const userReducer = (state = initialUserState, action) => {
 
 // dictionary
 
-const getWords = (state, wordList) => ({...state, words: wordList.sort((a, b) => {return a.internationalName > b.internationalName;}) || [] })
+const setNewWords = (state, wordList) => ({...state, newWords: wordList.sort((a, b) => {return a.internationalName > b.internationalName;}) || [] })
 
-const getWordLists = (state, wordLists) => ({...state, wordLists: wordLists});
+const setNewWordLists = (state, wordLists) => {
+  console.log('==================================='); 
+  return ({...state, newWordLists: wordLists});
+}
 
 const openSidePanel = (state) => ({ ...state, openSidePanel: true });
 
@@ -143,8 +146,8 @@ const openWordPreview = state => ({ ...state, openWordPreview: true });
 const toggleWordPreview = state => ({ ...state, openWordPreview: !state.openWordPreview });
 
 const initialDictionaryState = {
-  words: [],
-  wordLists: [],
+  newWords: [],
+  newWordList: {},
   selectedWords: [],
   wordPreview: {},
   openSidePanel: false,
@@ -155,11 +158,11 @@ const initialDictionaryState = {
 
 const dictionaryReducer = (state = initialDictionaryState, action) => {
   switch (action.type) {
-    case 'GET_WORDS':
-      return getWords(state, action.payload);
-    case 'GET_WORD_LISTS':
-      console.log(action.payload)
-      return getWordLists(state, action.payload);  
+    case 'SET_NEW_WORDS':
+      return setNewWords(state, action.payload);
+    case 'SET_NEW_WORD_LISTS':
+      console.log('in reducer')
+      return setNewWordLists(state, action.payload);  
     case 'OPEN_SIDE_PANEL':
       return openSidePanel(state);
     case 'TOGGLE_SIDE_PANEL':

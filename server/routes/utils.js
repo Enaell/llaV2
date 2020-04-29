@@ -30,14 +30,15 @@ const formatter = {
         return {
           ...obj,
           [item[key]]: {
-             owner: item.owner,
+             id: item._id,
+             owner: item.owner && item.owner.username,
              name: item.name,
              words: item.words.reduce((o, i) => {
                return {
                  ...o,
                  [i[key]]:
                  {
-                   owner: i.owner,
+                   owner: i.owner && item.owner.username,
                    name: i.name,
                    internationalName: i.internationalName,
                    subject: i.subject,
@@ -56,6 +57,17 @@ const formatter = {
           }
         }
       }, {})
+    },
+    formatWordListUpdates: (wordlist, isAdmin) => {
+      let wordlistUpdates = {...wordlist};
+      delete wordlistUpdates.owner;
+      delete wordlistUpdates.id;
+      delete wordlistUpdates.words;
+      delete wordlistUpdates.language;
+      delete wordlistUpdates.targetLanguage;
+      if (!isAdmin)
+        delete wordlistUpdates.validated;
+      return wordlistUpdates;
     }
 }
 
