@@ -48,7 +48,7 @@ export const WordListForm = ({
     subject: wordList?.subject || [],
     level: wordList?.level || 0,
     rank: wordList?.rank || 0,
-    validated: wordList?.validated || false,
+    validated: wordList?.validated || adminRole,
     visibility: wordList?.visibility || "owner" as VisibilityType,
     comments: wordList?.comments || ''
   })
@@ -140,7 +140,7 @@ export const WordListForm = ({
                 )}
               />
             </div>}
-            <FormControlLabel
+            {!create && <FormControlLabel
               style={styles.formInput}
               control={
                 <Switch
@@ -152,7 +152,7 @@ export const WordListForm = ({
                 />
               }
               label={translate(`${localListForm}.validation`)}
-            />
+            />}
           </Column>
         </Row>
         <TextField
