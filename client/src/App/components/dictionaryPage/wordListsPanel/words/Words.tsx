@@ -6,18 +6,26 @@ import translate from 'counterpart';
 import { SortableContainer } from 'react-sortable-hoc';
 import { WordTile } from './WordTile';
 
+const height= {
+  minHeight: 'calc(100vh - 550px)',
+  maxHeight: 'calc(100vh - 450px)',
+  height: '100%'
+}
+
 type WordsType = {
+  userConnected?: boolean,
   words: {[key: string]: WordType};
   path: string;
   title?: string;
   labelBtnAdd?: string;
   disabledBtnAdd?: boolean;
   onAddWord: () => void;
-  onDeleteWord: (wordlistId: string | undefined) => void;
+  onDeleteWord: (wordlistId: string) => void;
   onSortEnd: ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => void;
 }
 
 export const Words = ({
+  userConnected= false,
   words,
   path = '/dictionary/wordlists',
   title = translate('dictionaryPage.wordListPanel.words'),
@@ -29,11 +37,14 @@ export const Words = ({
 }: WordsType) => {
   return (
     <Column>
-      <div style={{ marginBottom: '10px', minWidth: '290px' }}>
-        <Typography variant={'h5'}>{title}</Typography>
-        <Button variant='outlined' onClick={onAddWord} disabled={disabledBtnAdd}>
-          {labelBtnAdd}
-        </Button>
+      <div style={{ marginBottom: '10px', width: '300px' }}>
+        {userConnected && 
+        <>
+          <Typography variant={'h5'}>{title}</Typography>
+          <Button variant='outlined' onClick={onAddWord} disabled={disabledBtnAdd}>
+            {labelBtnAdd}
+          </Button>
+        </>}
         <WordsContainer
           useDragHandle
           words={words}
@@ -46,8 +57,8 @@ export const Words = ({
   )
 }
 
-const WordsContainer = SortableContainer(({ words, path, onDeleteWord }: {words: {[key: string]: WordType}, path: string, onDeleteWord: (name: string | undefined) => void }) => (
-  <div style={{ marginTop: '12px' }}>
+const WordsContainer = SortableContainer(({ words, path, onDeleteWord }: {words: {[key: string]: WordType}, path: string, onDeleteWord: (name: string) => void }) => (
+  <div style={{ marginTop: '12px', ...height }}>
   {Object.keys(words).map((wordName: string, index: number) => (
     <WordTile
       key={wordName}

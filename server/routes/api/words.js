@@ -12,7 +12,7 @@ router.get('/', auth.optional, (req, res, next) => {
     console.log(payload);
     if (payload && payload.id && payload.role !== ROLES.Customer)
     {
-        Words.find(language)
+        Words.find({...language})
         .then(words => {
             console.log('API WORDS get all words as ADMIN or MODERATOR')
             console.log(words);

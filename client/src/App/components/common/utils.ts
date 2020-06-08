@@ -1,4 +1,4 @@
-import { LanguageType, ModuleUrlType } from './types';
+import { LanguageType, ModuleUrlType, TranslationType } from './types';
 import counterpart from 'counterpart';
 
 import localeFr from '../../locale/fr.json';
@@ -33,3 +33,14 @@ export const visibilities= ['visitor', 'loggedin', 'owner'];
 export const setWebSiteLanguage = (language: LanguageType) => {
     counterpart.setLocale(language)
 }
+
+export const translationsToString = (translations: TranslationType[]) => {
+    let s = '';
+    translations.forEach((translation, i, translations) => {
+      if (Object.is(translations.length - 1, i))
+        s += translation.name;
+      else
+        s += (translation.name + ', ');
+    })
+    return s;
+  }

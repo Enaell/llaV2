@@ -38,7 +38,7 @@ const alphabeticSort =  (a: WordType, b: WordType) => a.internationalName > b.in
 const levelSort = (a: WordType, b: WordType) => a.level > b.level ? 1 : -1;
 
 const filteredWords = (words: WordType[], filter: string) => {
-
+ 
   if (filter && filter.length > 0) {
     return (
       words &&

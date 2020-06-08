@@ -12,7 +12,7 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return {
     setNewWords: (newWords) => dispatch({type: 'SET_NEW_WORDS', payload: newWords}),
-    setNewWordLists: (newWordLists) =>{ console.log('-------------------------'); dispatch({type: 'SET_NEW_WORD_LISTS', payload: newWordLists})},
+    setNewWordLists: (newWordLists) =>{ dispatch({type: 'SET_NEW_WORD_LISTS', payload: newWordLists})},
   }
 }
 

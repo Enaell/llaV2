@@ -1,8 +1,8 @@
 import { WordListType, WordType } from "../components/common/types";
 
 export const dictionaryApi = {
-  getAllWords: async (language: string, token?: string) => {
-    const getWordsUrl = language ? `http://localhost:5000/api/words?language=${language}` : `http://localhost:5000/api/words`
+  getAllWords: async (targetLanguage: string, token?: string) => {
+    const getWordsUrl = targetLanguage ? `http://localhost:5000/api/words?language=${targetLanguage}` : `http://localhost:5000/api/words`
     const res = await fetch(getWordsUrl,
     {
       headers: token ? {
@@ -16,7 +16,8 @@ export const dictionaryApi = {
       method:"GET"
     })
     const json = await res.json();
-    return json.words as WordType[];
+    const words =  json.words as WordType[];
+    return [...words].sort((a, b) => a.internationalName > b.internationalName ? 1 : -1)
   },
   getAllWordLists: async (language: string, targetLanguage: string, token?: string) => {
     try {
@@ -102,5 +103,8 @@ export const dictionaryApi = {
       console.log(error);
       return {success: false, message: error.message};
     }
+  },
+  removeWordFromWordList: async (wordName: string, wordlistId: string, token: string) => {
+    console.log('api client dictionary remove word from wordlist')
   }
 }

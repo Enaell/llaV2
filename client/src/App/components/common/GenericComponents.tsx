@@ -19,11 +19,9 @@ const styles = {
     alignItems: 'baseline',
     justifyContent: 'flex-end',
     marginRight: '40px',
-    width: '100%',
   },
   filterTitle: {
     height: '14px',
-    width: '32px',
     color: '#595959',
     fontSize: '14px',
     fontWeight: 400,
@@ -61,10 +59,10 @@ export const PageDescription = ({ descriptions } : { descriptions: string[] }) =
   )
 }
 
-export const Filter = ({ filter, setFilter }: { filter: string, setFilter: (s : string) => void}) => {
+export const Filter = ({ filter, setFilter, horizontal='flex-end', label=translate('dictionaryPage.filter') }: { filter: string, setFilter: (s : string) => void, horizontal?: any, label?: string}) => {
   return (
-    <div style={styles.filter}>
-      <p style={styles.filterTitle}>{translate('dictionaryPage.filter')}</p>
+    <div style={{...styles.filter, justifyContent: horizontal}}>
+      <p style={styles.filterTitle}>{label}</p>
       <InputBase
         style={styles.filterInput}
         type="text"

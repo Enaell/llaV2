@@ -41,7 +41,6 @@ class CardForm extends React.Component{
       <form onSubmit={this.handleSubmit}>
 
         <TextField
-          id="outlined-character-input"
           label="Character"
           margin="normal"
           variant="outlined"
@@ -52,7 +51,6 @@ class CardForm extends React.Component{
         />
 
         <TextField
-          id="outlined-pinying-input"
           label="Pinying"
           margin="normal"
           variant="outlined"
@@ -63,7 +61,6 @@ class CardForm extends React.Component{
         />
 
         <TextField
-          id="outlined-comments-input"
           label="Comments"
           margin="normal"
           variant="outlined"

@@ -10,7 +10,13 @@ import { Words } from './words';
 import { useWordLists } from './useWordLists';
 import { WordListForm } from './wordLists/WordListForm';
 import { WordForm } from './words/WordForm';
+import { FindWordPanel } from './words/FindWordPanel';
 
+const height = {
+  minHeight: 'calc(100vh - 400px)',
+  maxHeight: 'calc(100vh - 300px)',
+  height: '100%'
+}
 
 type WordListsPanelType = {
   user: UserType;
@@ -33,7 +39,7 @@ const translationsToString = (translations: TranslationType[]) => {
 
 export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) => {
   const { url } = props.match;
-  const { wordLists, createWordList, updateWordList, deleteWordList, createWord, saveWord } = useWordLists(user);
+  const { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWord, saveWord } = useWordLists(user);
 
   async function createWlAndUpdatePath(newWordLists: WordListType) {
     const newWlStatus = await createWordList(newWordLists);
@@ -57,19 +63,19 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
     <Column horizontal='center' style={ {width:'100%'} }>
       <div style={{ width:'80%', maxWidth: '1800px'}}>
         <Typography variant='h4'>{translate('dictionaryPage.wordListPanel.title')}</Typography>
-        <Row>
+        <Row style={height}>
           <WordLists
-            userConnected={user.role && user.role !== 'Visitor'}
+            userConnected={user?.role !== 'Visitor'}
             path={url && `${url}`}
             wordLists={wordLists}
-            onAddWordList={() => history.replace(`${url}/wordlist-create`)}
+            onAddWordList={() => history.replace(`${url}/create`)}
             onDeleteWordList={deleteWl}
             onSortEnd={()=>{}}
           />
           <RouterSwitch>
             <Route
               exact
-              path={`${url}/wordlist-create`}
+              path={`${url}/create`}
               render={() => {
                 if (user.role !== 'Visitor')
                   return (
@@ -91,10 +97,13 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
                   return (
                     <Words
                       path={`${url}/${wordListName}/words`}
+                      userConnected={user?.role !== 'Visitor'}
                       words={wordLists && wordLists[wordListName] && wordLists[wordListName].words}
-                      onAddWord={() => history.replace(`${url}/${wordListName}/word-create`)}
-                      onDeleteWord={(name: string | undefined) => {
-                        history.replace(`${url}/${wordListName}`);
+                      onAddWord={() => history.replace(`${url}/${wordListName}/words/addToList`)}
+                      onDeleteWord={(name: string) => {
+                        removeWordFromWordList(name, wordListName);
+                        if (history.location.pathname.split('/').pop() === name)
+                          history.replace(`${url}/${wordListName}`);
                       }}
                       onSortEnd={() => {}}
                     />
@@ -105,11 +114,33 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
           </RouterSwitch>
           <RouterSwitch>
             <Route
-              path={`${url}/:wordlistname/word-create`}
+              exact
+              path={`${url}/:wordlistname/words/addToList`}
               render={({ match }) => {
                 const wordListName = String(match.params.wordlistname);
                 if (user.role !== 'Visitor' && wordLists && wordLists[wordListName])
-                  return <WordForm wordList={wordLists[wordListName]} onSave={createWord} />;
+                  return <FindWordPanel path={`${url}/${wordListName}/words/createAndAdd`}  level={user.levels?.find(level => level.language === user.targetLanguage)?.rank} words={words} addWord={(word: WordType) => addWordToWordList(word, wordListName)} />;
+                return <div></div>
+              }}
+            />
+            <Route 
+              exact
+              path={`${url}/:wordlistname/words/createAndAdd`}
+              render={({ match }) => {
+                const wordListName = String(match.params.wordlistname);
+                if (user.role !== 'Visitor' && wordLists && wordLists[wordListName]){
+                  return (
+                    <WordForm
+                      adminRole={user.role === 'Admin'}
+                      word={undefined}
+                      canModify
+                      wordList={wordLists[wordListName]}
+                      onSave={(word) => addWordToWordList(word, wordListName)} 
+                      language={user.language}
+                      targetLanguage={user.targetLanguage}
+                    />
+                  )
+                }
                 return <div></div>
               }}
             />
@@ -118,8 +149,19 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
               render={({ match }) => {
                 const wordName = String(match.params.wordname);
                 const wordListName = String(match.params.wordlistname);
-                if (wordLists && wordLists[wordListName] && wordLists[wordListName].words && wordLists[wordListName].words[wordName])
-                  return <WordForm wordList={wordLists[wordListName]} word={wordLists[wordListName].words[wordName]} onSave={saveWord} />;
+                if (wordLists && wordLists[wordListName]) {
+                  const word = wordLists[wordListName].words && wordLists[wordListName].words[wordName];
+                  if (word)
+                    return <WordForm
+                      adminRole={user.role === 'Admin'}
+                      word={word}
+                      canModify={user.role === 'Admin' || user.username === word.owner}
+                      wordList={wordLists[wordListName]}
+                      onSave={(word) => addWordToWordList(word, wordListName)} 
+                      language={user.language}
+                      targetLanguage={user.targetLanguage}
+                    />
+                }
                 return (<div></div>)
               }}
             />

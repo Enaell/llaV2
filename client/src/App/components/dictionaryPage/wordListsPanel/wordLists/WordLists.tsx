@@ -6,7 +6,14 @@ import { Typography, Button } from '@material-ui/core';
 import { WordListTile } from './WordListTile';
 import { Column } from '../../../common/Flexbox';
 
+const height= {
+  minHeight: 'calc(100vh - 550px)',
+  maxHeight: 'calc(100vh - 450px)',
+  height: '100%'
+}
+
 type WordListsType = {
+  style?: any,
   userConnected?: boolean,
   wordLists: {[key: string]: WordListType};
   path?: string;
@@ -19,6 +26,7 @@ type WordListsType = {
 }
 
 export const WordLists = ({
+  style={},
   userConnected= false,
   wordLists,
   path = '/dictionary/wordlists',
@@ -30,8 +38,8 @@ export const WordLists = ({
   onSortEnd,
 }: WordListsType) => {
   return (
-    <Column>
-      <div style={{ marginBottom: '10px', minWidth: '290px' }}>
+    <Column style={{...style}}>
+      <div style={{ marginBottom: '10px', marginRight: '10px', width: '310px' }}>
         <Typography variant={'h5'}>{title}</Typography>
         {userConnected && 
         <Button variant='outlined' onClick={onAddWordList} disabled={disabledBtnAdd}>
@@ -55,7 +63,7 @@ const WordListsContainer = SortableContainer(({ wordlists, path, onDeleteWordLis
   path: string,
   onDeleteWordList: (wordList: WordListType) => Promise<{success: boolean; message: any;}>
 }) => (
-  <div style={{ marginTop: '12px' }}>
+  <div style={{ marginTop: '12px', overflowY: 'auto', ...height }}>
   {wordlists && Object.keys(wordlists).map((wordlistname: string, index: number) => {
     return (
       <WordListTile

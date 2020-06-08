@@ -43,7 +43,7 @@ const formatter = {
                    internationalName: i.internationalName,
                    subject: i.subject,
                    level: i.level,
-                   translations: i.translations.filter(translation => translation.language === language),
+                   translations: i.translations.filter(translation => {console.log(translation.language) ;return translation.language === language}),
                    validated: i.validated,
                    visibility: i.visibility
                  }

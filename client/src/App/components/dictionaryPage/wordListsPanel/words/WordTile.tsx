@@ -10,7 +10,7 @@ const DragHandle = SortableHandle(() => <span style={{position: "relative", top:
 type WordTileType = {
   path: string;
   word: WordType;
-  onDeleteWord: (wordName: string | undefined) => void;
+  onDeleteWord: (wordName: string) => void;
 };
 
 export const WordTile = SortableElement(WordTileComponent);
@@ -47,6 +47,7 @@ function WordTileComponent({ path, word, onDeleteWord }: WordTileType) {
       <IconButton
         onClick={e => {
           e.preventDefault();
+          onDeleteWord(word.name);
         }}
       >
         <DeleteIcon />

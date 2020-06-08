@@ -115,7 +115,6 @@ const userReducer = (state = initialUserState, action) => {
 const setNewWords = (state, wordList) => ({...state, newWords: wordList.sort((a, b) => {return a.internationalName > b.internationalName;}) || [] })
 
 const setNewWordLists = (state, wordLists) => {
-  console.log('==================================='); 
   return ({...state, newWordLists: wordLists});
 }
 
@@ -161,7 +160,6 @@ const dictionaryReducer = (state = initialDictionaryState, action) => {
     case 'SET_NEW_WORDS':
       return setNewWords(state, action.payload);
     case 'SET_NEW_WORD_LISTS':
-      console.log('in reducer')
       return setNewWordLists(state, action.payload);  
     case 'OPEN_SIDE_PANEL':
       return openSidePanel(state);
