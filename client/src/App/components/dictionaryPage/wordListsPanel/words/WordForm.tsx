@@ -2,6 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { WordListType, WordType, LanguageType } from '../../../common/types';
 import { WordCard, TranslationList } from '../../../common/CardsComponents'
 import { Row, Column } from '../../../common/Flexbox';
+import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import { IconButton } from '@material-ui/core';
 
 function getPrimaryFontSize(charactersNumber: number, language: LanguageType)
 {
@@ -18,6 +20,7 @@ function getPrimaryFontSize(charactersNumber: number, language: LanguageType)
 
 export const WordForm = ({
   adminRole=false,
+  create= false,
   canModify=false,
   wordList,
   word=undefined,
@@ -45,9 +48,10 @@ export const WordForm = ({
     subject: []
   } as WordType)
   
-  const [onModify, setOnModify] = useState(!word)
+  const [onModify, setOnModify] = useState(create)
   
   useMemo(()=> {if (word != null) setNewWord(word)}, [word]);
+  useMemo(()=> {setOnModify(create)}, [create]);
 
   return (
   <Row style={{width: '100%', margin: '20px'}}>
@@ -62,6 +66,16 @@ export const WordForm = ({
         wordDetailAlign={'center'}
       />
     </Column>
-    <TranslationList style={{width: '100%', marginLeft: '20px'}} word={word}/>
+    <TranslationList modify={onModify} style={{width: '100%', marginLeft: '20px'}} word={word} language={language}/>
+    {!onModify && 
+      <IconButton style={{height: '50px'}}
+        onClick={e => {
+          e.preventDefault();
+          setOnModify(true);
+        }}
+      >
+        <CreateOutlinedIcon />
+      </IconButton>
+    }
   </Row>)
 }

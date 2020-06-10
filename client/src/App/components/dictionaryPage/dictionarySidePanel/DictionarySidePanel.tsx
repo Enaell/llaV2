@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { Column } from '../../common/Flexbox';
 import { SelectedWords } from './SelectedWords';
 import { WordType } from '../../common/types';
+import { userInfo } from 'os';
 
 type DictionarySidePanelType = { 
   word: WordType,
@@ -88,7 +89,7 @@ const DictionarySidePanel = ({
             align='left' 
             wordDetailAlign='center'
           />
-          <TranslationList word={word}/>
+          <TranslationList word={word} language='Cn'/>
         </Column>    
       </ExpansionPanelDetails>
     </ExpansionPanel>

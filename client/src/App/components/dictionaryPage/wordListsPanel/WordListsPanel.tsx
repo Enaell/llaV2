@@ -133,6 +133,7 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
                     <WordForm
                       adminRole={user.role === 'Admin'}
                       word={undefined}
+                      create
                       canModify
                       wordList={wordLists[wordListName]}
                       onSave={(word) => addWordToWordList(word, wordListName)} 
