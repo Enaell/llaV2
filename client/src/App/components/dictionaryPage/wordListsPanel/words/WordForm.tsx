@@ -5,6 +5,17 @@ import { Row, Column } from '../../../common/Flexbox';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import { IconButton } from '@material-ui/core';
 
+
+const height= {
+  minHeight: 'calc(100vh - 550px)',
+  maxHeight: 'calc(100vh - 450px)',
+  height: '100%',
+  paddingLeft: '2px',
+  paddingRight: '5px',
+  overflowY: 'auto',
+  overflowX: 'hidden'
+}
+
 function getPrimaryFontSize(charactersNumber: number, language: LanguageType)
 {
   if (charactersNumber < 3 || (language !== 'Cn' && charactersNumber < 5))
@@ -66,7 +77,7 @@ export const WordForm = ({
         wordDetailAlign={'center'}
       />
     </Column>
-    <TranslationList modify={onModify} style={{width: '100%', marginLeft: '20px'}} word={word} language={language}/>
+    <TranslationList modify={onModify} style={{width: '100%', marginLeft: '20px', ...height}} word={word} language={language}/>
     {!onModify && 
       <IconButton style={{height: '50px'}}
         onClick={e => {

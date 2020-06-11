@@ -9,7 +9,8 @@ import { WordTile } from './WordTile';
 const height= {
   minHeight: 'calc(100vh - 550px)',
   maxHeight: 'calc(100vh - 450px)',
-  height: '100%'
+  height: '100%',
+  overflow: 'auto'
 }
 
 type WordsType = {
@@ -37,7 +38,7 @@ export const Words = ({
 }: WordsType) => {
   return (
     <Column>
-      <div style={{ marginBottom: '10px', width: '300px' }}>
+      <div style={{ marginBottom: '10px', marginRight: '5px', width: '305px' }}>
         {userConnected && 
         <>
           <Typography variant={'h5'}>{title}</Typography>

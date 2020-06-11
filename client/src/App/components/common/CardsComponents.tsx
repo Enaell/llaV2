@@ -12,6 +12,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import { translationsToString } from './utils';
 import { SelectedWords } from '../dictionaryPage/dictionarySidePanel/SelectedWords';
@@ -92,7 +93,7 @@ export const TranslationList = ({
   style?: any
 }) => {
 
-  const [newTranslation, setNewTranslation] = useState(undefined as TranslationType | undefined)
+  const [addingTranslation, setAddingTranslation] = useState(false)
 
   const [translations, setTranslations] = useState(word?.translations);
 
@@ -104,26 +105,31 @@ export const TranslationList = ({
       <TranslationPanel translation={translation} modify={modify}/>
     ))}
     {modify && <>
-    {newTranslation ?
-      <TranslationPanel translation={newTranslation} modify/>
+    {addingTranslation ?
+      <TranslationPanel translation={{name: '', internationalName: '', language: language, sentences: [], rank: translations ? translations.length: 0}} isAddingTranslation={setAddingTranslation} modify/>
       : <AddButton 
       fullWidth
-      setFunction={setNewTranslation} 
-      obj={{
-        name: '',
-        internationalName: '',
-        language: language,
-        sentences: [],
-        rank: translations ? translations.length : 0,
-      }}/>}
+      setFunction={setAddingTranslation} />}
       </>}
     </div>
   )
 }
 
-const TranslationPanel = ({translation, modify} : {translation: TranslationType, modify: boolean}) => {
+const TranslationPanel = ({
+  translation,
+  isAddingTranslation= ()=> {},
+  modify
+} : {
+  translation: TranslationType,
+  isAddingTranslation?: React.Dispatch<React.SetStateAction<boolean>>,
+  modify: boolean
+}) => {
   
-  const [newSentence, setNewSentence] = useState(undefined as SentencesType | undefined)
+  const [addingSentence, setAddingSentence] = useState(false);
+  const [newTranslation, setNewTranslation] = useState(translation);
+  const [fieldChanged, setFieldChanged] = useState(false);
+
+  useMemo(() => {setNewTranslation(translation)}, [translation])
 
   return (
     <ExpansionPanel key={translation.name}>
@@ -135,16 +141,37 @@ const TranslationPanel = ({translation, modify} : {translation: TranslationType,
             onClick={(event) => {event.stopPropagation()}}
             onFocus={(event) => event.stopPropagation()}
           >
-            <TextField value={translation.name}/>
+            <CssTextField
+              label={translation.name ? 'Tranduction': 'Nouvelle Traduction'}
+              value={newTranslation.name}
+              onChange={(event) => {
+                setNewTranslation({...newTranslation, name: event.target.value});
+                setFieldChanged(true);
+                
+              }}
+            />
           </FormControl>
-          <IconButton style={{padding:'5px'}}
-            onClick={e => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-          >
-            <DeleteOutlineIcon />
-          </IconButton> 
+          <div>
+            {fieldChanged && 
+            <IconButton 
+              onClick={e => {
+                e.stopPropagation();
+                e.preventDefault();
+                setFieldChanged(false);
+              }}
+            >
+              <SaveAltIcon />
+            </IconButton>}
+            <IconButton
+              onClick={e => {
+                e.stopPropagation();
+                e.preventDefault();
+                isAddingTranslation(false);
+              }}
+            >
+              <DeleteOutlineIcon />
+            </IconButton> 
+          </div>
         </Row>
         : <Typography>{translation.name}</Typography>
       }
@@ -154,34 +181,79 @@ const TranslationPanel = ({translation, modify} : {translation: TranslationType,
           {translation.sentences.map((sentence) => (
           <div key={sentence.sentence}>
             <Divider/>
-            <SentencePanel modify={modify} sentence={sentence} />
+            <SentencePanel modify={modify} saveSentence={()=>{}} sentence={sentence} />
           </div>))}
           {modify && <>
-    {newSentence ?
-          <div>
-          <Divider/>
-          <SentencePanel sentence={newSentence} modify />
-        </div>
-    : <AddButton setFunction={setNewSentence} obj={{sentence: '', translatedSentence: ''}}/>}
-      </>}
+            {addingSentence ?
+              <div>
+              <Divider/>
+              <SentencePanel sentence={{sentence: '', translatedSentence: ''}} isAddingSentence={setAddingSentence} saveSentence={()=>{}} modify />
+            </div>
+            : <AddButton setFunction={setAddingSentence} variant='text'/>}
+          </>}
         </List >
       </ExpansionPanelDetails>
     </ExpansionPanel>
   )
 }
 
-const SentencePanel = ({modify, sentence}: {modify: boolean, sentence: SentencesType}) => {
+const SentencePanel = ({
+  modify,
+  sentence,
+  isAddingSentence = () => {},
+  saveSentence
+}: {
+  modify: boolean,
+  sentence: SentencesType,
+  isAddingSentence?: React.Dispatch<React.SetStateAction<boolean>>,
+  saveSentence: any
+}) => {
+
+  const [newSentence, setNewSentence] = useState(sentence)
+  const [fieldsChanged, setFieldsChanged] = useState(false);
+
+  useMemo(() => {setNewSentence(sentence)}, [sentence])
+
+
   return (
     <Row style={{width: '100%'}} horizontal='space-between' vertical='center'>
     {modify ? <>
       <Column style={{width: '100%'}} horizontal={'start'}>
-        <CssTextField placeholder='Nouvelle phrase' fullWidth value={sentence.sentence}/>
-        <CssTextField placeholder='Traduction' inputProps={{ style: { opacity: '0.6', fontSize: 14}}} fullWidth value={sentence.translatedSentence}/>
+        <CssTextField
+          placeholder='Nouvelle phrase'
+          fullWidth
+          value={newSentence.sentence}
+          onChange={(event) => {
+            setNewSentence({...newSentence, sentence: event.target.value});
+            setFieldsChanged(true)
+          }}
+        />
+        <CssTextField 
+          placeholder='Traduction'
+          inputProps={{ style: { opacity: '0.6', fontSize: 14}}}
+          fullWidth
+          value={newSentence.translatedSentence}
+          onChange={(event) => {
+            setNewSentence({...newSentence, translatedSentence: event.target.value});
+            setFieldsChanged(true)
+          }}
+        />
       </Column>
+      {fieldsChanged && 
+      <IconButton 
+        style={{height:'48px'}}
+        onClick={e => {
+          e.preventDefault();
+          setFieldsChanged(false);
+        }}
+      >
+        <SaveAltIcon />
+      </IconButton>}
       <IconButton 
         style={{height:'48px'}}
         onClick={e => {
         e.preventDefault();
+        setFieldsChanged(false);
       }}
       >
         <DeleteOutlineIcon />
@@ -191,19 +263,19 @@ const SentencePanel = ({modify, sentence}: {modify: boolean, sentence: Sentences
   </Row>  )
 }
 
-const AddButton = ({setFunction, obj, fullWidth=false}: {setFunction: any, obj: any, fullWidth?: boolean}) => {
+const AddButton = ({setFunction, fullWidth=false, variant='outlined'}: {setFunction: any, fullWidth?: boolean, variant?: "text" | "outlined" | "contained"}) => {
   const notFullWidth = !fullWidth && {width: '46px', minWidth: 0, borderRadius: '30px'};
   return(
     <Row style={{width: '100%'}} horizontal='center'>
     <Button
-          variant='outlined'
+          variant={variant}
           style={{ marginTop: '10px', ...notFullWidth}}
           fullWidth={fullWidth}
           onClick={e => {
             e.preventDefault();
-            setFunction(obj);
+            setFunction(true);
           }}>
-            <AddIcon style={{padding: '5px'}}/>
+            <PlaylistAddIcon style={{padding: '5px'}}/>
         </Button>
       </Row>)
 }
