@@ -7,7 +7,7 @@
         "language": "Cn",
         "subject": ["general"],
         "level": 0,
-        "translations": [{"name": "Famille", "internationalName": "Famille", "language": "Fr", "sentences": [{"sentence": "我想我的家", "translatedSentence": "Ma famille me manque"}], "rank": 0}, {"name": "Maison, Chez-soi", "internationalName": "Maison, Chez-soi", "language": "Fr", "sentences": [{"sentence": "我到家了", "translatedSentence": "Je suis à la maison"}, {"sentence": "这是我的家", "translatedSentence": "C'est ma maison"}], "rank": 0}],
+        "translations": [{"name": "Famille", "internationalName": "Famille", "language": "Fr", "sentences": [{"sentence": "我想我的家", "translatedSentence": "Ma famille me manque"}], "rank": 0}, {"name": "Maison, Chez-soi", "internationalName": "Maison, Chez-soi", "language": "Fr", "sentences": [{"sentence": "我到家了", "translatedSentence": "Je suis à la maison"}, {"sentence": "这是我的家", "translatedSentence": "C'est ma maison"}], "rank": 1}],
         "comments": "",
         "validated": true,
         "visibility": "visitor",

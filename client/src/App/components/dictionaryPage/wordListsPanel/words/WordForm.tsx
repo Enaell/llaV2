@@ -3,7 +3,10 @@ import { WordListType, WordType, LanguageType } from '../../../common/types';
 import { WordCard, TranslationList } from '../../../common/CardsComponents'
 import { Row, Column } from '../../../common/Flexbox';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import CloseIcon from '@material-ui/icons/Close';
 import { IconButton } from '@material-ui/core';
+
 
 
 const height= {
@@ -64,6 +67,11 @@ export const WordForm = ({
   useMemo(()=> {if (word != null) setNewWord(word)}, [word]);
   useMemo(()=> {setOnModify(create)}, [create]);
 
+  useMemo(()=> {
+    console.log('-------------------------------------');
+    console.log(newWord);
+  }, [newWord])
+
   return (
   <Row style={{width: '100%', margin: '20px'}}>
     <Column>
@@ -75,18 +83,44 @@ export const WordForm = ({
         variant={(newWord.name && getPrimaryFontSize(newWord.name.length, targetLanguage)) || undefined}
         align={'center'}
         wordDetailAlign={'center'}
-      />
+      /> 
     </Column>
-    <TranslationList modify={onModify} style={{width: '100%', marginLeft: '20px', ...height}} word={word} language={language}/>
-    {!onModify && 
-      <IconButton style={{height: '50px'}}
-        onClick={e => {
-          e.preventDefault();
-          setOnModify(true);
-        }}
-      >
-        <CreateOutlinedIcon />
-      </IconButton>
-    }
+    <TranslationList 
+      setWordTranslations={(newTranslations) => setNewWord({...newWord, translations: [...newTranslations]})} 
+      modify={onModify} 
+      style={{width: '100%', marginLeft: '20px', ...height}}
+      translations={newWord.translations}
+      language={language}
+    />
+    {canModify && <>
+      {!onModify ?
+        <IconButton style={{height: '50px'}}
+          onClick={e => {
+            e.preventDefault();
+            setOnModify(true);
+          }}
+        >
+          <CreateOutlinedIcon />
+        </IconButton>
+        : <Column> 
+        <IconButton style={{height: '50px'}}
+          onClick={e => {
+            e.preventDefault();
+            setOnModify(false);
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <IconButton style={{height: '50px'}}
+          onClick={e => {
+            e.preventDefault();
+            setOnModify(false);
+          }}
+        >
+          <SaveAltIcon />
+        </IconButton>
+      </Column>
+      }
+    </>}
   </Row>)
 }

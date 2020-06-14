@@ -89,7 +89,7 @@ const DictionarySidePanel = ({
             align='left' 
             wordDetailAlign='center'
           />
-          <TranslationList word={word} language='Cn'/>
+          {/* <TranslationList word={word} language='Cn'/> */}
         </Column>    
       </ExpansionPanelDetails>
     </ExpansionPanel>
