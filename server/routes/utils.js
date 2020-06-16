@@ -38,12 +38,13 @@ const formatter = {
                  ...o,
                  [i[key]]:
                  {
+                   id: i._id,
                    owner: i.owner && item.owner.username,
                    name: i.name,
                    internationalName: i.internationalName,
                    subject: i.subject,
                    level: i.level,
-                   translations: i.translations.filter(translation => {console.log(translation.language) ;return translation.language === language}),
+                   translations: i.translations.filter(translation => translation.language === language),
                    validated: i.validated,
                    visibility: i.visibility
                  }
@@ -68,6 +69,15 @@ const formatter = {
       if (!isAdmin)
         delete wordlistUpdates.validated;
       return wordlistUpdates;
+    },
+    formatWordUpdates: (word, isAdmin) => {
+      let wordUpdates = {...word};
+      delete wordUpdates.owner;
+      delete wordUpdates.id;
+      delete wordUpdates.language;
+      if (!isAdmin)
+        delete wordUpdates.validated;
+      return wordUpdates;
     }
 }
 

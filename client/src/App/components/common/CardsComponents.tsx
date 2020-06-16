@@ -81,7 +81,7 @@ export const WordCard = ({
 
 
 export const TranslationList = ({
-  translations,
+  translations= [],
   setWordTranslations = ([])=> {},
   modify= false,
   language,
@@ -280,7 +280,7 @@ export const CollapseWordList = ({
         <ExpansionPanelDetails style={{paddingTop: '0', paddingBottom: '0'}}>
           <List style={{paddingTop: '0', width: '100%', paddingLeft: '20px', paddingRight: '20px'}} >
             {wordList.map((word) => (
-            <div key={word.name} >
+            <div key={word.id || word.name} >
               <ListItem style={{minWidth: '350px'}} role={undefined} button onClick={() => {}}>
                 <ListItemText
                   style={{paddingRight: '15px'}} 

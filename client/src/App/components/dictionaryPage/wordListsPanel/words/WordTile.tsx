@@ -18,7 +18,7 @@ export const WordTile = SortableElement(WordTileComponent);
 function WordTileComponent({ path, word, onDeleteWord }: WordTileType) {
   return (
     <NavLink
-      key={word.name}
+      key={word.id || word.name}
       to={`${path}/${word.name}`}
       replace
       style={{

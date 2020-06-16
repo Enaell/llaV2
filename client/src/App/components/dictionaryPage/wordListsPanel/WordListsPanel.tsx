@@ -39,7 +39,7 @@ const translationsToString = (translations: TranslationType[]) => {
 
 export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) => {
   const { url } = props.match;
-  const { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWord, saveWord } = useWordLists(user);
+  const { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWordInWordList, saveWord } = useWordLists(user);
 
   async function createWlAndUpdatePath(newWordLists: WordListType) {
     const newWlStatus = await createWordList(newWordLists);
@@ -57,6 +57,12 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
     const newWlStatus = await deleteWordList(wordList);
     history.replace(`${url}/`);
     return newWlStatus;
+  }
+
+  async function updateWordAndPath (newWord: WordType, wordListName: string, wordName: string) {
+    const newWStatus = await saveWord(newWord, wordListName, wordName);
+    history.replace(`${url}/${wordListName}/words/${newWord.name}`);
+    return newWStatus;
   }
 
   return(
@@ -136,7 +142,7 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
                       create
                       canModify
                       wordList={wordLists[wordListName]}
-                      onSave={(word) => addWordToWordList(word, wordListName)} 
+                      onSave={(newWord) => createWordInWordList(newWord, wordListName)}
                       language={user.language}
                       targetLanguage={user.targetLanguage}
                     />
@@ -158,7 +164,8 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
                       word={word}
                       canModify={user.role === 'Admin' || user.username === word.owner}
                       wordList={wordLists[wordListName]}
-                      onSave={(word) => addWordToWordList(word, wordListName)} 
+                      create={false}
+                      onSave={(newWord) => updateWordAndPath(newWord, wordListName, wordName) } 
                       language={user.language}
                       targetLanguage={user.targetLanguage}
                     />

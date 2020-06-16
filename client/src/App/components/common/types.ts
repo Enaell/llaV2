@@ -56,6 +56,7 @@ export type TranslationType = {
 }
 
 export type WordType= {
+    id?: string,
     owner?: string,
     name: string,
     internationalName: string,

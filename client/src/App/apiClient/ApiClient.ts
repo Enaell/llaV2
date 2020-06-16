@@ -19,6 +19,30 @@ export const dictionaryApi = {
     const words =  json.words as WordType[];
     return [...words].sort((a, b) => a.internationalName > b.internationalName ? 1 : -1)
   },
+  updateWord: async (word: WordType, token: string) => {
+    console.log('api client dictionary update word');
+    console.log(word);
+    try {
+      const res = await fetch('http://localhost:5000/api/words',{
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method:"PATCH",
+        body: JSON.stringify({
+          word
+        })
+      });
+      const json = await res.json();
+      console.log('===================================');
+      console.log(json);
+      return {success: true, message: json};
+    } catch (error) {
+      console.log(error);
+      return {success: false, message: error.message}
+    }
+  },
   getAllWordLists: async (language: string, targetLanguage: string, token?: string) => {
     try {
       const getWordListsUrl = language && targetLanguage ? `http://localhost:5000/api/wordlists?language=${language}&targetlanguage=${targetLanguage}` : `http://localhost:5000/api/wordlists`;
@@ -63,6 +87,29 @@ export const dictionaryApi = {
       return {success: false, message: error.message}
     }
   },
+  createWordsInWordList: async (wordListId: string, words: WordType[], token: string) => {
+    console.log(`api client dictionary create word id wordlist ${wordListId}`);
+    console.log(words);
+    try {
+      const res = await fetch(`http://localhost:5000/api/wordlists/${wordListId}/words`, {
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+          words
+        })
+      });
+      const json = await res.json();
+      return {success: true, message: json};
+    }
+    catch (error) {
+      console.log(error);
+      return {success: false, message: error.message}
+    }
+  },
   updateWordList: async (wordList: WordListType, token: string) => {
     console.log('api client dictionary update wordlist');
     console.log(wordList);
@@ -79,7 +126,7 @@ export const dictionaryApi = {
         })
       });
       const json = await res.json();      
-      return {success: true, message: json} ;
+      return {success: true, message: json};
     } catch (error) {
       console.log(error);
       return {success: false, message: error.message}

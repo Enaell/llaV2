@@ -62,7 +62,7 @@ const WordsContainer = SortableContainer(({ words, path, onDeleteWord }: {words:
   <div style={{ marginTop: '12px', ...height }}>
   {Object.keys(words).map((wordName: string, index: number) => (
     <WordTile
-      key={wordName}
+      key={words[wordName].id || wordName}
       index={index}
       word={words[wordName]}
       path={path}

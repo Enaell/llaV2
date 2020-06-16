@@ -30,17 +30,24 @@ export const subjects= ['general', 'food', 'daily', 'house', 'number'];
 
 export const visibilities= ['visitor', 'loggedin', 'owner'];
 
-export const setWebSiteLanguage = (language: LanguageType) => {
+export function setWebSiteLanguage(language: LanguageType) {
     counterpart.setLocale(language)
 }
 
-export const translationsToString = (translations: TranslationType[]) => {
-    let s = '';
-    translations.forEach((translation, i, translations) => {
-      if (Object.is(translations.length - 1, i))
-        s += translation.name;
-      else
-        s += (translation.name + ', ');
-    })
-    return s;
-  }
+export function translationsToString(translations: TranslationType[]) {
+  let s = '';
+  translations.forEach((translation, i, translations) => {
+    if (Object.is(translations.length - 1, i))
+      s += translation.name;
+    else
+      s += (translation.name + ', ');
+  })
+  return s;
+}
+
+export function renameObjectKey(keysMap: {[key: string]: string}, obj: {[key: string]: any}){
+  return Object.keys(obj).reduce((acc, key) => ({
+    ...acc,
+    ... { [keysMap[key] || key]: obj[key]}
+  }), {})
+}

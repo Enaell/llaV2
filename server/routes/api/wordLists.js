@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const auth = require('../auth');
 const WordLists = mongoose.model('WordLists');
+const Words = mongoose.model('Words');
 const Users = mongoose.model('Users');
 const router = require('express').Router();
 const formatter = require('../utils');
-const { VISIBILITY, ROLES } = require('../../models/utils')
+const { VISIBILITY, ROLES } = require('../../models/utils');
 
 
 router.get('/', auth.optional, async (req, res, next) => {
@@ -33,6 +34,31 @@ router.get('/', auth.optional, async (req, res, next) => {
     return res.json({ wordLists: formattedWordLists })
 });
 
+router.post('/:wordlistid/words', auth.required, async(req, res, next) => {
+  const { payload: { id, role } } = req;
+  const { body: { words } } = req;
+  const wordListId = req.params.wordlistid;
+
+  wl = await WordLists.findById(wordListId);
+
+  if (wl.owner !== id && !(role === ROLES.Admin || role.Moderator))
+  return res.status(401).send({status: 401, message: "User is not allowed to delete other's wordlist"});
+
+  try {
+    const validated = role === ROLES.Admin || role === ROLES.Moderator;
+    const finalWords = words.map(word => {return new Words({...word, owner: id, validated: validated})});
+    const data = await Words.collection.insertMany(finalWords);
+    newWordsId = data.ops.map(word => word._id);
+    wl.words = [...wl.words, ...newWordsId];
+    wl.save();
+    res.json({words: data.ops});
+  }
+  catch (error) {
+    console.log("Couldn't save words wordlists");
+    console.log(error);
+    return res.status(400).send({status: 400, message: "Couldn't save words in wordlists"})
+  }
+})
 
 router.post('/', auth.required, async (req, res, next) => {
 

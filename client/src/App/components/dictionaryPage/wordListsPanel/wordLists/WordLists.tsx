@@ -68,7 +68,7 @@ const WordListsContainer = SortableContainer(({ wordlists, path, onDeleteWordLis
   {wordlists && Object.keys(wordlists).map((wordlistname: string, index: number) => {
     return (
       <WordListTile
-        key={wordlistname}
+        key={wordlists[wordlistname].id || wordlistname}
         index={index}
         wordlist={wordlists[wordlistname]}
         path={path}

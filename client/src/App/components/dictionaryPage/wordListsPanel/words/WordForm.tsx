@@ -54,7 +54,6 @@ export const WordForm = ({
 {
   const [newWord, setNewWord] = useState({...word} as WordType || {
     language,
-    targetLanguage,
     name:'',
     internationalName: '',
     level: 0,
@@ -64,13 +63,12 @@ export const WordForm = ({
   
   const [onModify, setOnModify] = useState(create)
   
-  useMemo(()=> {if (word != null) setNewWord(word)}, [word]);
-  useMemo(()=> {setOnModify(create)}, [create]);
-
   useMemo(()=> {
-    console.log('-------------------------------------');
-    console.log(newWord);
-  }, [newWord])
+    if (word != null) {
+      setNewWord(word); 
+      setOnModify(create)
+    }
+  }, [word, create]);
 
   return (
   <Row style={{width: '100%', margin: '20px'}}>
@@ -106,6 +104,14 @@ export const WordForm = ({
         <IconButton style={{height: '50px'}}
           onClick={e => {
             e.preventDefault();
+            setNewWord(word || {
+              language,
+              name:'',
+              internationalName: '',
+              level: 0,
+              translations: [],
+              subject: []
+            });
             setOnModify(false);
           }}
         >
@@ -113,7 +119,8 @@ export const WordForm = ({
         </IconButton>
         <IconButton style={{height: '50px'}}
           onClick={e => {
-            e.preventDefault();
+            e.preventDefault();       
+            onSave(newWord);
             setOnModify(false);
           }}
         >
