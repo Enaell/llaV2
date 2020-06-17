@@ -1,7 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import {WordType, TranslationType, LanguageType, SentencesType} from './types';
+import {WordType, TranslationType, LanguageType, SentencesType, VisibilityType} from './types';
+import translate from 'counterpart';
+import { subjects, visibilities } from '../common/utils';
 import Typography from '@material-ui/core/Typography';
-import { Card, CardContent, PropTypes, Divider, ListItemSecondaryAction, IconButton, TextField, FormControlLabel, FormControl, Button, withStyles } from '@material-ui/core';
+import { Card, CardContent, PropTypes, Divider, ListItemSecondaryAction, IconButton, TextField, FormControlLabel, FormControl, Button, withStyles, Switch } from '@material-ui/core';
 import { Column, Row } from './Flexbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,8 +18,14 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import { translationsToString } from './utils';
 import transitions from '@material-ui/core/styles/transitions';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
-export const WordCard = ({ 
+const styles = {
+  marginTop15: {marginTop: '15px'}
+}
+
+export const WordCard = ({
+  isAdmin=false,
   word= {} as WordType, 
   setWord = ()=> {},
   modify= false,
@@ -28,6 +36,7 @@ export const WordCard = ({
   wordDetailAlign='center',
   style
   }: {
+  isAdmin?: boolean,
   word?: WordType,
   setWord?: React.Dispatch<React.SetStateAction<WordType>>,
   modify?: boolean,
@@ -39,26 +48,39 @@ export const WordCard = ({
   style?: any 
 }) => {
 
+  const localeWordForm = 'dictionaryPage.wordListPanel.wordListForm';
+
   return (
     <Card elevation={ elevation || 1 } style={style}>
       <CardContent>
-      {modify ? 
-        <TextField
-          label="Caractère"
-          margin="normal"
-          variant="standard"
-          value={word?.name}
-          onChange={(e) => {setWord({...word, name: e.target.value})}}
-          name="character"
-          required
-        />:
-          <Typography align={ align } color="textSecondary" gutterBottom>
-            Caractère
-          </Typography>}
-          <Typography align={ align } component="h2" variant={variant} gutterBottom>
-            { word?.name || ''}
-          </Typography>
-          {modify ? <TextField
+      {modify 
+      ? <TextField
+        fullWidth
+        label="Caractère"
+        margin="normal"
+        variant="standard"
+        value={word?.name}
+        onChange={(e) => {
+          setWord({
+            ...word,
+            name: e.target.value,
+            internationalName: word.language !== 'Cn' ? e.target.value: word.internationalName 
+          })
+        }}
+        name="character"
+        required
+      />
+      : <Typography align={ align } color="textSecondary" gutterBottom>
+        Caractère
+      </Typography>}
+      <Typography align={ align } component="h2" variant={variant} gutterBottom>
+        { word?.name || ''}
+      </Typography>
+      {word.language !== 'Cn' && 
+      <>
+        {modify
+        ? <TextField
+          fullWidth
           label="Caractère"
           margin="normal"
           variant="standard"
@@ -67,18 +89,85 @@ export const WordCard = ({
           name="character"
           required
         />
-        :
-          <Typography align={ align } color="textSecondary" gutterBottom>
-            Pinying
-          </Typography>}
-          <Typography align={ wordDetailAlign || align } variant={wordDetailVariant} gutterBottom>
-            { word?.internationalName || '' }
-          </Typography>
+        : <Typography align={ align } color="textSecondary" gutterBottom>
+          Pinying
+        </Typography>} 
+      </>}
+      <Typography align={ wordDetailAlign || align } variant={wordDetailVariant} gutterBottom>
+        { word?.internationalName || '' }
+      </Typography>
+      {modify &&
+      <>
+        <TextField
+          style={styles.marginTop15}
+          fullWidth
+          type='number'
+          inputProps={{ min: "0", max: "6", step: "1" }} 
+          label={translate(`${localeWordForm}.level`)}
+          onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+            setWord({...word, level: event.target.value as number});
+          }}
+          value={word?.level}
+          error={false}
+        />
+        <Autocomplete
+          style={styles.marginTop15}
+          multiple
+          limitTags={8}
+          options={subjects}
+          getOptionLabel={(subject: string) => translate(`subjects.${subject}`)}
+          value={word?.subject}
+          filterSelectedOptions
+          disableCloseOnSelect
+          onChange={(_event, values) => {setWord({...word, subject: values})}}
+          renderInput={(params: any) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label={translate(`${localeWordForm}.subject`)}
+              placeholder={translate(`${localeWordForm}.subject`)}
+              error={false}
+            />
+          )}
+        />
+        <Autocomplete
+          style={styles.marginTop15}
+          options={visibilities}
+          getOptionLabel={(visibility: string) => translate(`visibility.${visibility}`)}
+          value={word?.visibility}
+          filterSelectedOptions
+          openOnFocus
+          onChange={(_event: React.ChangeEvent<{}>, value: string | null) => setWord({...word, visibility: value as VisibilityType})}
+          renderInput={(params: any) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label={translate(`${localeWordForm}.visibility`)}
+              placeholder={translate(`${localeWordForm}.visibility`)}
+              error={false}
+            />
+          )}
+        />
+        <Row horizontal='end' style={styles.marginTop15}>
+          <FormControlLabel
+            control={
+              <Switch
+                disabled={!isAdmin}
+                checked={word?.validated}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => setWord( {...word, validated:  event.target.checked})}
+                color="primary"
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
+            }
+            label={translate(`${localeWordForm}.validation`)}
+          />
+        </Row>
+      </>
+      }
       </CardContent>
     </Card>
   );
 }
-
 
 export const TranslationList = ({
   translations= [],

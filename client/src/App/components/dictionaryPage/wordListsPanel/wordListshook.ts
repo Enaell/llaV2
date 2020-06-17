@@ -56,7 +56,6 @@ export function useWordLists(user: UserType) {
     delete wls[wordListName].words[wordName];
     setWordLists({...wls})
     return await dictionaryApi.updateWordList(wordLists[wordListName], user.token);
-    //return await dictionaryApi.removeWordFromWordList(wordName, wordLists[wordListName].id || wordListName, user.token);
   }
 
   async function addWordToWordList(word: WordType, wordListName: string) {
@@ -105,8 +104,6 @@ export function useWordLists(user: UserType) {
 
     setWords(words.map(word => ( word.id === newWord.id ? newWord : word)));
 
-    // if (originalWordName)
-    //   delete wordLists[wordListName].words[originalWordName]
     setWordLists( originalWordName && originalWordName !== newWord.name 
       ? {
         ...wordLists,

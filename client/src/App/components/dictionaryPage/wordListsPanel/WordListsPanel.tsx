@@ -137,10 +137,10 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
                 if (user.role !== 'Visitor' && wordLists && wordLists[wordListName]){
                   return (
                     <WordForm
-                      adminRole={user.role === 'Admin'}
+                      isAdmin={user.role === 'Admin' || user.role==='Moderator'}
+                      isOwner={true}
                       word={undefined}
                       create
-                      canModify
                       wordList={wordLists[wordListName]}
                       onSave={(newWord) => createWordInWordList(newWord, wordListName)}
                       language={user.language}
@@ -160,9 +160,9 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
                   const word = wordLists[wordListName].words && wordLists[wordListName].words[wordName];
                   if (word)
                     return <WordForm
-                      adminRole={user.role === 'Admin'}
+                      isAdmin={user.role === 'Admin' || user.role==='Moderator'}
+                      isOwner={user.username === word.owner}
                       word={word}
-                      canModify={user.role === 'Admin' || user.username === word.owner}
                       wordList={wordLists[wordListName]}
                       create={false}
                       onSave={(newWord) => updateWordAndPath(newWord, wordListName, wordName) } 

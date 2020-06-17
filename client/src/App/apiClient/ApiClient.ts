@@ -40,8 +40,6 @@ export const dictionaryApi = {
         })
       });
       const json = await res.json();
-      console.log('===================================');
-      console.log(json);
       return {success: true, message: json};
     } catch (error) {
       console.log(error);

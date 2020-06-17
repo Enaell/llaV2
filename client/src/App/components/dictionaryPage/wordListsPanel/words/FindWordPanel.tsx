@@ -4,23 +4,11 @@ import { WordType } from '../../../common/types';
 import CollapseList from '../../tabs/collapseList';
 import { CollapseWordList } from '../../../common/CardsComponents';
 import { Filter } from '../../../common/GenericComponents';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
-// function firstLetterSortedWords (words: WordType[]) {
-//   const initialValue: {[key: string]: WordType[]} = {}
-//   console.log('===========================================');
-//   console.log('firstLetterSortedWords');
-//   console.log(words);
-//   const truc =  words.reduce((obj, word) => {
-//     return {
-//       ...obj,
-//       [word.internationalName.charAt(0)]: [...obj[word.internationalName.charAt(0)], word]
-//     };
-//   }, initialValue);
-//   console.log(truc);
-//   return truc;
-// };
+
 
 const firstLetterSortedWords = (dictionary: WordType[]) => {
   
@@ -73,14 +61,16 @@ export const FindWordPanel = ({path , level, words, addWord}: {path: string, lev
 
   return (
     <Column>
-      <Row horizontal={'center'}>
+      <Row horizontal={'center'} vertical={'center'}>
         <Filter setFilter={setFilter} filter={filter} horizontal='center' label='Search ' />
-        <Button >Create Words</Button>
-        <NavLink to={path}>Create Words</NavLink>
+        <NavLink style={{paddingLeft: '5px', paddingRight: '5px', textDecoration: 'none'}} to={path}>
+          <Button variant='text' startIcon={<PlaylistAddIcon />}>
+            Create Word
+          </Button>
+        </NavLink>
       </Row>
       <Row wrap horizontal='space-around'> 
          {sortedWords && Object.keys(sortedWords) && Object.keys(sortedWords).map((key) => 
-        //  <CollapseList horizontal='center'  style={{ margin: '15px'}} key={key} listTitle={key} wordList={sortedWords[key]} />) }
          <CollapseWordList style={{ marginLeft: '30px'}} key={key} listTitle={key} wordList={sortedWords[key]} onActionClick={addWord}/>) }
       </Row>
     </Column>

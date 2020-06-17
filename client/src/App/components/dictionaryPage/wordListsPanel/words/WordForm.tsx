@@ -7,12 +7,8 @@ import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import CloseIcon from '@material-ui/icons/Close';
 import { IconButton } from '@material-ui/core';
 
-
-
 const height= {
-  minHeight: 'calc(100vh - 550px)',
   maxHeight: 'calc(100vh - 450px)',
-  height: '100%',
   paddingLeft: '2px',
   paddingRight: '5px',
   overflowY: 'auto',
@@ -33,18 +29,18 @@ function getPrimaryFontSize(charactersNumber: number, language: LanguageType)
 }
 
 export const WordForm = ({
-  adminRole=false,
+  isAdmin=false,
+  isOwner=false,
   create= false,
-  canModify=false,
   wordList,
   word=undefined,
   language,
   targetLanguage,
   onSave
 }: {
-  adminRole?: boolean,
+  isAdmin?: boolean,
+  isOwner?: boolean,
   create?: boolean,
-  canModify?: boolean,
   wordList: WordListType,
   word?: WordType,
   language: LanguageType,
@@ -53,13 +49,15 @@ export const WordForm = ({
 }) => 
 {
   const [newWord, setNewWord] = useState({...word} as WordType || {
-    language,
+    language: targetLanguage,
     name:'',
     internationalName: '',
     level: 0,
     translations: [],
     subject: []
-  } as WordType)
+  } as WordType);
+
+  const [wordErrors, setWordError] = useState({})
   
   const [onModify, setOnModify] = useState(create)
   
@@ -74,8 +72,9 @@ export const WordForm = ({
   <Row style={{width: '100%', margin: '20px'}}>
     <Column>
       <WordCard
+        isAdmin={isAdmin}
         modify={onModify}
-        style={{width:"300px"}}
+        style={{width:"300px", ...height}}
         word={newWord}
         setWord={setNewWord}
         variant={(newWord.name && getPrimaryFontSize(newWord.name.length, targetLanguage)) || undefined}
@@ -90,7 +89,7 @@ export const WordForm = ({
       translations={newWord.translations}
       language={language}
     />
-    {canModify && <>
+    {(isAdmin || isOwner) && <>
       {!onModify ?
         <IconButton style={{height: '50px'}}
           onClick={e => {

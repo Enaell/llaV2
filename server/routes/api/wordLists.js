@@ -23,12 +23,12 @@ router.get('/', auth.optional, async (req, res, next) => {
     else if (payload && payload.id)
     {
         console.log('API WORDLISTS get all wordLists as CUSTOMER')
-        wordLists = await WordLists.find({$or:[{ visibility: VISIBILITY.Visitor, validated: true }, { visibility: VISIBILITY.LoggedIn, validated: true }, {visibility: VISIBILITY.Owner, owner: payload.id }] }).populate('words');
+        wordLists = await WordLists.find({$or:[{ visibility: VISIBILITY.Visitor, validated: true, ...language, ...targetLanguage }, { visibility: VISIBILITY.LoggedIn, validated: true, ...language, ...targetLanguage }, {visibility: VISIBILITY.Owner, owner: payload.id, ...language, ...targetLanguage }] }).populate('words');
     }
     else
     {
         console.log('API WORDLISTS get all wordLists as VISITOR')
-        wordLists = await WordLists.find({ visibility: VISIBILITY.Visitor, validated: true }).populate('words');
+        wordLists = await WordLists.find({ visibility: VISIBILITY.Visitor, validated: true, ...language, ...targetLanguage }).populate('words');
     }
     formattedWordLists = formatter.formatWordLists(wordLists, 'name', language.language);
     return res.json({ wordLists: formattedWordLists })
@@ -46,7 +46,7 @@ router.post('/:wordlistid/words', auth.required, async(req, res, next) => {
 
   try {
     const validated = role === ROLES.Admin || role === ROLES.Moderator;
-    const finalWords = words.map(word => {return new Words({...word, owner: id, validated: validated})});
+    const finalWords = words.map(word => {return new Words({...word, owner: id, validated: validated, language: wl.targetLanguage})});
     const data = await Words.collection.insertMany(finalWords);
     newWordsId = data.ops.map(word => word._id);
     wl.words = [...wl.words, ...newWordsId];
