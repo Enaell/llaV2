@@ -17,11 +17,7 @@ router.get('/', auth.optional, (req, res, next) => {
         .then(words => {
             console.log('API WORDS get all words as ADMIN or MODERATOR')
             console.log(words);
-            return res.json({ words: words.map(word => {
-                let newWord = {...word, id: word._id};
-                delete newWord._id;
-                return newWord;
-            })})
+            return res.json({words})
          })
     }
     else if (payload && payload.id)
@@ -30,22 +26,16 @@ router.get('/', auth.optional, (req, res, next) => {
         .then(words => {
             console.log('API WORDS get all words as CUSTOMER')
             console.log(words);
-            return res.json({ words: words.map(word => {
-                let newWord = {...word, id: word._id};
-                delete newWord._id;
-                return newWord;
-            })})         }) 
+            return res.json({words})
+         }) 
     }
     else{
         Words.find({ visibility: VISIBILITY.Visitor, validated: true, ...language })
         .then(words => {
             console.log('API WORDS get all words as VISITOR')
             console.log(words);
-            return res.json({ words: words.map(word => {
-                let newWord = {...word, id: word._id};
-                delete newWord._id;
-                return newWord;
-            })})         })
+            return res.json({words})
+        })
     }
 });
 

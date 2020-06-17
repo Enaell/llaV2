@@ -60,10 +60,14 @@ const formatter = {
       }, {})
     },
     formatWordListUpdates: (wordlist, isAdmin) => {
-      let wordlistUpdates = {...wordlist};
+      let wordlistUpdates = {
+        ...wordlist,
+        words: wordlist.words 
+        ? Object.keys(wordlist.words).map(key => wordlist.words[key].id) 
+        : []
+      };
       delete wordlistUpdates.owner;
       delete wordlistUpdates.id;
-      delete wordlistUpdates.words;
       delete wordlistUpdates.language;
       delete wordlistUpdates.targetLanguage;
       if (!isAdmin)

@@ -7,7 +7,7 @@ import translate from 'counterpart';
 import { Route } from 'react-router-dom';
 import { WordLists } from './wordLists';
 import { Words } from './words';
-import { useWordLists } from './useWordLists';
+import { useWordLists } from './wordListshook';
 import { WordListForm } from './wordLists/WordListForm';
 import { WordForm } from './words/WordForm';
 import { FindWordPanel } from './words/FindWordPanel';

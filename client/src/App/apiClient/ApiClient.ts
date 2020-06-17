@@ -16,7 +16,12 @@ export const dictionaryApi = {
       method:"GET"
     })
     const json = await res.json();
-    const words =  json.words as WordType[];
+    const words =  json.words.map((word: any) => {
+      const w = {...word, id: word._id};
+      delete w._id;
+      return w;
+    }) as WordType[];
+    
     return [...words].sort((a, b) => a.internationalName > b.internationalName ? 1 : -1)
   },
   updateWord: async (word: WordType, token: string) => {

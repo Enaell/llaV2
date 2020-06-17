@@ -51,27 +51,38 @@ export function useWordLists(user: UserType) {
 
   async function removeWordFromWordList(wordName: string, wordListName: string){
     if (!user.token)
-    return {success: false, message: 'User not logged'};
+      return {success: false, message: 'User not logged'};
     let wls = {...wordLists};
     delete wls[wordListName].words[wordName];
     setWordLists({...wls})
-    return await dictionaryApi.removeWordFromWordList(wordName, wordLists[wordListName].id || wordListName, user.token);
+    return await dictionaryApi.updateWordList(wordLists[wordListName], user.token);
+    //return await dictionaryApi.removeWordFromWordList(wordName, wordLists[wordListName].id || wordListName, user.token);
   }
 
-  function addWordToWordList(word: WordType, wordListName: string) {
-    setWordLists({
-      ...wordLists,
-      [wordListName]: { 
+  async function addWordToWordList(word: WordType, wordListName: string) {
+    if ( !user.token)
+      return {success: false, message: 'User not logged'};
+
+      const wordListUpdated = {
         ...wordLists[wordListName], 
         words: { ...wordLists[wordListName].words, [word.name]: word }
-      }
+      };
+
+    setWordLists({
+      ...wordLists,
+      [wordListName]: wordListUpdated
     });
+
+    return await dictionaryApi.updateWordList(wordListUpdated, user.token)
   }
 
   async function createWordInWordList(word: WordType, wordListName: string){
     const wlId = wordLists[wordListName].id;
     
-    if (!wlId || !user.token) 
+    if (!wlId)
+      return {success: false, message: 'Wordlist has no Id'};
+
+    if (!user.token) 
     return {success: false, message: 'User not logged'};
   
     const status = await dictionaryApi.createWordsInWordList(wlId, [word], user.token)
@@ -88,7 +99,6 @@ export function useWordLists(user: UserType) {
   };
 
 
-  // Finish this function by add save or creation of word (taking account name change => need IDs to recognize the words and prevent unlink on other pages) 
   async function saveWord(newWord: WordType, wordListName: string, originalWordName?: string){
     if (!user.token)
       return {success: false, message: 'User not logged'};
