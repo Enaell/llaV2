@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          method: "PUT",
+          method: "PATCH",
           body: JSON.stringify({language: language})
       })
     },
@@ -32,7 +32,7 @@ function mapDispatchToProps(dispatch){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          method: "PUT",
+          method: "PATCH",
           body: JSON.stringify({targetLanguage: targetLanguage})
       })
     },
@@ -45,7 +45,7 @@ function mapDispatchToProps(dispatch){
               'Accept': 'application/json',
               'Content-Type': 'application/json'
                 },
-            method: "PUT",
+            method: "PATCH",
             body: JSON.stringify(userBoard)
         })
       dispatch({type: 'UPDATE_USERBOARD', payload: userBoard})

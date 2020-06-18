@@ -50,6 +50,8 @@ function getBlocksLayoutsFromModule(modules: UserModulesType, onModify: boolean)
 
 export const UserBoard = ({
   userModules,
+  language,
+  targetLanguage,
   updateUserBoard,
   goToPage,
 } : UserBoardType) => {
@@ -145,7 +147,9 @@ export const UserBoard = ({
               <ModuleBlock 
                 onModify={onModify} 
                 setOnModify={setOnModify} 
-                name={ m as ModuleUrlType } 
+                name={ m as ModuleUrlType }
+                language={language}
+                targetLanguage={targetLanguage}
                 deleteModule={deleteModule} 
                 saveModules={saveUserBoard}
                 cancelModification={()=>{setNewUserModules(userModules); setOnModify(false);}}

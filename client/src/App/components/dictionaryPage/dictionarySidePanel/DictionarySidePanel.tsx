@@ -84,6 +84,7 @@ const DictionarySidePanel = ({
       <ExpansionPanelDetails style={{ padding: '0' }}>
         <Column style={{ width: '100%' }}>
           <WordCard
+            targetLanguage={'Cn'}
             style={{margin: '0 30px', overflow: 'initial'}} 
             word={word}
             align='left' 

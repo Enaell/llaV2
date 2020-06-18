@@ -141,7 +141,6 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
                       isOwner={true}
                       word={undefined}
                       create
-                      wordList={wordLists[wordListName]}
                       onSave={(newWord) => createWordInWordList(newWord, wordListName)}
                       language={user.language}
                       targetLanguage={user.targetLanguage}
@@ -163,7 +162,6 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
                       isAdmin={user.role === 'Admin' || user.role==='Moderator'}
                       isOwner={user.username === word.owner}
                       word={word}
-                      wordList={wordLists[wordListName]}
                       create={false}
                       onSave={(newWord) => updateWordAndPath(newWord, wordListName, wordName) } 
                       language={user.language}

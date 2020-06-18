@@ -25,6 +25,8 @@ export type SentencesType = {
 
 export type UserBoardType = {
     userModules: UserModulesType;
+    language: LanguageType,
+    targetLanguage: LanguageType,
     updateUserBoard: (userBoard: UserModulesType) => Promise<void>;
     goToPage: (url: string) => void;
 }

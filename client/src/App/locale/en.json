@@ -34,22 +34,42 @@
       "words": "Words",
       "add": "Add",
       "save": "Save",
-      "newList": "Nouvelle Liste",
-      "wordListForm": {
-        "owner": "Created by",
-        "name": "Name",
-        "internationalName": "Latin writing",
-        "pinyin": "Pinyin",
-        "subject": "Subject",
-        "level": "Level",
-        "rank": "Rank",
-        "comments": "Comments",
-        "status": "Status",
-        "validation":"Validation",
-        "validated": "Validated",
-        "pending": "Pending Validation",
-        "visibility": "Visibility"
-      }
+      "newList": "New List"
+    },
+    "wordList": {
+      "owner": "Created by",
+      "name": "Name",
+      "subject": "Subject",
+      "level": "Level",
+      "rank": "Rank",
+      "comments": "Comments",
+      "status": "Status",
+      "validation":"Validation",
+      "validated": "Validated",
+      "pending": "Pending Validation",
+      "visibility": "Visibility"
+    },
+    "word": {
+      "owner": "Created by",
+      "name": {
+        "Fr": "Word",
+        "En": "Word",
+        "Cn": "Charactere"
+      },
+      "internationalName": {
+        "Fr": "Latine writing",
+        "En": "Latine writing",
+        "Cn": "Pinyin"
+      },
+      "subject": "Subject",
+      "level": "Level",
+      "rank": "Rank",
+      "comments": "Comments",
+      "status": "Status",
+      "validation":"Validation",
+      "validated": "Validated",
+      "pending": "Pending Validation",
+      "visibility": "Visibility"
     }
   },
   "language": {

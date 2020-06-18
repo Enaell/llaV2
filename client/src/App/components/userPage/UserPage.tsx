@@ -30,6 +30,8 @@ export const UserPage = ({user, updateUserBoard, history }: {
               user && user.userBoard ?
               {...user.userBoard}
               : {} }
+            language={user.language}
+            targetLanguage={user.targetLanguage}
             updateUserBoard={updateBoard}
             goToPage={goToPage}
           />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { WordCard } from '../../../common/CardsComponents'
-import { WordType, TranslationType } from '../../../common/types';
+import { WordType, TranslationType, LanguageType } from '../../../common/types';
 import { Row } from '../../../common/Flexbox';
 import {sample} from 'underscore';
 import List from '@material-ui/core/List';
@@ -126,7 +126,17 @@ function isCorrect(answer: string, word: WordType){
   return word.translations.some(translation => translation.name === answer);
 }
 
-export const FastExerciceBlock = ({style = {}, words = tempWords, rank = 5}: {style?: any, words?: WordType[], rank?: number}) => {
+export const FastExerciceBlock = ({
+  style = {},
+  words = tempWords,
+  rank = 5,
+  targetLanguage
+}: {
+  style?: any,
+  words?: WordType[],
+  rank?: number,
+  targetLanguage: LanguageType,
+}) => {
 
     const [responses, setResponses] = useState(getResponses(words, undefined));
     const [translations, setTranslations] = useState(responses.map(response => getTranslation(response, rank)))
@@ -150,7 +160,7 @@ export const FastExerciceBlock = ({style = {}, words = tempWords, rank = 5}: {st
 
     return (
         <Row wrap horizontal='center' style={ { width:'100%' ,...style} }>
-            <WordCard style={{ width: '40%', minWidth: '244px' }} word={answer} align={'center'} wordDetailAlign={'center'}/>
+            <WordCard style={{ width: '40%', minWidth: '244px' }} word={answer} align={'center'} wordDetailAlign={'center'} targetLanguage={targetLanguage}/>
             <TranslationList style={{ width: '40%', minWidth: '244px', marginLeft: '25px' }} scoreMax={scoreMax} translations={translations} answer={answer} onAnswer={nextWord}/>
         </Row>
     )

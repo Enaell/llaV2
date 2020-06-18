@@ -44,9 +44,13 @@ router.post('/', auth.required, async (req, res, next) => {
     const { body: { words } } = req;
 
     try {
-        const finalWords = role === ROLES.Admin || role === ROLES.Moderator 
-            ? words.map(word => {return new Words({...word, owner: id})})
-            : words.map(word => {return new Words({...word, owner: id, validated: false})});
+        const finalWords = words.map(word => {
+            return new Words({
+                ...word,
+                owner: id,
+                validated: (ROLES.Admin || role === ROLES.Moderator) ? word.validated : false 
+            })
+        })
     
         const data = await Words.collection.insertMany(finalWords);
         res.json({words: data})

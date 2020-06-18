@@ -34,22 +34,42 @@
       "words": "Mots",
       "add": "Ajouter",
       "save": "Sauvegarder",
-      "newList": "Nouvelle Liste",
-      "wordListForm": {
-        "owner": "Créée par",
-        "name": "Nom",
-        "internationalName": "Ecriture latine",
-        "pinyin": "Pinyin",
-        "subject": "Sujets",
-        "level": "Niveau",
-        "rank": "Rang",
-        "comments": "Commentaires",
-        "status": "Statut",
-        "validation":"Validation",
-        "validated": "Validée",
-        "pending": "En attente de validation",
-        "visibility": "Visibilitée"
-      }
+      "newList": "Nouvelle Liste"
+    },
+    "wordList": {
+      "owner": "Créée par",
+      "name": "Nom",
+      "subject": "Sujets",
+      "level": "Niveau",
+      "rank": "Rang",
+      "comments": "Commentaires",
+      "status": "Statut",
+      "validation":"Validation",
+      "validated": "Validée",
+      "pending": "En attente de validation",
+      "visibility": "Visibilitée"
+    },
+    "word": {
+      "owner": "Créée par",
+      "name": {
+        "Fr": "Mot",
+        "En": "Mot",
+        "Cn": "Caractère"
+      },
+      "internationalName": {
+        "Fr": "Ecriture latine",
+        "En": "Ecriture latine",
+        "Cn": "Pinyin"
+      },
+      "subject": "Sujets",
+      "level": "Niveau",
+      "rank": "Rang",
+      "comments": "Commentaires",
+      "status": "Status",
+      "validation":"Validation",
+      "validated": "Validée",
+      "pending": "En attente de validation",
+      "visibility": "Visibilitée"
     }
   },
   "language": {

@@ -21,7 +21,7 @@ function mapDispatchToProps(dispatch){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          method: "PUT",
+          method: "PATCH",
           body: JSON.stringify({language: language})
       })
     },
@@ -34,7 +34,7 @@ function mapDispatchToProps(dispatch){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          method: "PUT",
+          method: "PATCH",
           body: JSON.stringify({targetLanguage: targetLanguage})
       })
     },

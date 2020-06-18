@@ -4,14 +4,14 @@ import { FastExerciceBlock } from "./FastExerciceBlock";
 import { NewsBlock } from "./NewsBlock";
 import { Column } from '../../../common/Flexbox';
 import { moduleUrl } from '../../../common/utils';
-import { ModuleUrlType } from '../../../common/types';
+import { ModuleUrlType, LanguageType } from '../../../common/types';
 import translate from 'counterpart';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
   
-const getBlockFromModule = (moduleName: string) => {
+const getBlockFromModule = (moduleName: string, language: LanguageType, targetLanguage: LanguageType) => {
   switch(moduleName){
     case 'fastExercice': 
-      return <FastExerciceBlock />  
+      return <FastExerciceBlock targetLanguage={targetLanguage} />  
     case 'news':
       return <NewsBlock name={moduleName} />
   }
@@ -21,9 +21,11 @@ function getPageFromModuleName(name: ModuleUrlType) {
   return moduleUrl[name];
 }
 
-export const ModuleBlock = ({ name, onModify, setOnModify, deleteModule, saveModules, cancelModification, goToPage } :
+export const ModuleBlock = ({ name, language, targetLanguage, onModify, setOnModify, deleteModule, saveModules, cancelModification, goToPage } :
   { 
     name: ModuleUrlType;
+    language: LanguageType,
+    targetLanguage: LanguageType,
     onModify: boolean; 
     setOnModify: React.Dispatch<React.SetStateAction<boolean>>;
     deleteModule: (moduleName: string) => void;
@@ -70,7 +72,7 @@ export const ModuleBlock = ({ name, onModify, setOnModify, deleteModule, saveMod
             style={{ border: '#a8c1a3 solid 2px', width: '100%', height: '100%'}} 
             key={name} 
           >
-            {getBlockFromModule(name)} 
+            {getBlockFromModule(name, language, targetLanguage)} 
           </Column>
         </div>
       </>

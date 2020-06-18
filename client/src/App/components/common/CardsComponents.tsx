@@ -34,6 +34,7 @@ export const WordCard = ({
   wordDetailVariant='h6',
   align='center', 
   wordDetailAlign='center',
+  targetLanguage,
   style
   }: {
   isAdmin?: boolean,
@@ -45,10 +46,11 @@ export const WordCard = ({
   variant?: "inherit" | "button" | "caption" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "subtitle1" | "subtitle2" | "body1" | "body2" | "overline" | "srOnly" | undefined,
   wordDetailVariant?: "inherit" | "button" | "caption" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "subtitle1" | "subtitle2" | "body1" | "body2" | "overline" | "srOnly" | undefined,
   wordDetailAlign: PropTypes.Alignment,
+  targetLanguage: LanguageType,
   style?: any 
 }) => {
 
-  const localeWordForm = 'dictionaryPage.wordListPanel.wordListForm';
+  const localeWord = 'dictionaryPage.word';
 
   return (
     <Card elevation={ elevation || 1 } style={style}>
@@ -71,7 +73,7 @@ export const WordCard = ({
         required
       />
       : <Typography align={ align } color="textSecondary" gutterBottom>
-        Caractère
+        {translate(`${localeWord}.name.${targetLanguage}`)}
       </Typography>}
       <Typography align={ align } component="h2" variant={variant} gutterBottom>
         { word?.name || ''}
@@ -90,7 +92,7 @@ export const WordCard = ({
           required
         />
         : <Typography align={ align } color="textSecondary" gutterBottom>
-          Pinying
+          {translate(`${localeWord}.internationalName.${targetLanguage}`)}
         </Typography>} 
       </>}
       <Typography align={ wordDetailAlign || align } variant={wordDetailVariant} gutterBottom>
@@ -103,7 +105,7 @@ export const WordCard = ({
           fullWidth
           type='number'
           inputProps={{ min: "0", max: "6", step: "1" }} 
-          label={translate(`${localeWordForm}.level`)}
+          label={translate(`${localeWord}.level`)}
           onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
             setWord({...word, level: event.target.value as number});
           }}
@@ -124,8 +126,8 @@ export const WordCard = ({
             <TextField
               {...params}
               variant="standard"
-              label={translate(`${localeWordForm}.subject`)}
-              placeholder={translate(`${localeWordForm}.subject`)}
+              label={translate(`${localeWord}.subject`)}
+              placeholder={translate(`${localeWord}.subject`)}
               error={false}
             />
           )}
@@ -142,8 +144,8 @@ export const WordCard = ({
             <TextField
               {...params}
               variant="standard"
-              label={translate(`${localeWordForm}.visibility`)}
-              placeholder={translate(`${localeWordForm}.visibility`)}
+              label={translate(`${localeWord}.visibility`)}
+              placeholder={translate(`${localeWord}.visibility`)}
               error={false}
             />
           )}
@@ -159,7 +161,7 @@ export const WordCard = ({
                 inputProps={{ 'aria-label': 'primary checkbox' }}
               />
             }
-            label={translate(`${localeWordForm}.validation`)}
+            label={translate(`${localeWord}.validation`)}
           />
         </Row>
       </>

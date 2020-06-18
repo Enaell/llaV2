@@ -124,7 +124,7 @@ router.get('/current', auth.required, async (req, res, next) => {
   return res.json({ user: user.toAuthJSON() });
 });
 
-router.put('/', auth.required, async (req, res, next) => {
+router.patch('/', auth.required, async (req, res, next) => {
   const { payload, body: updates} = req;
 
   delete updates.username;

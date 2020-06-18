@@ -62,9 +62,10 @@ const formatter = {
     formatWordListUpdates: (wordlist, isAdmin) => {
       let wordlistUpdates = {
         ...wordlist,
-        words: wordlist.words 
+        words: wordlist.words
         ? Object.keys(wordlist.words).map(key => wordlist.words[key].id) 
-        : []
+        : [],
+        validated: isAdmin ? word.validated: false
       };
       delete wordlistUpdates.owner;
       delete wordlistUpdates.id;
@@ -75,12 +76,13 @@ const formatter = {
       return wordlistUpdates;
     },
     formatWordUpdates: (word, isAdmin) => {
-      let wordUpdates = {...word};
+      let wordUpdates = {
+        ...word,
+        validated: isAdmin ? word.validated: false
+      };
       delete wordUpdates.owner;
       delete wordUpdates.id;
       delete wordUpdates.language;
-      if (!isAdmin)
-        delete wordUpdates.validated;
       return wordUpdates;
     }
 }

@@ -15,8 +15,7 @@ const height= {
   overflowX: 'hidden'
 }
 
-function getPrimaryFontSize(charactersNumber: number, language: LanguageType)
-{
+function getPrimaryFontSize(charactersNumber: number, language: LanguageType){
   if (charactersNumber < 3 || (language !== 'Cn' && charactersNumber < 5))
     return "h1";
   if (charactersNumber < 5 || (language !== 'Cn' && charactersNumber < 9))
@@ -32,7 +31,6 @@ export const WordForm = ({
   isAdmin=false,
   isOwner=false,
   create= false,
-  wordList,
   word=undefined,
   language,
   targetLanguage,
@@ -41,7 +39,6 @@ export const WordForm = ({
   isAdmin?: boolean,
   isOwner?: boolean,
   create?: boolean,
-  wordList: WordListType,
   word?: WordType,
   language: LanguageType,
   targetLanguage: LanguageType
@@ -80,6 +77,7 @@ export const WordForm = ({
         variant={(newWord.name && getPrimaryFontSize(newWord.name.length, targetLanguage)) || undefined}
         align={'center'}
         wordDetailAlign={'center'}
+        targetLanguage={targetLanguage}
       /> 
     </Column>
     <TranslationList 

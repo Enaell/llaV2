@@ -9,7 +9,7 @@ const { VISIBILITY, ROLES } = require('../../models/utils');
 
 
 router.get('/', auth.optional, async (req, res, next) => {
-    const {payload} = req;
+    const { payload } = req;
     const language = req.query && req.query.language ? {language: req.query.language} : {};
     const targetLanguage = req.query && req.query.targetlanguage ? {targetLanguage: req.query.targetlanguage} : {};
 
@@ -23,13 +23,28 @@ router.get('/', auth.optional, async (req, res, next) => {
     else if (payload && payload.id)
     {
         console.log('API WORDLISTS get all wordLists as CUSTOMER')
-        wordLists = await WordLists.find({$or:[{ visibility: VISIBILITY.Visitor, validated: true, ...language, ...targetLanguage }, { visibility: VISIBILITY.LoggedIn, validated: true, ...language, ...targetLanguage }, {visibility: VISIBILITY.Owner, owner: payload.id, ...language, ...targetLanguage }] }).populate('words');
+        wordLists = await WordLists.find({
+          $or:[
+            { visibility: VISIBILITY.Visitor, validated: true, ...language, ...targetLanguage },
+            { visibility: VISIBILITY.LoggedIn, validated: true, ...language, ...targetLanguage },
+            {visibility: VISIBILITY.Owner, owner: payload.id, ...language, ...targetLanguage }
+          ] }).populate('words').populate('owner');
+        wordLists = wordLists.map(wordList => {
+          return {
+            ...wordList._doc,
+            words: wordList.words.filter(word => word.validated || word.owner._id === payload.id )} 
+        });
     }
     else
     {
         console.log('API WORDLISTS get all wordLists as VISITOR')
-        wordLists = await WordLists.find({ visibility: VISIBILITY.Visitor, validated: true, ...language, ...targetLanguage }).populate('words');
-    }
+        wordLists = await WordLists.find({ visibility: VISIBILITY.Visitor, validated: true, ...language, ...targetLanguage }).populate('words').populate('owner');
+        wordLists = wordLists.map(wordList => {
+          return {
+            ...wordList._doc,
+            words: wordList.words.filter(word => word.validated)}
+        });
+      }
     formattedWordLists = formatter.formatWordLists(wordLists, 'name', language.language);
     return res.json({ wordLists: formattedWordLists })
 });
@@ -45,8 +60,18 @@ router.post('/:wordlistid/words', auth.required, async(req, res, next) => {
   return res.status(401).send({status: 401, message: "User is not allowed to delete other's wordlist"});
 
   try {
-    const validated = role === ROLES.Admin || role === ROLES.Moderator;
-    const finalWords = words.map(word => {return new Words({...word, owner: id, validated: validated, language: wl.targetLanguage})});
+    const finalWords = words.map(word => {
+      console.log(word)
+      return new Words({
+        ...word,
+        owner: id,
+        validated: (role === ROLES.Admin || role === ROLES.Moderator) ? word.validated: false,
+        language: wl.targetLanguage,
+        translations: word.translations.filter(t=> t && t.name).map(translation => {
+          return {...translation, sentences: translation.sentences.filter(sentence => sentence.sentence && sentence.translatedSentence)}
+        })
+      })
+    });
     const data = await Words.collection.insertMany(finalWords);
     newWordsId = data.ops.map(word => word._id);
     wl.words = [...wl.words, ...newWordsId];
@@ -68,9 +93,14 @@ router.post('/', auth.required, async (req, res, next) => {
   if (!role)
     res.status(401).send({status: 401, message: "User not logged"})
   try {      
-    const validated = role === ROLES.Admin || role === ROLES.Moderator;
 
-    const finalWordLists = wordLists.map(wordList => {return new WordLists({...wordList, owner: id, validated: validated})});
+    const finalWordLists = wordLists.map(wordList => {
+      return new WordLists({
+        ...wordList,
+        owner: id,
+        validated: (role === ROLES.Admin || role === ROLES.Moderator) ? wordList.validated: false
+      })
+    });
     const data = await WordLists.collection.insertMany(finalWordLists);
     res.json({wordLists: data});
   }
