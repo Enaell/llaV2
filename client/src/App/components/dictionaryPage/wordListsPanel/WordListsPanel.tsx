@@ -39,7 +39,7 @@ const translationsToString = (translations: TranslationType[]) => {
 
 export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) => {
   const { url } = props.match;
-  const { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWordInWordList, saveWord } = useWordLists(user);
+  const { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWordInWordList, updateWord } = useWordLists(user);
 
   async function createWlAndUpdatePath(newWordLists: WordListType) {
     const newWlStatus = await createWordList(newWordLists);
@@ -60,7 +60,7 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
   }
 
   async function updateWordAndPath (newWord: WordType, wordListName: string, wordName: string) {
-    const newWStatus = await saveWord(newWord, wordListName, wordName);
+    const newWStatus = await updateWord(newWord, wordListName, wordName);
     history.replace(`${url}/${wordListName}/words/${newWord.name}`);
     return newWStatus;
   }

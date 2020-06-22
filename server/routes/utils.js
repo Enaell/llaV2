@@ -84,6 +84,15 @@ const formatter = {
       delete wordUpdates.id;
       delete wordUpdates.language;
       return wordUpdates;
+    },
+    cleanTranslations: (word) => {
+      return {
+        ...word,
+        translations: word.translations.filter(t=> t && t.name).map(translation => ({
+          ...translation,
+          sentences: translation.sentences.filter(sentence => sentence.sentence && sentence.translatedSentence)
+        }))
+      };
     }
 }
 

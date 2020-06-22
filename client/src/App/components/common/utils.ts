@@ -1,4 +1,4 @@
-import { LanguageType, ModuleUrlType, TranslationType } from './types';
+import { LanguageType, ModuleUrlType, TranslationType, WordType } from './types';
 import counterpart from 'counterpart';
 
 import localeFr from '../../locale/fr.json';
@@ -50,4 +50,14 @@ export function renameObjectKey(keysMap: {[key: string]: string}, obj: {[key: st
     ...acc,
     ... { [keysMap[key] || key]: obj[key]}
   }), {})
+}
+
+export function cleanTranslations(word: WordType){
+  return {
+    ...word,
+    translations: word.translations.filter(t=> t && t.name).map(translation => ({
+      ...translation,
+      sentences: translation.sentences.filter(sentence => sentence.sentence && sentence.translatedSentence)
+    }))
+  } as WordType
 }

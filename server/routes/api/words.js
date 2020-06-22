@@ -46,12 +46,11 @@ router.post('/', auth.required, async (req, res, next) => {
     try {
         const finalWords = words.map(word => {
             return new Words({
-                ...word,
+                ...formatter.cleanTranslations(word),
                 owner: id,
-                validated: (ROLES.Admin || role === ROLES.Moderator) ? word.validated : false 
+                validated: (role === ROLES.Admin || role === ROLES.Moderator) ? word.validated : false 
             })
         })
-    
         const data = await Words.collection.insertMany(finalWords);
         res.json({words: data})
     }
@@ -71,12 +70,16 @@ router.patch('/', auth.required, async (req, res, next) => {
         if (owner._id !== id && !(role === ROLES.Admin || role.Moderator))
             return res.status(401).send({status: 401, message: "User is not allowed to modify other's wordlist"});
         
-        const wordUpdates = formatter.formatWordUpdates(word, (role === ROLES.Admin || role.Moderator));
+            
+        const wordUpdates = formatter.formatWordUpdates({
+            ...formatter.cleanTranslations(word),
+            validated: (role === ROLES.Admin || role === ROLES.Moderator) ? word.validated : false 
+        }, (role === ROLES.Admin || role.Moderator));
 
         const w = await Words.findByIdAndUpdate(word.id, wordUpdates, {new: true})
 
         return res.status(200).send({status:200, message: w})
-        } catch (error) {
+    } catch (error) {
         console.log("Couldn't update word");
         console.log(error);
         return res.status(500).send({status: 500, message: error});

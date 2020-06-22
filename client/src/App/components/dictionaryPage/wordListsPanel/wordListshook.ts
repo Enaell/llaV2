@@ -1,8 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
-import { dictionaryApi } from '../../../apiClient/ApiClient'
+import { dictionaryApi } from '../../../apiClient/ApiClient';
 import { UserType, WordListType, WordType } from '../../common/types';
-import { renameObjectKey } from '../../common/utils'
-import { WordList } from '../tabs/collapseList/WordList';
+import { renameObjectKey, cleanTranslations } from '../../common/utils';
 
 export function useWordLists(user: UserType) {
 
@@ -78,19 +77,21 @@ export function useWordLists(user: UserType) {
   async function createWordInWordList(word: WordType, wordListName: string){
     const wlId = wordLists[wordListName].id;
     
+    const cleanWord = cleanTranslations(word);
+
     if (!wlId)
       return {success: false, message: 'Wordlist has no Id'};
 
     if (!user.token) 
     return {success: false, message: 'User not logged'};
   
-    const status = await dictionaryApi.createWordsInWordList(wlId, [word], user.token)
+    const status = await dictionaryApi.createWordsInWordList(wlId, [cleanWord], user.token)
 
     setWordLists({
       ...wordLists,
       [wordListName]: { 
         ...wordLists[wordListName], 
-        words: { ...wordLists[wordListName].words, [word.name]: status.success ? {...word, id: status.message.words[0]._id}: {...word, id: word.name} }
+        words: { ...wordLists[wordListName].words, [cleanWord.name]: status.success ? {...cleanWord, id: status.message.words[0]._id}: {...cleanWord, id: cleanWord.name} }
       }
     });
 
@@ -98,30 +99,32 @@ export function useWordLists(user: UserType) {
   };
 
 
-  async function saveWord(newWord: WordType, wordListName: string, originalWordName?: string){
+  async function updateWord(newWord: WordType, wordListName: string, originalWordName?: string){
     if (!user.token)
       return {success: false, message: 'User not logged'};
 
-    setWords(words.map(word => ( word.id === newWord.id ? newWord : word)));
+    const cleanWord = cleanTranslations(newWord);
 
-    setWordLists( originalWordName && originalWordName !== newWord.name 
+    setWords(words.map(word => ( word.id === cleanWord.id ? cleanWord : word)));
+
+    setWordLists( originalWordName && originalWordName !== cleanWord.name 
       ? {
         ...wordLists,
         [wordListName]: { 
           ...wordLists[wordListName], 
-          words: { ...renameObjectKey({[originalWordName]: newWord.name}, wordLists[wordListName].words), [newWord.name]: newWord }
+          words: { ...renameObjectKey({[originalWordName]: cleanWord.name}, wordLists[wordListName].words), [cleanWord.name]: cleanTranslations(cleanWord) }
         }
       }
       : {
       ...wordLists,
       [wordListName]: { 
         ...wordLists[wordListName], 
-        words: { ...wordLists[wordListName].words, [newWord.name]: newWord }
+        words: { ...wordLists[wordListName].words, [cleanWord.name]: cleanWord }
       }
     });
 
-    return await dictionaryApi.updateWord(newWord, user.token);
+    return await dictionaryApi.updateWord(cleanWord, user.token);
   };
 
-  return { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWordInWordList, saveWord }
+  return { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWordInWordList, updateWord }
 }

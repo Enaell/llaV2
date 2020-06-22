@@ -28,6 +28,14 @@ export const WordCard = ({
   isAdmin=false,
   word= {} as WordType, 
   setWord = ()=> {},
+  wordErrors = {
+    name: false,
+    internationalName: false,
+    level: false,
+    translations: false,
+    subject: false,
+    visibility: false
+  },
   modify= false,
   elevation,
   variant= 'h1',
@@ -40,6 +48,14 @@ export const WordCard = ({
   isAdmin?: boolean,
   word?: WordType,
   setWord?: React.Dispatch<React.SetStateAction<WordType>>,
+  wordErrors?: {
+    name: boolean;
+    internationalName: boolean;
+    level: boolean;
+    translations: boolean;
+    subject: boolean;
+    visibility: boolean;
+  }
   modify?: boolean,
   elevation?: number,
   align: PropTypes.Alignment,
@@ -57,6 +73,7 @@ export const WordCard = ({
       <CardContent>
       {modify 
       ? <TextField
+        error= {wordErrors.name}
         fullWidth
         label="Caractère"
         margin="normal"
@@ -82,6 +99,7 @@ export const WordCard = ({
       <>
         {modify
         ? <TextField
+          error={wordErrors.internationalName}
           fullWidth
           label="Caractère"
           margin="normal"
@@ -101,6 +119,7 @@ export const WordCard = ({
       {modify &&
       <>
         <TextField
+          error={wordErrors.level}
           style={styles.marginTop15}
           fullWidth
           type='number'
@@ -110,7 +129,6 @@ export const WordCard = ({
             setWord({...word, level: event.target.value as number});
           }}
           value={word?.level}
-          error={false}
         />
         <Autocomplete
           style={styles.marginTop15}
@@ -125,10 +143,10 @@ export const WordCard = ({
           renderInput={(params: any) => (
             <TextField
               {...params}
+              error={wordErrors.subject}
               variant="standard"
               label={translate(`${localeWord}.subject`)}
               placeholder={translate(`${localeWord}.subject`)}
-              error={false}
             />
           )}
         />
@@ -146,7 +164,7 @@ export const WordCard = ({
               variant="standard"
               label={translate(`${localeWord}.visibility`)}
               placeholder={translate(`${localeWord}.visibility`)}
-              error={false}
+              error={wordErrors.visibility}
             />
           )}
         />
@@ -176,21 +194,23 @@ export const TranslationList = ({
   setWordTranslations = ([])=> {},
   modify= false,
   language,
+  error=false,
   style={}
 }: {
   translations: TranslationType[],
   setWordTranslations?: (newTranslations: TranslationType[]) => void,
   modify?: boolean,
   language: LanguageType,
+  error: boolean,
   style?: any
 }) => {
 
   return (
-    <div style={{...style}}>
+    <div style={{...style, border: error ?  'solid 1px red': 'none'}}>
     {translations.map((translation) => (
     <TranslationPanel 
       key={translation.rank}
-      setWordTranslation={(newT) => setWordTranslations([...translations.slice(0, translation.rank), {...translations[translation.rank], name: newT}, ...translations.slice(translation.rank + 1, translations.length)])} 
+      setWordTranslation={(newT) => {console.log(newT); setWordTranslations([...translations.slice(0, translation.rank), {...translations[translation.rank], name: newT, sentences: translations[translation.rank].sentences? translations[translation.rank].sentences : []}, ...translations.slice(translation.rank + 1, translations.length)])}} 
       setTranslationSentence={(newS) => setWordTranslations([...translations.slice(0, translation.rank), {...translations[translation.rank], sentences: newS}, ...translations.slice(translation.rank + 1, translations.length)])  }
       deleteTranslation={() => setWordTranslations(translations.filter(t => t.rank !== translation.rank).map((t, index) => {return {...t, rank: index}}))}
       translation={translation} 
