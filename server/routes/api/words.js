@@ -10,7 +10,6 @@ router.get('/', auth.optional, (req, res, next) => {
     const {payload} = req;
     const language = req.query && req.query.language ? {language: req.query.language} : {}
 
-    console.log(payload);
     if (payload && payload.id && payload.role !== ROLES.Customer)
     {
         Words.find({...language})

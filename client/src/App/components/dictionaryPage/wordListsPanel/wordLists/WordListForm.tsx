@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { WordListType, VisibilityType, LanguageType, RoleType } from '../../../common/types';
 import { subjects, visibilities } from '../../../common/utils';
 import { Column, Row } from '../../../common/Flexbox';
 import { Button, TextField, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, Typography, Switch, FormControlLabel } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import translate from 'counterpart';
-import { userInfo } from 'os';
 import { useWordListFormFields } from './wordListFormhooks';
-import { DualSwitch } from '../../../common/GenericComponents';
 
 const styles = {
   title: {width: '80%', maxWidth: '800px'},
@@ -41,9 +39,9 @@ export const WordListForm = ({
   targetLanguage: LanguageType
 }) => 
 {
-  const localListForm = 'dictionaryPage.wordListPanel.wordListForm';
+  const localListForm = 'dictionaryPage.wordList';
 
-  const {fields, errors, canSave, checkError, setCheckError, setFields, } = useWordListFormFields({
+  const {fields, errors, canSave, checkError, setCheckError, setFields } = useWordListFormFields({
     name: wordList?.name || '',
     subject: wordList?.subject || [],
     level: wordList?.level || 0,

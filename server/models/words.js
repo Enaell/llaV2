@@ -4,8 +4,8 @@ const { LANGUAGES, VISIBILITY } = require('./utils');
 const { Schema } = mongoose;
 
 const WordsSchema = new Schema({
-    owner: { type: Schema.Types.ObjectId, ref: 'Users' },
-    name: {type: String, required: true},
+    owner: { type: Schema.Types.ObjectId, ref: 'Users', required: true },
+    name: { type: String, required: true, unique: true },
     internationalName: {type: String, required: true},
     language: {type: String, default: LANGUAGES.Fr},
     subject: {type: [String], default: 'other'},

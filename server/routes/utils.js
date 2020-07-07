@@ -65,7 +65,7 @@ const formatter = {
         words: wordlist.words
         ? Object.keys(wordlist.words).map(key => wordlist.words[key].id) 
         : [],
-        validated: isAdmin ? word.validated: false
+        validated: isAdmin ? wordlist.validated: false
       };
       delete wordlistUpdates.owner;
       delete wordlistUpdates.id;

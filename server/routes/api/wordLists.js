@@ -61,7 +61,6 @@ router.post('/:wordlistid/words', auth.required, async(req, res, next) => {
 
   try {
     const finalWords = words.map(word => {
-      console.log(word)
       return new Words({
         ...word,
         owner: id,

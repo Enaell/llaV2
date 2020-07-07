@@ -47,7 +47,7 @@ export const WordCard = ({
   }: {
   isAdmin?: boolean,
   word?: WordType,
-  setWord?: React.Dispatch<React.SetStateAction<WordType>>,
+  setWord?: (wordUpdated: WordType) => void,
   wordErrors?: {
     name: boolean;
     internationalName: boolean;

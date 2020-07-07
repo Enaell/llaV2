@@ -5,8 +5,8 @@ const { LANGUAGES, VISIBILITY } = require('./utils');
 const { Schema } = mongoose;
 
 const WordListsSchema = new Schema({
-    owner: { type: Schema.Types.ObjectId, ref: 'Users' },
-    name: {type: String, required: true},
+    owner: { type: Schema.Types.ObjectId, ref: 'Users', required: true },
+    name: { type: String, required: true, unique: true },
     words : [{ type: Schema.Types.ObjectId, ref: 'Words' }],
     language: {type: String, default: LANGUAGES.Fr},
     targetLanguage: {type: String, default: LANGUAGES.Fr},

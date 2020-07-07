@@ -24,6 +24,7 @@ export function useWordListFormFields(
   : {name: string, subject: string[], level: number, rank: number, validated?: boolean, visibility: VisibilityType, comments: string}
   )
 {
+  console.log('name changed')
   const [fields, setFields] = useState({name, subject, level, rank, validated, visibility, comments});
   const [errors, setErrors] = useState({name: !name, subject: !subject, level: !(level || level === 0), rank: !(rank || rank === 0), visibility: !visibility } )
   const [canSave, setCanSave] = useState(false);

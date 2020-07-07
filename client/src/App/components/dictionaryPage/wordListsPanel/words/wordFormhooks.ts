@@ -1,62 +1,72 @@
 import { useState, useEffect, useMemo } from 'react';
-import { VisibilityType } from '../../../common/types';
+import { WordType, TranslationType, VisibilityType } from '../../../common/types';
 
-
-function getErrorFromField(key: string, value: string | string[] | [] | number | boolean | VisibilityType){
+function checkWordError(
+  key: 'name' | 'internationalName' | 'level' | 'translations' | 'subject' | 'visibility',
+  value: string | string[] | [] | TranslationType[] |  number | boolean | VisibilityType | undefined
+  ) {
   switch (key) {
     case 'subject':
       return !(value != '');
-    case 'rank':
-      return !(value || value === 0);
     case 'level': 
       return !(value || value === 0);
-    case 'comments': 
-      return false;
-    case 'validated':
-      return false;
+    case 'translations':
+      let translationsError = true;
+      const translations  = value as TranslationType[];
+      translations.forEach(translation => {
+        if (translation.name) translationsError = false;
+      });
+      return translationsError;
     default: 
       return !value
   }
 }
 
-export function useWordFormFields(
-  {name, subject, level, rank, validated, visibility, comments} 
-  : {name: string, subject: string[], level: number, rank: number, validated?: boolean, visibility: VisibilityType, comments: string}
-  )
-{
-  const [fields, setFields] = useState({name, subject, level, rank, validated, visibility, comments});
-  const [errors, setErrors] = useState({name: !name, subject: !subject, level: !(level || level === 0), rank: !(rank || rank === 0), visibility: !visibility } )
-  const [canSave, setCanSave] = useState(false);
-  const [checkError, setCheckError] = useState(false);
+export function useWordForm(word: WordType, create: boolean) {
 
-  useEffect(()=>{
-    setFields({name, subject, level, rank, validated, visibility, comments})
-    setErrors({
-      name: getErrorFromField('name', name), 
-      subject: getErrorFromField('subject', subject), 
-      level: getErrorFromField('level', level),
-      rank: getErrorFromField('rank', rank), 
-      visibility: getErrorFromField('visibility', visibility) 
+  const [newWord, setNewWord] = useState({...word});
+
+  const [wordErrors, setWordError] = useState({name: false, internationalName: false, level: false, translations: false, subject: false, visibility: false})
+
+  const [onModify, setOnModify] = useState(create)
+
+  function updateWord(wordUpdated: WordType) {
+
+    console.log(updateWord)
+    setNewWord({...wordUpdated});
+    setWordError({
+      name: checkWordError('name' , wordUpdated.name),
+      internationalName: checkWordError('internationalName', wordUpdated.internationalName),
+      level: checkWordError('level', wordUpdated.level),
+      translations: checkWordError('translations', wordUpdated.translations),
+      subject: checkWordError('subject', wordUpdated.subject),
+      visibility: checkWordError('visibility', wordUpdated.visibility)
     })
-  }, [name])
+  }
+
+  function cancelModification() {
+    console.log('cancelModification')
+    setNewWord({
+      language: word.language,
+      name:'',
+      internationalName: '',
+      level: 0,
+      translations: [],
+      subject: []
+    });
+    setWordError({name: false, internationalName: false, level: false, translations: false, subject: false, visibility: false})
+    setOnModify(false);
+  }
 
   useMemo(()=> {
-    const findError = Object.keys(errors).find((error) => errors[error as 'name' | 'subject' | 'level' | 'rank' | 'visibility'])
-    setCanSave(!findError);
-  }, [errors])
+    console.log('useMemo word and create')
+    if (word != null) {
+      setNewWord({...word});
+      setWordError({name: false, internationalName: false, level: true, translations: false, subject: false, visibility: false});
+      setOnModify(create)
+    }
+  }, [word, create]);
 
-  return {
-    fields,
-    errors,
-    canSave,
-    checkError,
-    setCheckError,
-    setFields: (
-      key: 'name' | 'subject' | 'level' | 'rank' | 'validated' | 'visibility' | 'comments', 
-      value: string | string[] | number | boolean | VisibilityType
-    ) => {
-      setFields({...fields, [key]: value});
-      setErrors({...errors, [key]:  getErrorFromField(key, value)});
-    },
-  }
-}
+
+  return { newWord, wordErrors, onModify, updateWord, cancelModification, setOnModify }
+} 
