@@ -26,17 +26,6 @@ type WordListsPanelType = {
   setNewWordLists: (newWordLists: {[key: string]: WordListType}) => void
 }
 
-const translationsToString = (translations: TranslationType[]) => {
-  let s = '';
-  translations.forEach((translation, i, translations) => {
-    if (Object.is(translations.length - 1, i))
-      s += translation.name;
-    else
-      s += (translation.name + ', ');
-  })
-  return s;
-}
-
 export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) => {
   const { url } = props.match;
   const { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWordInWordList, updateWord } = useWordLists(user);

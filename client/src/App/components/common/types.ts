@@ -9,7 +9,7 @@ export type UserType = {
     role?: RoleType,
     language: LanguageType,
     targetLanguage: LanguageType,
-    levels?: {language: string, rank: number}[]
+    levels?: {language: LanguageType, rank: number}[]
 } 
 
 export type RoleType = 'Admin' | 'Customer' | 'Moderator' | 'Visitor';
@@ -51,7 +51,7 @@ export type BreakpointType = 'lg' | 'md' | 'sm' | 'xs';
 export type TranslationType = {
     name: string,
     internationalName: string,
-    language: string,
+    language: LanguageType,
     sentences: SentencesType[],
     rank: number,
     comments?: string,
@@ -62,7 +62,7 @@ export type WordType= {
     owner?: string,
     name: string,
     internationalName: string,
-    language: string,
+    language: LanguageType,
     subject: string[],
     level: number,
     translations: TranslationType[],
@@ -76,8 +76,8 @@ export type WordListType= {
     owner?: string,
     name: string,
     words : {[key: string]: WordType},
-    language: string,
-    targetLanguage: string,
+    language: LanguageType,
+    targetLanguage: LanguageType,
     subject: string[],
     level: number,
     rank: number,
@@ -105,6 +105,8 @@ export type LayoutType = {
     flexShrink?: number,
     flexBasis?: string,
     flex?: string,
+    width?: string,
+    height?: string,
     breakpoints?: any,
     element?: 'article' | 'aside' | 'div' | 'figure' | 'footer' | 'form' | 'header' | 'main' | 'nav' | 'section',
     componentRef?: any,
@@ -124,6 +126,8 @@ export type RowType = {
     wrap?: boolean,
     wrapReverse?: boolean,
     flex?: string,
+    width?: string,
+    height?: string,
     flexGrow?: number,
     flexShrink?: number,
     flexBasis?: string,
@@ -145,6 +149,8 @@ export type ColumnType = {
     wrap?: boolean,
     wrapReverse?: boolean,
     flex?: string,
+    width?: string,
+    height?: string,
     flexGrow?: number,
     flexShrink?: number,
     flexBasis?: string,

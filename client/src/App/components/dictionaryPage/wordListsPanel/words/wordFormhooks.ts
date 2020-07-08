@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { WordType, TranslationType, VisibilityType } from '../../../common/types';
+import { WordType, TranslationType, VisibilityType, LanguageType } from '../../../common/types';
 
 function checkWordError(
   key: 'name' | 'internationalName' | 'level' | 'translations' | 'subject' | 'visibility',
@@ -12,8 +12,8 @@ function checkWordError(
       return !(value || value === 0);
     case 'translations':
       let translationsError = true;
-      const translations  = value as TranslationType[];
-      translations.forEach(translation => {
+      const translations  = value as TranslationType[] | undefined;
+      translations && translations.forEach(translation => {
         if (translation.name) translationsError = false;
       });
       return translationsError;
@@ -22,17 +22,15 @@ function checkWordError(
   }
 }
 
-export function useWordForm(word: WordType, create: boolean) {
+export function useWordForm(word: WordType | undefined, create: boolean, targetLanguage: LanguageType) {
 
-  const [newWord, setNewWord] = useState({...word});
+  const [newWord, setNewWord] = useState(word ? {...word} : undefined);
 
   const [wordErrors, setWordError] = useState({name: false, internationalName: false, level: false, translations: false, subject: false, visibility: false})
 
   const [onModify, setOnModify] = useState(create)
 
   function updateWord(wordUpdated: WordType) {
-
-    console.log(updateWord)
     setNewWord({...wordUpdated});
     setWordError({
       name: checkWordError('name' , wordUpdated.name),
@@ -45,9 +43,8 @@ export function useWordForm(word: WordType, create: boolean) {
   }
 
   function cancelModification() {
-    console.log('cancelModification')
-    setNewWord({
-      language: word.language,
+    setNewWord(word || {
+      language: targetLanguage,
       name:'',
       internationalName: '',
       level: 0,
@@ -69,4 +66,4 @@ export function useWordForm(word: WordType, create: boolean) {
 
 
   return { newWord, wordErrors, onModify, updateWord, cancelModification, setOnModify }
-} 
+}

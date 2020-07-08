@@ -95,7 +95,7 @@ export const WordCard = ({
       <Typography align={ align } component="h2" variant={variant} gutterBottom>
         { word?.name || ''}
       </Typography>
-      {word.language !== 'Cn' && 
+      {word.language === 'Cn' && 
       <>
         {modify
         ? <TextField
@@ -197,7 +197,7 @@ export const TranslationList = ({
   error=false,
   style={}
 }: {
-  translations: TranslationType[],
+  translations?: TranslationType[],
   setWordTranslations?: (newTranslations: TranslationType[]) => void,
   modify?: boolean,
   language: LanguageType,
@@ -210,7 +210,7 @@ export const TranslationList = ({
     {translations.map((translation) => (
     <TranslationPanel 
       key={translation.rank}
-      setWordTranslation={(newT) => {console.log(newT); setWordTranslations([...translations.slice(0, translation.rank), {...translations[translation.rank], name: newT, sentences: translations[translation.rank].sentences? translations[translation.rank].sentences : []}, ...translations.slice(translation.rank + 1, translations.length)])}} 
+      setWordTranslation={(newT) => {setWordTranslations([...translations.slice(0, translation.rank), {...translations[translation.rank], name: newT, sentences: translations[translation.rank].sentences? translations[translation.rank].sentences : []}, ...translations.slice(translation.rank + 1, translations.length)])}} 
       setTranslationSentence={(newS) => setWordTranslations([...translations.slice(0, translation.rank), {...translations[translation.rank], sentences: newS}, ...translations.slice(translation.rank + 1, translations.length)])  }
       deleteTranslation={() => setWordTranslations(translations.filter(t => t.rank !== translation.rank).map((t, index) => {return {...t, rank: index}}))}
       translation={translation} 

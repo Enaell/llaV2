@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Column, Row } from '../common/Flexbox';
 import translate from 'counterpart';
 import  { PageTitle }  from '../common/GenericComponents';
@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { UserType, LanguageType, WordListType, WordType } from '../common/types';
 import { Route } from 'react-router-dom';
 import { WordListsPanel } from './wordListsPanel/WordListsPanel';
+import { DictionaryPanel } from './dictionaryPanel/DictionaryPanel';
 
 const styles = (theme: any) => ({
   content: {
@@ -65,6 +66,11 @@ const DictionaryPage = ({
           key={'dictionary_wordlists'}
           path={'/dictionary/wordlists'}
           render={props => <WordListsPanel {...props} user={user} setNewWords={setNewWords} setNewWordLists={setNewWordLists}/>}
+        />
+        <Route
+          key={'dictionary'}
+          path={'/dictionary/words'}
+          render={ props => <DictionaryPanel {...props} user={user} />}
         />
       </Row>
     );

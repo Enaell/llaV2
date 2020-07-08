@@ -42,6 +42,7 @@ const formatter = {
                    owner: i.owner && item.owner.username,
                    name: i.name,
                    internationalName: i.internationalName,
+                   language: i.language,
                    subject: i.subject,
                    level: i.level,
                    translations: i.translations.filter(translation => translation.language === language),

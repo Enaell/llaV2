@@ -58,15 +58,7 @@ export const WordForm = ({
   onSave: (word: WordType) => void
 }) => 
 {
-  const { newWord, wordErrors, onModify, updateWord, cancelModification, setOnModify } = useWordForm(word || {
-    language: targetLanguage,
-    name:'',
-    internationalName: '',
-    level: 0,
-    translations: [],
-    subject: [],
-    visibility: 'owner'
-  } as WordType, create)
+  const { newWord, wordErrors, onModify, updateWord, cancelModification, setOnModify } = useWordForm(word, create, targetLanguage)
   
   return (
   <Row style={{width: '100%', margin: '20px'}}>
@@ -78,17 +70,17 @@ export const WordForm = ({
         word={newWord}
         wordErrors={wordErrors}
         setWord={(w: WordType) => {updateWord(w)}}
-        variant={(newWord.name && getPrimaryFontSize(newWord.name.length, targetLanguage)) || undefined}
+        variant={(newWord?.name && getPrimaryFontSize(newWord.name.length, targetLanguage)) || undefined}
         align={'center'}
         wordDetailAlign={'center'}
         targetLanguage={targetLanguage}
       /> 
     </Column>
     <TranslationList 
-      setWordTranslations={(newTranslations) => updateWord({...newWord, translations: [...newTranslations]})} 
+      setWordTranslations={(newTranslations) => newWord && updateWord({...newWord, translations: [...newTranslations]})} 
       modify={onModify} 
       style={{width: '100%', marginLeft: '20px', ...height}}
-      translations={newWord.translations}
+      translations={newWord?.translations}
       language={language}
       error={wordErrors.translations}
     />
@@ -114,7 +106,7 @@ export const WordForm = ({
         <IconButton style={{height: '50px'}}
           onClick={e => {
             e.preventDefault();
-            if (canSave(wordErrors)) {
+            if (canSave(wordErrors) && newWord !== undefined) {
               onSave(newWord);
               setOnModify(false);
             }

@@ -57,6 +57,9 @@ export function Layout(props: LayoutType) {
         flexBasis,
         flex,
 
+        width,
+        height,
+
         breakpoints,
         className,
         componentRef,
@@ -102,6 +105,10 @@ export function Layout(props: LayoutType) {
 
     const flexStyle = (flex && { flex }) || {};
 
+    const widthStyle = (width && { width }) || {};
+
+    const heightStyle = (height && { height }) || {};
+
     const breakpointsClassNames: string[] = [];
     const breakpointsStyles = !breakpoints ? {} :
         Object.keys(breakpoints).sort((a: any, b: any) => b - a).reduce((style, key) => {
@@ -138,6 +145,8 @@ export function Layout(props: LayoutType) {
         ...flexShrinkStyle,
         ...flexBasisStyle,
         ...flexStyle,
+        ...widthStyle,
+        ...heightStyle,
         ...style,
         ...breakpointsStyles
     };
