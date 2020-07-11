@@ -26,6 +26,8 @@ type WordListsPanelType = {
   setNewWordLists: (newWordLists: {[key: string]: WordListType}) => void
 }
 
+
+
 export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) => {
   const { url } = props.match;
   const { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWordInWordList, updateWord } = useWordLists(user);
@@ -114,7 +116,13 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
               render={({ match }) => {
                 const wordListName = String(match.params.wordlistname);
                 if (user.role !== 'Visitor' && wordLists && wordLists[wordListName])
-                  return <FindWordPanel path={`${url}/${wordListName}/words/createAndAdd`}  level={user.levels?.find(level => level.language === user.targetLanguage)?.rank} words={words} addWord={(word: WordType) => addWordToWordList(word, wordListName)} />;
+                  return <FindWordPanel 
+                      path={`${url}/${wordListName}/words/createAndAdd`}  
+                      level={user.levels?.find(level => level.language === user.targetLanguage)?.rank} 
+                      words={words}
+                      wordListWordsName={Object.keys(wordLists[wordListName].words)}
+                      addWord={(word: WordType) => addWordToWordList(word, wordListName)}
+                    />;
                 return <div></div>
               }}
             />

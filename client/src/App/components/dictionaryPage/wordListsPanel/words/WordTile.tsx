@@ -33,7 +33,7 @@ function WordTileComponent({ path, word, onDeleteWord }: WordTileType) {
         marginBottom: '5px',
         marginRight: '10px',
         height: '42px',
-        width: '280px',
+        width: '250px',
         paddingLeft: '8px',
       }}
       activeStyle={{ color: 'blue', border: '1.5px solid #0058BB' }}

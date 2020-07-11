@@ -38,7 +38,7 @@ export const Words = ({
 }: WordsType) => {
   return (
     <Column>
-      <div style={{ marginBottom: '10px', marginRight: '5px', width: '305px' }}>
+      <div style={{ marginBottom: '10px', marginRight: '5px', width: '275px' }}>
         {userConnected && 
         <>
           <Typography variant={'h5'}>{title}</Typography>

@@ -40,7 +40,7 @@ export const WordLists = ({
 }: WordListsType) => {
   return (
     <Column style={{...style}}>
-      <div style={{ marginBottom: '10px', marginRight: '5px', width: '305px' }}>
+      <div style={{ marginBottom: '10px', marginRight: '5px', width: '275px' }}>
         <Typography variant={'h5'}>{title}</Typography>
         {userConnected && 
         <Button variant='outlined' onClick={onAddWordList} disabled={disabledBtnAdd}>

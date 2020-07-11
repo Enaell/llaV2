@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Row, Column } from '../../../common/Flexbox';
-import { WordType } from '../../../common/types';
+import { WordType, WordListType } from '../../../common/types';
 import CollapseList from '../../tabs/collapseList';
 import { CollapseWordList } from '../../../common/CardsComponents';
 import { Filter } from '../../../common/GenericComponents';
@@ -10,7 +10,7 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 
 
-const firstLetterSortedWords = (dictionary: WordType[]) => {
+function firstLetterSortedWords(dictionary: WordType[]) {
   
   let sortedDictionary: {[key: string]: WordType[]} = {}
 
@@ -23,7 +23,7 @@ const firstLetterSortedWords = (dictionary: WordType[]) => {
 }
 
 
-const subjectSortedWords = (dictionary: WordType[]) => {
+function subjectSortedWords(dictionary: WordType[]) {
 
   let sortedDictionary: {[key: string]: WordType[]} = {}
   
@@ -37,7 +37,7 @@ const subjectSortedWords = (dictionary: WordType[]) => {
   return sortedDictionary;
 }
 
-function filteredWords (words: WordType[], filter: string) {
+function filteredWords(words: WordType[], filter: string) {
   if (filter && filter.length > 0) {
     return (
       words &&
@@ -52,12 +52,21 @@ function filteredWords (words: WordType[], filter: string) {
   return words;
 };
 
-export const FindWordPanel = ({path , level, words, addWord}: {path: string, level: number | undefined, words: WordType[], addWord: (word: WordType) => void}) => {
+function filterAddedWords(words: WordType[], wordListWordsName: string[]){
+  const truc = words.filter(word=>!wordListWordsName.find((wordName=> wordName === word.name)));
+  console.log('---------------------------');
+  console.log(words)
+  console.log(truc);
+  return truc
+}
+
+export const FindWordPanel = ({path , level, words, wordListWordsName ,addWord}: {path: string, level: number | undefined, words: WordType[], wordListWordsName: string[], addWord: (word: WordType) => void}) => {
   
   const [sortedWords, setSortedWords] = useState(firstLetterSortedWords(words));
   const [filter, setFilter] = useState('');
 
-  useMemo(()=> {setSortedWords(firstLetterSortedWords(filteredWords(words, filter)))}, [ filter, words]);
+  useMemo(()=> {console.log('=============================='); console.log(wordListWordsName);
+    setSortedWords(firstLetterSortedWords(filteredWords(filterAddedWords(words, wordListWordsName), filter)))}, [ filter, words, wordListWordsName]);
 
   return (
     <Column>
