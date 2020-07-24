@@ -76,7 +76,7 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
     setUsernameError(false);
     setPasswordError(false);
     setEmailAddressError(false);
-    changeTabNumber(newValue);
+    changeTabNumber(newValue + 1);
   }
 
 

@@ -3,6 +3,7 @@
   "connection":{
     "signin": "Signin",
     "login": "Login",
+    "discover": "Discover",
     "username": "Username",
     "password": "Password",
     "email": "Email",

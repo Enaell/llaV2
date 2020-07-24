@@ -35,25 +35,27 @@ export const Navbar = ({
 
    return(
     <div className={classes.root}>
-      <AppBar position='fixed' color='primary'>
+      <AppBar elevation={user.token ? 4: 0} position='fixed' color='transparent'>
         <Toolbar>
-          <IconButton onClick={handleSideMenuClick} className={classes.menuButton} color="inherit" aria-label="Open drawer">
-            <MenuIcon />
-          </IconButton>
-          <Button color='inherit' className={classes.homeButton} onClick={handleOnMainPageRedirectionClick}>
-            <Typography style={{color: '#fff'}} variant="h6" noWrap>
-              {translate('application-name')}
-            </Typography>
-          </Button>
+          {user.token && <>
+            <IconButton onClick={handleSideMenuClick} className={classes.menuButton} color="primary" aria-label="Open drawer">
+              <MenuIcon />
+            </IconButton>
+            <Button className={classes.homeButton} onClick={handleOnMainPageRedirectionClick}>
+              <Typography style={{color: '#fff'}} variant="h6" noWrap>
+                {translate('application-name')}
+              </Typography>
+            </Button>
+          </>}
           <div className={classes.grow} />
           {user.token ?
             <UserBar/>
           :
             <div>
-              <Button color="inherit" onClick={openLoginModal}>
+              <Button color="primary" onClick={openLoginModal}>
                 {translate('connection.login')}
               </Button>
-              <Button color="inherit" onClick={openSigninModal}>
+              <Button color="primary" onClick={openSigninModal}>
                 {translate('connection.signin')}
               </Button>
               <LoginModal/>

@@ -69,11 +69,11 @@ export const SigninForm = ({
         onChange={handlePasswordChange}
         fullWidth
       />
-      <Row style={{width: '100%'}} horizontal={'space-around'}>
-        <FormControl>
+      <Row style={{width: '100%'}} horizontal={'space-between'}>
+        <FormControl style={{width: '45%'}}>
           <InputLabel>{translate('mainPage.language')}</InputLabel>
           <Select
-            style={{minWidth: '120px'}}
+            style={{ width: '100%', minWidth: '120px'}}
             labelId="selectLanguage"
             value={language}
             onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
@@ -84,10 +84,10 @@ export const SigninForm = ({
             {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
           </Select>
         </FormControl>
-        <FormControl>
+        <FormControl style={{width: '45%'}}>
           <InputLabel>{translate('mainPage.targetLanguage')}</InputLabel>
           <Select
-            style={{minWidth: '120px'}}
+            style={{ width: '100%', minWidth: '120px'}}
             labelId="selectTargetLanguage"
             value={targetLanguage}
             onChange={(event: React.ChangeEvent<{ value: unknown }>) => handleTargetLanguageChange(event.target.value as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)}

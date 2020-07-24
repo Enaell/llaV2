@@ -2,7 +2,8 @@
   "application-name": "Let's learn !",
   "connection":{
     "signin": "s'enregistrer",
-    "login": "se connecter",
+    "login": "Se connecter",
+    "discover": "Découvrir",
     "username": "Nom",
     "password": "Mot de Passe",
     "email": "Email",
@@ -12,7 +13,7 @@
     "emailError": "Veuillez entrer une adresse email valide",
     "emailInvalidError": "Merci d'entrer une adresse email valide",
     "passwordError": "Veuillez entrer votre mot de passe",
-    "visitor": "Connexion en temps que visiteur"
+    "visitor": "Connexion en tant que visiteur"
   },
   "mainPage": {
     "title": "Bienvenue sur LLA!",

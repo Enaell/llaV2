@@ -3,6 +3,7 @@
   "connection":{
     "signin": "注册",
     "login": "登陆",
+    "discover": "Discover",
     "username": "用户名",
     "password": "密码",
     "email": "邮件",
