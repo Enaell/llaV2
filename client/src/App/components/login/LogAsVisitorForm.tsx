@@ -10,7 +10,9 @@ type LogAsVisitorFormType = {
   language: LanguageType,
   targetLanguage: LanguageType, 
   setLanguage: React.Dispatch<React.SetStateAction<LanguageType>>, 
-  setTargetLanguage: React.Dispatch<React.SetStateAction<LanguageType>>, 
+  setTargetLanguage: React.Dispatch<React.SetStateAction<LanguageType>>,
+  languageError: boolean,
+  targetLanguageError: boolean
 }
 
 export const LogAsVisitorForm = ({
@@ -18,13 +20,15 @@ export const LogAsVisitorForm = ({
   targetLanguage,
   setLanguage,
   setTargetLanguage,
+  languageError,
+  targetLanguageError
 }: LogAsVisitorFormType) => {
   return (
-    <Row horizontal={'space-around'}>
-      <FormControl>
+    <Row style={{width: '100%'}} horizontal={'space-between'}>
+      <FormControl error={languageError} style={{width: '45%'}}>
         <InputLabel>{translate('mainPage.language')}</InputLabel>
         <Select
-          style={{minWidth: '120px'}}
+          style={{ width: '100%', minWidth: '120px'}}
           labelId="selectLanguage"
           value={language}
           onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
@@ -35,10 +39,10 @@ export const LogAsVisitorForm = ({
           {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
         </Select>
       </FormControl>
-      <FormControl>
+      <FormControl error={targetLanguageError} style={{width: '45%'}}>
         <InputLabel>{translate('mainPage.targetLanguage')}</InputLabel>
         <Select
-          style={{minWidth: '120px'}}
+          style={{ width: '100%', minWidth: '120px'}}
           labelId="selectTargetLanguage"
           value={targetLanguage}
           onChange={(event: React.ChangeEvent<{ value: unknown }>) => setTargetLanguage(event.target.value as LanguageType)}

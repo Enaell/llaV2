@@ -76,6 +76,8 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
     setUsernameError(false);
     setPasswordError(false);
     setEmailAddressError(false);
+    setLanguageError(false);
+    setTargetLanguageError(false);
     changeTabNumber(newValue + 1);
   }
 
@@ -106,13 +108,13 @@ const LoginModal = ({onLogin, onSignin, closeModal, open, tabNumber, changeTabNu
             <Button onClick={closeModal} color="primary">
               Cancel
             </Button>
-            {tabNumber === 0 && 
-            <Button type='submit' onClick={(e)=>{e.preventDefault(); onLoginClick()}} color="primary">
-              {translate('connection.login')}
-            </Button>}
             {tabNumber === 1 && 
             <Button type='submit' onClick={(e)=>{e.preventDefault(); onSigninClick()}} color="primary">
               {translate('connection.signin')}
+            </Button>}
+            {tabNumber === 2 && 
+            <Button type='submit' onClick={(e)=>{e.preventDefault(); onLoginClick()}} color="primary">
+              {translate('connection.login')}
             </Button>}
           </DialogActions>
         </form>

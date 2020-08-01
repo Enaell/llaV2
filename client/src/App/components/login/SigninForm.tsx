@@ -31,7 +31,9 @@ export const SigninForm = ({
   handleTargetLanguageChange,
   passwordError, 
   usernameError, 
-  emailAddressError
+  emailAddressError,
+  languageError,
+  targetLanguageError
 }: SigninFormType) => {
   
   return(
@@ -70,7 +72,7 @@ export const SigninForm = ({
         fullWidth
       />
       <Row style={{width: '100%'}} horizontal={'space-between'}>
-        <FormControl style={{width: '45%'}}>
+        <FormControl error={languageError} style={{width: '45%'}}>
           <InputLabel>{translate('mainPage.language')}</InputLabel>
           <Select
             style={{ width: '100%', minWidth: '120px'}}
@@ -84,7 +86,7 @@ export const SigninForm = ({
             {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
           </Select>
         </FormControl>
-        <FormControl style={{width: '45%'}}>
+        <FormControl error={targetLanguageError} style={{width: '45%'}}>
           <InputLabel>{translate('mainPage.targetLanguage')}</InputLabel>
           <Select
             style={{ width: '100%', minWidth: '120px'}}

@@ -13,7 +13,8 @@
     "emailError": "Veuillez entrer une adresse email valide",
     "emailInvalidError": "Merci d'entrer une adresse email valide",
     "passwordError": "Veuillez entrer votre mot de passe",
-    "visitor": "Connexion en tant que visiteur"
+    "visitor": "Simplement essayer !",
+    "moreDetails": "Plus de Détail"
   },
   "mainPage": {
     "title": "Bienvenue sur LLA!",

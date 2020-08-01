@@ -1,8 +1,6 @@
 import React from 'react';
 import { Column, Row } from './Flexbox';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Switch from '@material-ui/core/Switch';
+import {Typography, Switch, InputBase, Button, withStyles} from '@material-ui/core';
 import translate from 'counterpart';
 
 
@@ -99,3 +97,37 @@ export const DualSwitch =  ({
     </Row>
   )
 }
+
+const b = (props: any) => {
+  return (<Button {...props}>{props.children}</Button> )
+}
+
+export const BlackButton = withStyles(theme => ({
+  root: {
+    borderRadius: '5px',
+    backgroundColor: theme.palette.primary.main,
+    color: 'white',
+    borderColor: theme.palette.primary.main,
+    textTransform: 'uppercase',
+    '&:hover': {
+      color: theme.palette.primary.contrastText,
+      backgroundColor: '#41a61d9a',
+      borderColor: theme.palette.secondary.light,
+    },
+  },
+}))(Button);
+
+export const WhiteButton = withStyles(theme => ({
+  root: {
+    borderRadius: '50px',
+    backgroundColor: 'white',
+    color: theme.palette.primary.main,
+    borderColor: theme.palette.primary.main,
+    textTransform: 'none',
+    // '&:hover': {
+    //   color: theme.palette.primary.contrastText,
+    //   backgroundColor: theme.palette.primary.main,
+    //   borderColor: theme.palette.secondary.light,
+    // },
+  },
+}))(Button);

@@ -32,11 +32,11 @@ function mapDispatchToProps(dispatch)
 {
   return {
     openLoginModal:() => {
-      dispatch({type: 'CHANGE_LOGIN_MODAL_TAB', payload: 1})
+      dispatch({type: 'CHANGE_LOGIN_MODAL_TAB', payload: 2})
       dispatch({type: 'TOGGLE_LOGIN_MODAL'})
     },
     openSigninModal:() => {
-      dispatch({type: 'CHANGE_LOGIN_MODAL_TAB', payload: 2})
+      dispatch({type: 'CHANGE_LOGIN_MODAL_TAB', payload: 1})
       dispatch({type: 'TOGGLE_LOGIN_MODAL'})
     },
   }

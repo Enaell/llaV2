@@ -71,8 +71,8 @@ export const LoginTabs = ({
                 style={orientation === 'vertical' ? {paddingTop: '15px'}: {}}
             >
                 {visitorOption && <Tab label= {translate('connection.discover')}/>}
-                <Tab label={translate('connection.login')}/>
                 <Tab label={translate('connection.signin')}/>
+                <Tab label={translate('connection.login')}/>
             </Tabs>
             <Column vertical='space-around' style={{width: orientation === 'vertical' ? 'calc(100% - 160px)': 'inherit', padding: '0 20px'}}>
                 {tabNumber === 0 &&
@@ -81,18 +81,11 @@ export const LoginTabs = ({
                     targetLanguage={targetLanguage}
                     setLanguage={handleLanguageChange}
                     setTargetLanguage={handleTargetLanguageChange}
+                    languageError={languageError}
+                    targetLanguageError={targetLanguageError}
                 />
                 }
-
-                {tabNumber === 1 && 
-                <LoginForm 
-                    handleEmailChange = {handleEmailChange} 
-                    handlePasswordChange = {handlePasswordChange}
-                    passwordError = {passwordError}
-                    emailAddressError = {emailAddressError}
-                />
-                }
-                {tabNumber === 2 &&
+                {tabNumber === 1 &&
                 <SigninForm
                     language= {language}
                     targetLanguage = {targetLanguage}
@@ -106,6 +99,14 @@ export const LoginTabs = ({
                     usernameError = {usernameError}
                     languageError = {languageError}
                     targetLanguageError = {targetLanguageError}
+                />
+                }
+                {tabNumber === 2 && 
+                <LoginForm 
+                    handleEmailChange = {handleEmailChange} 
+                    handlePasswordChange = {handlePasswordChange}
+                    passwordError = {passwordError}
+                    emailAddressError = {emailAddressError}
                 />
                 }
                 {children}

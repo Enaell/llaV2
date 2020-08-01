@@ -52,11 +52,11 @@ export const Navbar = ({
             <UserBar/>
           :
             <div>
-              <Button color="primary" onClick={openLoginModal}>
-                {translate('connection.login')}
-              </Button>
               <Button color="primary" onClick={openSigninModal}>
                 {translate('connection.signin')}
+              </Button>
+              <Button color="primary" onClick={openLoginModal}>
+                {translate('connection.login')}
               </Button>
               <LoginModal/>
             </div>

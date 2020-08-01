@@ -13,7 +13,8 @@
     "emailError": "Please fill the email field with a valid email address",
     "emailInvalidError": "Please enter a valid email address",
     "passwordError": "Please fill the password field",
-    "visitor": "Connect as Visitor"
+    "visitor": "Try it out!",
+    "moreDetails": "More Details"
   },
   "mainPage": {
     "title": "Welcome to LLA!",

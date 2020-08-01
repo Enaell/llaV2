@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Column, Row } from '../common/Flexbox';
+import { WhiteButton, BlackButton } from '../common/GenericComponents'
 import { LanguageType, UserType } from '../common/types';
-import { Button, Typography, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { Typography, Button as MaterialButton } from '@material-ui/core';
 import { welcomeSection, welcomeSectionLogged, backgroundImg, backgroundImgLogged, connectionDiv, statusReminderDiv } from './styles.d';
 
 import translate from 'counterpart';
@@ -96,10 +97,12 @@ export const HeaderView = ({
       connectAsVisitor(language, targetLanguage);
   }
 
-  function handleTabChange(event: any, newValue: number){
+  function handleTabChange(_event: any, newValue: number){
     setUsernameError(false);
     setPasswordError(false);
     setEmailAddressError(false);
+    setLanguageError(false);
+    setTargetLanguageError(false);
     changeTabNumber(newValue);
   }
 
@@ -135,13 +138,16 @@ export const HeaderView = ({
                   visitorOption
                   orientation='vertical'
                 >
-                  <Row horizontal='center' style={{width: '100%', paddingTop: '10px'}}>
+                  <Row horizontal='space-around' style={{width: '100%', paddingTop: '10px'}}>
                     {tabNumber === 0 &&
-                      <Button type='submit' onClick={(e)=> {e.preventDefault();onConnectAsVisitor()}}> {translate('connection.visitor')}</Button>}
+                      <>
+                        <WhiteButton variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onConnectAsVisitor()}}> {translate('connection.visitor')}</WhiteButton>
+                        <BlackButton>{translate('connection.moreDetails')}</BlackButton> 
+                      </>}
                     {tabNumber === 1 && 
-                    <Button type='submit' onClick={(e)=> {e.preventDefault();onLoginClick()}}> {translate('connection.login')}</Button>}
+                    <WhiteButton variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onSigninClick()}}> {translate('connection.signin')}</WhiteButton>}
                     {tabNumber === 2 && 
-                    <Button type='submit' onClick={(e)=> {e.preventDefault();onSigninClick()}}> {translate('connection.signin')}</Button>}
+                    <WhiteButton  variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onLoginClick()}}> {translate('connection.login')}</WhiteButton>}
                   </Row>
                 </LoginTabs>
               </Column>

@@ -13,7 +13,8 @@
     "emailError": "请填写有效邮箱信息",
     "emailInvalidError": "请填写有效邮箱",
     "passwordError": "请填写有效密码",
-    "visitor": "无账号登陆"
+    "visitor": "无账号登陆",
+    "moreDetails": "More Details"
   },
   "mainPage": {
     "title": "欢迎!",

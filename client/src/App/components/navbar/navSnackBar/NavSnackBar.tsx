@@ -15,8 +15,7 @@ const variantIcon : any = {
   info: InfoIcon,
 };
 
-function MySnackbarContentWrapper(props: any) {
-  const { message, onClose, variant, classes } = props;
+function MySnackbarContentWrapper({ message, onClose, variant, classes }: any) {
   const Icon = variantIcon[variant];
 
   return (
