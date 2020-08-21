@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import CardTrainingPage from './cardTraining/CardTrainingPage-container';
 import Navbar from './navbar'
 import Footer from './footer/Footer'
-import AddCardForm from './addCard/AddCardForm'
-import UserPage from './userPage'
-import DictionaryPage from './dictionaryPage'
-import { BrowserRouter, Route, Switch as RouterSwitch } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import * as Redux from 'redux';
 import * as ReactRedux from 'react-redux';
 import reducer from '../redux/reducer';
@@ -14,12 +10,11 @@ import localeFr from '../locale/fr.json';
 import localeEn from '../locale/en.json';
 import localeCn from '../locale/cn.json';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import RouteNotFound from './RouteNotfound';
 import { Column } from './common/Flexbox';
 import {ThemeProvider} from '@material-ui/core/styles';
 import theme from '../theme';
 import { withStyles } from '@material-ui/core/styles';
-import MainHeader from './headerView'
+import Routes from './Routes';
 
 console.log(React.version);
 
@@ -60,18 +55,9 @@ class App extends Component {
       <ReactRedux.Provider store={store}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <Column horizontal='center' style={{ width:'100%', overflowY:'hidden' }}>
+            <Column horizontal='center' width='100%'>
               <Navbar/>
-              <MainHeader/>
-              <div style={{marginTop:'300px', width:'100%', minHeight: 'calc(100vh - 400px)'}}>
-                <RouterSwitch>
-                  <Route exact path="/" component={UserPage}/>
-                  <Route path="/cardTraining" component={CardTrainingPage} />
-                  <Route path="/addCard" component={AddCardForm} />
-                  <Route path="/dictionary" component={DictionaryPage}/>
-                  <Route component={RouteNotFound} />
-                </RouterSwitch>
-              </div>
+              <Routes />
               <Footer />
             </Column>
           </BrowserRouter>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Column, Row } from '../common/Flexbox';
-import { WhiteButton, BlackButton } from '../common/GenericComponents'
+import { WhiteButton, DarkButton } from '../common/GenericComponents'
 import { LanguageType, UserType } from '../common/types';
-import { Typography, Button as MaterialButton } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { welcomeSection, welcomeSectionLogged, backgroundImg, backgroundImgLogged, connectionDiv, statusReminderDiv } from './styles.d';
 
 import translate from 'counterpart';
@@ -46,6 +46,7 @@ export const HeaderView = ({
   const [targetLanguageError, setTargetLanguageError] = useState(false);
   const [languageError, setLanguageError] = useState(false);
 
+  const [discover, setDiscover] = useState(false);
 
   function handleUserNameChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
     setUsername(event.target.value);
@@ -97,6 +98,10 @@ export const HeaderView = ({
       connectAsVisitor(language, targetLanguage);
   }
 
+  function onDiscoverClick() {
+    setDiscover(true);
+  }
+
   function handleTabChange(_event: any, newValue: number){
     setUsernameError(false);
     setPasswordError(false);
@@ -110,56 +115,55 @@ export const HeaderView = ({
     <Column horizontal='start' vertical={'center'} className='welcomeSection' style={isLogged ? welcomeSectionLogged : welcomeSection}>
       <div style={isLogged ? backgroundImgLogged : backgroundImg}/>
       <Column horizontal='end' style={{width: '45%'}}>
-      <Column horizontal={'start'} style={ isLogged ? statusReminderDiv : connectionDiv }>
-      {!isLogged && 
-        <Typography color="primary" variant='h3' noWrap>
-          {translate('application-name')}
-        </Typography>}
-        {!isLogged ?
-          <form style={{width: '100%', height: '100%', paddingTop: '20px'}}>
-            <Row style={{height: '100%', width: '100%'}} vertical={'center'}>
-              <Column height='100%' width='100%' vertical={'space-around'}>
-                <IntroductionColumn />
-                <LoginTabs
-                  tabNumber={tabNumber}
-                  language={language}
-                  targetLanguage={targetLanguage}
-                  handleTabChange={handleTabChange} 
-                  handleEmailChange={handleEmailChange} 
-                  handlePasswordChange={handlePasswordChange}
-                  handleLanguageChange={setLanguage}
-                  handleTargetLanguageChange={setTargetLanguage}
-                  passwordError={passwordError} 
-                  emailAddressError={emailAddressError} 
-                  usernameError={usernameError}
-                  languageError={languageError}
-                  targetLanguageError={targetLanguageError}
-                  handleUserNameChange={handleUserNameChange}
-                  visitorOption
-                  orientation='vertical'
-                >
-                  <Row horizontal='space-around' style={{width: '100%', paddingTop: '10px'}}>
-                    {tabNumber === 0 &&
-                      <>
-                        <WhiteButton variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onConnectAsVisitor()}}> {translate('connection.visitor')}</WhiteButton>
-                        <BlackButton>{translate('connection.moreDetails')}</BlackButton> 
-                      </>}
-                    {tabNumber === 1 && 
-                    <WhiteButton variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onSigninClick()}}> {translate('connection.signin')}</WhiteButton>}
-                    {tabNumber === 2 && 
-                    <WhiteButton  variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onLoginClick()}}> {translate('connection.login')}</WhiteButton>}
-                  </Row>
-                </LoginTabs>
-              </Column>
-            </Row>
-          </form> :
-          <MainHeader user={user} setUserLanguage={setUserLanguage} setUserTargetLanguage={setUserTargetLanguage}/>
+        <Column horizontal={'start'} style={ isLogged ? statusReminderDiv : connectionDiv }>
+        {!isLogged && 
+          <Typography color="primary" variant='h3' noWrap>
+            {translate('application-name')}
+          </Typography>}
+          {!isLogged
+          ? <>
+            <form style={{width: '100%', height: '100%', paddingTop: '20px'}}>
+              <Row style={{height: '100%', width: '100%'}} vertical={'center'}>
+                <Column height='100%' width='100%' vertical={'space-around'}>
+                  <IntroductionColumn />
+                  <LoginTabs
+                    tabNumber={tabNumber}
+                    language={language}
+                    targetLanguage={targetLanguage}
+                    handleTabChange={handleTabChange} 
+                    handleEmailChange={handleEmailChange} 
+                    handlePasswordChange={handlePasswordChange}
+                    handleLanguageChange={setLanguage}
+                    handleTargetLanguageChange={setTargetLanguage}
+                    passwordError={passwordError} 
+                    emailAddressError={emailAddressError} 
+                    usernameError={usernameError}
+                    languageError={languageError}
+                    targetLanguageError={targetLanguageError}
+                    handleUserNameChange={handleUserNameChange}
+                    visitorOption
+                    orientation='vertical'
+                  >
+                    <Row horizontal='space-around' style={{width: '100%', paddingTop: '10px'}}>
+                      {tabNumber === 0 &&
+                        <>
+                          <WhiteButton variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onConnectAsVisitor()}}> {translate('connection.visitor')}</WhiteButton>
+                          <DarkButton onClick={e => {e.preventDefault(); onDiscoverClick()}}>{translate('connection.moreDetails')}</DarkButton> 
+                        </>}
+                      {tabNumber === 1 && 
+                      <WhiteButton variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onSigninClick()}}> {translate('connection.signin')}</WhiteButton>}
+                      {tabNumber === 2 && 
+                      <WhiteButton  variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onLoginClick()}}> {translate('connection.login')}</WhiteButton>}
+                    </Row>
+                  </LoginTabs>
+                </Column>
+              </Row>
+            </form>
+          </>
+          : <MainHeader user={user} setUserLanguage={setUserLanguage} setUserTargetLanguage={setUserTargetLanguage}/>
           }
-      </Column>
+        </Column>
       </Column>
     </Column>
   );
 }
-
-
-

@@ -17,18 +17,22 @@ const themeReducer = (state = initialThemeState, action) => {
     default: 
       return state;
   }
-} 
+}
 
 // user
+const discover = (state) => {
+  return ({ ...state, discover: ++state.discover });
+}
+
 const login = (state, user) => { 
-  return ({ ...state, ...user })
+  return ({ ...state, ...user });
 };
 
 const logout = () => ({});
 
 const logState = (state) => {
   console.log(state)
-  return state
+  return state;
 }
 
 const loginAsVisitor = (state, languages) => {
@@ -86,11 +90,14 @@ const initialUserState = {
       sm: { x: 0, y: 2, w: 3, h: 2 },
       xs: { x: 0, y: 1, w: 3, h: 2 }
     }
-  }
+  },
+  discover: 0
 };
 
 const userReducer = (state = initialUserState, action) => {
   switch (action.type){
+    case 'DISCOVER':
+      return discover(state);
     case 'LOGIN':
       return login(state, action.payload);
     case 'LOGOUT':
@@ -116,7 +123,7 @@ const setNewWords = (state, wordList) => ({...state, newWords: wordList.sort((a,
 
 const setNewWordLists = (state, wordLists) => {
   return ({...state, newWordLists: wordLists});
-}
+};
 
 const openSidePanel = (state) => ({ ...state, openSidePanel: true });
 

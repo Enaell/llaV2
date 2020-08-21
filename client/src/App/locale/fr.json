@@ -16,13 +16,39 @@
     "visitor": "Simplement essayer !",
     "moreDetails": "Plus de Détail"
   },
-  "mainPage": {
+  "landingPage": {
     "title": "Bienvenue sur LLA!",
     "welcomeText1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
     "welcomeText2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
     "language": "Langue",
     "targetLanguage": "Langue cible",
-    "level": "Niveau"
+    "level": "Niveau",
+    "featureCards": {
+      "exercice": {
+        "title": "Entrainez vous sur des exercices personalisés",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "deck": {
+        "title":"Gérez vos decks de mots",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "news": {
+        "title":"Suivez les actualités",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "culture": {
+        "title":"Découvrez de nouvelles cultures",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "discuss": {
+        "title":"Discutez avec les autres Utilisateurs",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "share": {
+        "title":"Partagez vos expériences",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      }
+    }
   },
   "dictionaryPage": {
     "title": "Dictionaire",

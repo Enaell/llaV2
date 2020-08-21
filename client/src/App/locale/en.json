@@ -16,13 +16,39 @@
     "visitor": "Try it out!",
     "moreDetails": "More Details"
   },
-  "mainPage": {
+  "landingPage": {
     "title": "Welcome to LLA!",
     "welcomeText1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
     "welcomeText2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
     "language": "Language",
     "targetLanguage": "Target language",
-    "level": "Level"
+    "level": "Level",
+    "featureCards": {
+      "exercice": {
+        "title": "Train on personalized exercises",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "deck": {
+        "title":"Manage your word decks",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "news": {
+        "title":"Follow the news",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "culture": {
+        "title":"Discover new cultures",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "discuss": {
+        "title":"Discuss with the other users",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "share": {
+        "title":"Share your experiences",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      }
+    }
   },
   "dictionaryPage": {
     "title": "Dictionary",

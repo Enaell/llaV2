@@ -30,13 +30,13 @@ export const MainHeader = withRouter(({user, setUserLanguage, setUserTargetLangu
       : 
       <>
         <Typography color={'primary'} variant={'h3'}>{user?.username}</Typography>
-        <Typography variant={'h6'}>{translate('mainPage.level')}:{user?.levels?.find(level => level.language === user.targetLanguage)?.rank}</Typography>
+        <Typography variant={'h6'}>{translate('landingPage.level')}:{user?.levels?.find(level => level.language === user.targetLanguage)?.rank}</Typography>
       </>}
     </Column>
     <Column style={{width: '49%'}} horizontal={'end'}>
       <>
         <FormControl>
-          <InputLabel>{translate('mainPage.language')}</InputLabel>
+          <InputLabel>{translate('landingPage.language')}</InputLabel>
           <Select
             style={{minWidth: '120px'}}
             labelId="selectLanguage"
@@ -49,7 +49,7 @@ export const MainHeader = withRouter(({user, setUserLanguage, setUserTargetLangu
           </Select>
         </FormControl>
         <FormControl>
-          <InputLabel>{translate('mainPage.targetLanguage')}</InputLabel>
+          <InputLabel>{translate('landingPage.targetLanguage')}</InputLabel>
           <Select
             style={{minWidth: '120px'}}
             labelId="selectTargetLanguage"

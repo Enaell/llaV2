@@ -73,7 +73,7 @@ export const SigninForm = ({
       />
       <Row style={{width: '100%'}} horizontal={'space-between'}>
         <FormControl error={languageError} style={{width: '45%'}}>
-          <InputLabel>{translate('mainPage.language')}</InputLabel>
+          <InputLabel>{translate('landingPage.language')}</InputLabel>
           <Select
             style={{ width: '100%', minWidth: '120px'}}
             labelId="selectLanguage"
@@ -87,7 +87,7 @@ export const SigninForm = ({
           </Select>
         </FormControl>
         <FormControl error={targetLanguageError} style={{width: '45%'}}>
-          <InputLabel>{translate('mainPage.targetLanguage')}</InputLabel>
+          <InputLabel>{translate('landingPage.targetLanguage')}</InputLabel>
           <Select
             style={{ width: '100%', minWidth: '120px'}}
             labelId="selectTargetLanguage"

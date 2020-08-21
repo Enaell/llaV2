@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import { HeaderView } from './HeaderView';
+import { WelcomeSection } from './WelcomeSection';
 
 function mapStateToProps(state){
   return {
     tabNumber: state.loginModal.tab,
     user: state.user,
-    isLogged: state.user && (state.user.token || state.user.language && state.user.targetLanguage)
+    isLogged: state.user && (state.user.token || (state.user.language && state.user.targetLanguage))
   }
 }
 
@@ -120,4 +120,4 @@ function mapDispatchToProps(dispatch){
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderView)
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeSection)

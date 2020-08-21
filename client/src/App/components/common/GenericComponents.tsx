@@ -102,7 +102,7 @@ const b = (props: any) => {
   return (<Button {...props}>{props.children}</Button> )
 }
 
-export const BlackButton = withStyles(theme => ({
+export const DarkButton = withStyles(theme => ({
   root: {
     borderRadius: '5px',
     backgroundColor: theme.palette.primary.main,

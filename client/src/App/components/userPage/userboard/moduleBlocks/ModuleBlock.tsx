@@ -9,7 +9,7 @@ import translate from 'counterpart';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
   
 const getBlockFromModule = (moduleName: string, language: LanguageType, targetLanguage: LanguageType) => {
-  switch(moduleName){
+  switch(moduleName) {
     case 'fastExercice': 
       return <FastExerciceBlock targetLanguage={targetLanguage} />  
     case 'news':
