@@ -27,10 +27,11 @@ export const LandingPage = () => {
     <>
       <WelcomeSection position={discover ? 'relative' : 'absolute'} />
       { discover && 
-      <div ref={myRef}>
+      <Column width='100%' horizontal='center'>
+        <div ref={myRef}/>
         <InformationPanel />
         <TeamPanel />
-      </div>}
+      </Column>}
     </>
   );
 }

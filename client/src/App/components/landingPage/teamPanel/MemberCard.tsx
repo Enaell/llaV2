@@ -1,13 +1,13 @@
 import React from 'react'
 import { Column } from '../../common/Flexbox'
-import { Card, Typography, CardContent } from '@material-ui/core'
+import { Card, Typography, CardContent, CardMedia } from '@material-ui/core'
 
-export const MemberCard = ({ name, description, children }: { name: string, description: string, children: any }) => {
+export const MemberCard = ({ image, name, description }: { image: string, name: string, description: string }) => {
   return (
-    <Card>
+    <Card style={{width: '300px', paddingTop: '150px', marginTop: '150px'}}>
+      <CardMedia style={{height: '300px', width: '304px', borderRadius: '50%', position: 'absolute', margin:'-300px 0 0 -2px', boxShadow:'0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)' }} image={image} />
       <CardContent>
         <Column>
-          {children}
           <Typography>{name}</Typography>
           <Typography>{description}</Typography>
         </Column>

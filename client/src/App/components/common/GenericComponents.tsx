@@ -124,10 +124,5 @@ export const WhiteButton = withStyles(theme => ({
     color: theme.palette.primary.main,
     borderColor: theme.palette.primary.main,
     textTransform: 'none',
-    // '&:hover': {
-    //   color: theme.palette.primary.contrastText,
-    //   backgroundColor: theme.palette.primary.main,
-    //   borderColor: theme.palette.secondary.light,
-    // },
   },
 }))(Button);

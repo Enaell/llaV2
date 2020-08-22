@@ -15,7 +15,7 @@ export const backgroundImg = {
     height: '100vh',
     width: '100%',
     zIndex: -1,
-    position: 'fixed' as "fixed",
+    position: 'absolute' as "absolute",
     backgroundImage: `url(${firstPagePict})`,
     transitionProperty: 'height',
     transitionDuration: '1s',

@@ -1,20 +1,18 @@
-import React from 'react'
-import { Row } from '../../common/Flexbox'
-import { MemberCard } from './MemberCard'
-import { CardMedia } from '@material-ui/core'
+import React from 'react';
+import { Row } from '../../common/Flexbox';
+import { MemberCard } from './MemberCard';
 
-import totoroPict from './ressources/totoro.jpg'
-import kikiPict from './ressources/kiki.png'
+import translate from 'counterpart';
+
+import totoroPict from './ressources/totoro.jpg';
+import kikiPict from './ressources/kiki.png';
+
+const lptm = 'landingPage.teamMember';
 
 export const TeamPanel = () => {
   return (
-    <Row wrap horizontal='space-around' style={{maxWidth: '1200px', paddingTop: '50px'}}>
-      <MemberCard name='Aurelien Martin' description='qwertgfd sfasdfasdf asfd alskdf nasf sa;d f' >
-        <CardMedia style={{height: '300px', width: '300px', borderRadius: '50%' }} image={totoroPict} />
-      </MemberCard>
-      <MemberCard name='Aurelien Martin' description='qwertgfd sfasdfasdf asfd alskdf nasf sa;d f' >
-        <CardMedia style={{height: '300px', width: '300px', borderRadius: '50%' }} image={kikiPict} />
-      </MemberCard>
-    </Row>
+    <Row wrap horizontal='space-around' width='100%' style={{maxWidth: '1200px', paddingTop: '50px'}}>
+      <MemberCard image={totoroPict} name={translate(`${lptm}.aurelien.name`)} description={translate(`${lptm}.aurelien.description`)} />
+      <MemberCard image={kikiPict} name={translate(`${lptm}.lulu.name`)} description={translate(`${lptm}.lulu.description`)} />    </Row>
   )
 } 

@@ -48,6 +48,16 @@
         "title":"Share your experiences",
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
       }
+    },
+    "teamMember": {
+      "aurelien": {
+        "name": "Aurelien Martin",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "lulu": {
+        "name": "Lulu Wang",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      }
     }
   },
   "dictionaryPage": {
