@@ -6,6 +6,7 @@ import translate from 'counterpart';
 import WelcomeSection from './welcomeSection';
 import { InformationPanel } from './informationPanel/InformationPanel';
 import { TeamPanel } from './teamPanel/TeamPanel';
+import { ContactPanel } from './contactPanel/ContactPanel';
 
 const scrollToRef = (ref: any) =>{ 
   ref.current.scrollIntoView({behavior: 'smooth'})
@@ -31,6 +32,7 @@ export const LandingPage = () => {
         <div ref={myRef}/>
         <InformationPanel />
         <TeamPanel />
+        <ContactPanel/>
       </Column>}
     </>
   );
