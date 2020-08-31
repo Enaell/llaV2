@@ -21,13 +21,6 @@ const styles = theme => ({
   }
 });
 
-function mapStateToProps(state)
-{
-  return {
-    user: state.user,
-  }
-}
-
 function mapDispatchToProps(dispatch)
 {
   return {
@@ -42,4 +35,4 @@ function mapDispatchToProps(dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter( Navbar )));
+export default connect(null, mapDispatchToProps)(withStyles(styles)(withRouter( Navbar )));

@@ -126,3 +126,25 @@ export const WhiteButton = withStyles(theme => ({
     textTransform: 'none',
   },
 }))(Button);
+
+const NavButtonInner = ({children}:{children: any}) => {
+  return <Button>
+    {children}
+  </Button>
+}
+
+export const NavButton = withStyles(theme => ({
+  root: {
+    borderRadius: '50px',
+    color: 'white',
+    textTransform: 'capitalize',
+    '&:after': {
+      display:'block',
+      content: '""',
+      borderBottom: 'solid 3px #019fb6',  
+      transform: 'scaleX(0)',
+      transition: 'transform 250ms ease-in-out',
+    },
+    '&:hover:after': {transform: 'scaleX(1)' }
+  },
+}))(NavButtonInner);

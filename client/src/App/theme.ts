@@ -6,7 +6,7 @@ const theme = createMuiTheme({
       light: '#78d851',
       dark: '#007600',
       main: '#41a61d',
-      contrastText: '#e8f5e9',
+      contrastText: 'white',
     },
     secondary:{
       light: '#fff',
@@ -15,6 +15,11 @@ const theme = createMuiTheme({
       contrastText: '#424242',
     },
   },
+  // typography: {
+  //   button: {
+  //     textTransform: 'none'
+  //   }
+  // }
 });
 
 export default theme;

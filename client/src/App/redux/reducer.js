@@ -6,9 +6,9 @@ import counterpart from 'counterpart';
 
 // general
 
-const setTheme = (state, theme) => ({ ...state, theme});
+const setTheme = (state, theme) => ({ ...state, ...theme});
 
-const initialThemeState = {theme};
+const initialThemeState = {...theme};
 
 const themeReducer = (state = initialThemeState, action) => {
   switch (action.type){
@@ -19,10 +19,26 @@ const themeReducer = (state = initialThemeState, action) => {
   }
 }
 
-// user
+// landingPage
 const discover = (state) => {
   return ({ ...state, discover: ++state.discover });
 }
+
+const initialLandingState = {
+  discover: 0,
+  sections: [ 'information', 'stat', 'team', 'contact' ]
+}
+
+const landingReducer = (state = initialLandingState, action) => {
+  switch (action.type) {
+    case 'DISCOVER':
+      return discover(state);
+    default: 
+      return state;
+  }
+}
+
+// user
 
 const login = (state, user) => { 
   return ({ ...state, ...user });
@@ -91,13 +107,10 @@ const initialUserState = {
       xs: { x: 0, y: 1, w: 3, h: 2 }
     }
   },
-  discover: 0
 };
 
 const userReducer = (state = initialUserState, action) => {
   switch (action.type){
-    case 'DISCOVER':
-      return discover(state);
     case 'LOGIN':
       return login(state, action.payload);
     case 'LOGOUT':
@@ -277,6 +290,7 @@ const exercicesReducer = (state = initialExerciceState, action) => {
 
 
 const reducer = combineReducers({
+  landing: landingReducer,
   user: userReducer,
   dictionary: dictionaryReducer,
   loginModal: loginModalReducer,

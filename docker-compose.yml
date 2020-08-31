@@ -10,6 +10,7 @@ services:
             - "3000:3000"
         volumes:
             - ./client:/usr/src/app
+        stdin_open: true
     lla-server:
         container_name: lla-server
         build:

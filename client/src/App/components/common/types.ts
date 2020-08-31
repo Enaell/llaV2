@@ -1,5 +1,3 @@
-import { Layout } from "react-grid-layout";
-
 export type UserType = {
     _id?: string,
     userBoard?: UserModulesType,

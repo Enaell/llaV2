@@ -10,9 +10,10 @@ import NavSnackBar from './navSnackBar';
 import UserBar from './userBar'
 import translate from 'counterpart';
 import { UserType } from '../common/types';
+import { useSelector } from 'react-redux';
+import { Row } from '../common/Flexbox';
 
 type NavbarType = {
-  user: UserType,
   openLoginModal: () => void, 
   openSigninModal: () => void, 
   classes: any, 
@@ -20,7 +21,6 @@ type NavbarType = {
 }
 
 export const Navbar = ({
-  user, 
   openLoginModal, 
   openSigninModal, 
   classes, 
@@ -33,30 +33,40 @@ export const Navbar = ({
     history.push('/');  
   }
 
+  const user = useSelector((state: any) => state.user) as UserType;
+  const discover = useSelector((state: any) => state.landing.discover) as number;
+
+
    return(
     <div className={classes.root}>
-      <AppBar elevation={user.token ? 4: 0} position='fixed' color='transparent'>
+      <AppBar elevation={user.token ? 4: 0} position='fixed' color={ discover ? 'primary' : 'transparent'}>
         <Toolbar>
           {user.token && <>
             <IconButton onClick={handleSideMenuClick} className={classes.menuButton} color="primary" aria-label="Open drawer">
               <MenuIcon />
             </IconButton>
             <Button className={classes.homeButton} onClick={handleOnMainPageRedirectionClick}>
-              <Typography style={{color: '#fff'}} variant="h6" noWrap>
+              <Typography color={ discover ? 'textSecondary' : 'primary'}  variant="h6" noWrap>
                 {translate('application-name')}
               </Typography>
             </Button>
           </>}
-          <div className={classes.grow} />
+          <Row  className={classes.grow}>
+            Coucou
+          </Row>
           {user.token ?
             <UserBar/>
           :
             <div>
-              <Button color="primary" onClick={openSigninModal}>
-                {translate('connection.signin')}
+              <Button color='primary' onClick={openSigninModal}>
+                <Typography variant='body2' color={ discover ? 'secondary' : 'primary'}>
+                  {translate('connection.signin')}
+                </Typography>
               </Button>
               <Button color="primary" onClick={openLoginModal}>
-                {translate('connection.login')}
+                <Typography variant='body2' color={ discover ? 'secondary' : 'primary'}>
+                  {translate('connection.login')}
+                </Typography>
               </Button>
               <LoginModal/>
             </div>
