@@ -8,11 +8,7 @@ const featNames = ['exercice', 'deck', 'news', 'culture', 'discuss', 'share']
 export const InformationPanel = () => {
   return (
       <Row wrap horizontal='space-around' style={{maxWidth: '1200px', paddingTop: '50px'}}>
-        {featNames.map(fn => {
-          return (
-          <FeatureCard name={fn}/>
-          )}
-        )}
+        {featNames.map(fn => {return (<FeatureCard key={fn} name={fn}/>)})}
       </Row>
   );
 }

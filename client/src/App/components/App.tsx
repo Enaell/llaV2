@@ -55,7 +55,7 @@ class App extends Component {
       <ReactRedux.Provider store={store}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <Column horizontal='center' width='100%'>
+            <Column horizontal='center' width='100%' style={{backgroundColor: '#f9f9f9'}}>
               <Navbar/>
               <Routes />
               <Footer />

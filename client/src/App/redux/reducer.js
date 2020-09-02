@@ -24,6 +24,10 @@ const discover = (state) => {
   return ({ ...state, discover: ++state.discover });
 }
 
+const scrollToSection = (state, section) => {
+  return ({ ...state, section });
+}
+
 const initialLandingState = {
   discover: 0,
   sections: [ 'information', 'stat', 'team', 'contact' ]
@@ -33,6 +37,8 @@ const landingReducer = (state = initialLandingState, action) => {
   switch (action.type) {
     case 'DISCOVER':
       return discover(state);
+    case 'SCROLL_TO_SECTION':
+      return scrollToSection(state, action.payload);
     default: 
       return state;
   }

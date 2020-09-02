@@ -127,21 +127,27 @@ export const WhiteButton = withStyles(theme => ({
   },
 }))(Button);
 
-const NavButtonInner = ({children}:{children: any}) => {
-  return <Button>
-    {children}
-  </Button>
+const NavButtonInner = ({children, onClick, ...props}:{onClick: () => void, children: any}) => {
+  return (
+    <Typography onClick={onClick} variant='body1' {...props}>
+      <Row horizontal='center' width='100%'>
+        {children}
+      </Row>
+    </Typography>
+  )
 }
 
 export const NavButton = withStyles(theme => ({
   root: {
-    borderRadius: '50px',
+    cursor: 'pointer',
     color: 'white',
+    width: '100px',
+    margin: '0 10px 0 10px',
     textTransform: 'capitalize',
     '&:after': {
       display:'block',
       content: '""',
-      borderBottom: 'solid 3px #019fb6',  
+      borderBottom: 'solid 3px white',  
       transform: 'scaleX(0)',
       transition: 'transform 250ms ease-in-out',
     },
