@@ -29,8 +29,12 @@ function scrollToSection(
   refs.current[section]?.scrollIntoView({behavior: 'smooth'})
 }
 
-function scrollToTop(ref: MutableRefObject<HTMLDivElement>) {
-    ref.current.scrollIntoView({behavior: 'smooth'});
+function scrollToTop() {
+  window.scroll({
+    top: 0, 
+    left: 0, 
+    behavior: 'smooth'
+  });
 }
 
 export const LandingPage = () => {
@@ -42,14 +46,9 @@ export const LandingPage = () => {
 
   useEffect(()=> {
     if (discover) {
-      console.log('===================================');
-      console.log(section);
-      console.log(sections);
-      console.log(sections.includes(section));
-      console.log('------------------------------------')
-      sections.includes(section) ?  scrollToSection(refs, section) : scrollToTop(topRef);
+      sections.includes(section) ?  scrollToSection(refs, section) : scrollToTop();
     }
-  }, [discover, sections, section, topRef]);
+  }, [discover, sections, section]);
 
   return (
     <>

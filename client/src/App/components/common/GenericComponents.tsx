@@ -129,10 +129,8 @@ export const WhiteButton = withStyles(theme => ({
 
 const NavButtonInner = ({children, onClick, ...props}:{onClick: () => void, children: any}) => {
   return (
-    <Typography onClick={onClick} variant='body1' {...props}>
-      <Row horizontal='center' width='100%'>
+    <Typography align='center' onClick={onClick} variant='body1' {...props}>
         {children}
-      </Row>
     </Typography>
   )
 }

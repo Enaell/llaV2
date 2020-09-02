@@ -25,7 +25,7 @@ const discover = (state) => {
 }
 
 const scrollToSection = (state, section) => {
-  return ({ ...state, section });
+  return ({ ...state, section, discover: ++state.discover });
 }
 
 const initialLandingState = {
