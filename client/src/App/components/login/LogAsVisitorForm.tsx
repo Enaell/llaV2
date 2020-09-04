@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import translate from 'counterpart';
 import { InputLabel, FormControl, Select, MenuItem, Button } from '@material-ui/core';
 import { LanguageType } from '../common/types';
-import { fullNameLanguages } from '../common/utils';
+import { fullNameLanguages, inputLanguage } from '../common/utils';
 
 type LogAsVisitorFormType = { 
   language: LanguageType,
@@ -36,7 +36,9 @@ export const LogAsVisitorForm = ({
             setLanguage(event.target.value as LanguageType)
           }}
         >
-          {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
+          {(Object.keys(fullNameLanguages) as LanguageType[])
+          .filter(key => inputLanguage[key])
+          .map(key => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
         </Select>
       </FormControl>
       <FormControl error={targetLanguageError} style={{width: '45%'}}>

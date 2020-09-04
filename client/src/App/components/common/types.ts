@@ -12,7 +12,7 @@ export type UserType = {
 
 export type RoleType = 'Admin' | 'Customer' | 'Moderator' | 'Visitor';
 
-export type LanguageType = 'Fr'| 'En' | 'Cn';
+export type LanguageType = 'Fr'| 'En' | 'Cn' | 'Es' | 'Ko' | 'Jp' | 'Ge';
 
 export type VisibilityType = 'visitor' | 'loggedin' | 'owner' ;
 

@@ -45,7 +45,7 @@ export const MainHeader = withRouter(({user, setUserLanguage, setUserTargetLangu
               setUserLanguage(event.target.value as LanguageType)
             }}
           >
-            {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
+            {(Object.keys(fullNameLanguages) as LanguageType[]).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
           </Select>
         </FormControl>
         <FormControl>

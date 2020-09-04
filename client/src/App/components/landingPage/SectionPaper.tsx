@@ -6,6 +6,7 @@ import { Typography, Theme, makeStyles } from '@material-ui/core';
 import translate from 'counterpart';
 import { Column } from '../common/Flexbox';
 import { useSelector } from 'react-redux';
+import { StatisticsPanel } from './statistiquePanel/StatisticsPanel';
 
 function sectionColor(sectionName: string, theme: Theme) {
   switch (sectionName) {
@@ -59,7 +60,7 @@ const Section = ({sectionName}: {sectionName: string}) => {
     case 'information':
       return <InformationPanel />
     case 'stat':
-      return <div />
+      return <StatisticsPanel />
     case 'team':
       return <TeamPanel />
     case 'contact':

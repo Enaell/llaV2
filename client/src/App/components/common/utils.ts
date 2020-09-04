@@ -5,16 +5,35 @@ import localeFr from '../../locale/fr.json';
 import localeEn from '../../locale/en.json';
 import localeCn from '../../locale/cn.json';
 
-export const fullNameLanguages: {[key in LanguageType | string]: string} = {
+export const fullNameLanguages: {[key in LanguageType]: string} = {
   Fr: "Francais",
+  Cn: "中文",
   En: "English",
-  Cn: "中文"
+  Es: "Español",
+  Ge: "Deutsch",
+  Ko: "한국어",
+  Jp: "日本語",
+};
+
+export const inputLanguage: {[key in LanguageType]: boolean} = {
+  Fr: true,
+  Cn: true,
+  En: true,
+  Es: false,
+  Ge: false,
+  Ko: false,
+  Jp: false
+
 };
 
 export const fileLanguage: {[key in LanguageType]: any} = {
   Fr: localeFr,
+  Cn: localeCn,
   En: localeEn,
-  Cn: localeCn
+  Es: undefined,
+  Ge: undefined,
+  Ko: undefined,
+  Jp: undefined,
 }
 
 export const moduleUrl: {[key in ModuleUrlType]: string} = {

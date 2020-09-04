@@ -3,7 +3,7 @@ import { Column, Row } from '../common/Flexbox';
 import TextField from '@material-ui/core/TextField';
 import translate from 'counterpart';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { fullNameLanguages } from '../common/utils';
+import { fullNameLanguages, inputLanguage } from '../common/utils';
 import { LanguageType } from '../common/types';
 
 type SigninFormType = {
@@ -83,7 +83,9 @@ export const SigninForm = ({
               handleLanguageChange(event.target.value as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)
             }}
           >
-            {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
+            {(Object.keys(fullNameLanguages) as LanguageType[])
+            .filter(key => inputLanguage[key])
+            .map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
           </Select>
         </FormControl>
         <FormControl error={targetLanguageError} style={{width: '45%'}}>

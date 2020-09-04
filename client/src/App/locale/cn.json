@@ -120,8 +120,12 @@
   },
   "language": {
     "Fr": "法语",
+    "Cn": "中文",
     "En": "英语",
-    "Cn": "中文"
+    "Es": "Spanish",
+    "Ge": "German",
+    "Ko": "Korean",
+    "Jp": "Japanese"
   },
   "subjects": {
     "general": "General",
