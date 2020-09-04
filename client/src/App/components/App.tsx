@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Navbar from './navbar'
+import { Navbar } from './navbar/Navbar'
 import Footer from './footer/Footer'
 import { BrowserRouter } from 'react-router-dom'
 import * as Redux from 'redux';
@@ -56,7 +56,7 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <BrowserRouter>
             <Column horizontal='center' width='100%' style={{backgroundColor: '#f9f9f9'}}>
-              <Navbar/>
+              <Navbar />
               <Routes />
               <Footer />
             </Column>

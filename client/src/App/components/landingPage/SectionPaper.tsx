@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { InformationPanel } from './informationPanel/InformationPanel';
 import { TeamPanel } from './teamPanel/TeamPanel';
 import { ContactPanel } from './contactPanel/ContactPanel';
-import { Typography, withStyles, Theme } from '@material-ui/core';
+import { Typography, Theme, makeStyles } from '@material-ui/core';
 import translate from 'counterpart';
 import { Column } from '../common/Flexbox';
 import { useSelector } from 'react-redux';
@@ -22,22 +22,7 @@ function sectionColor(sectionName: string, theme: Theme) {
   }
 }
 
-const Section = ({sectionName}: {sectionName: string}) => {
-  switch (sectionName) {
-    case 'information':
-      return <InformationPanel />
-    case 'stat':
-      return <div />
-    case 'team':
-      return <TeamPanel />
-    case 'contact':
-      return <ContactPanel />
-    default:
-      return <div />
-  }
-}
-
-export const SectionPaper = withStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   backgroundPrimary: {
     backgroundColor: theme.palette.primary.main,
     padding: '50px 0 50px 0',
@@ -67,17 +52,31 @@ export const SectionPaper = withStyles(theme => ({
       borderBottom: `solid 3px ${theme.palette.primary.main}`,  
     },
   }
-})) (({ sectionName, classes }: { 
-  sectionName: string,
-  classes: {
-    backgroundPrimary: string,
-    backgroundSecondary: string,
-    textPrimary: string,
-    textSecondary: string
+}));
+
+const Section = ({sectionName}: {sectionName: string}) => {
+  switch (sectionName) {
+    case 'information':
+      return <InformationPanel />
+    case 'stat':
+      return <div />
+    case 'team':
+      return <TeamPanel />
+    case 'contact':
+      return <ContactPanel />
+    default:
+      return <div />
   }
+}
+
+export const SectionPaper = ({ sectionName }: { 
+  sectionName: string,
 }) => {
 
   const theme = useSelector((state: any) => state.theme);
+
+  const classes = useStyles();
+
   const bgColor = sectionColor(sectionName, theme).background;
   const textColor = sectionColor(sectionName, theme).color;
 
@@ -89,4 +88,4 @@ export const SectionPaper = withStyles(theme => ({
       <Section sectionName={sectionName}/>
     </Column>
   )
-})
+};
