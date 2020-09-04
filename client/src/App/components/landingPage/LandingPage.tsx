@@ -1,26 +1,10 @@
 import React, { useRef, useEffect, MutableRefObject } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Column } from '../common/Flexbox';
 
 import WelcomeSection from './welcomeSection';
-import { InformationPanel } from './informationPanel/InformationPanel';
-import { TeamPanel } from './teamPanel/TeamPanel';
-import { ContactPanel } from './contactPanel/ContactPanel';
+import { SectionPaper } from './SectionPaper';
 
-const Section = ({sectionName}: {sectionName: string}) => {
-  switch (sectionName) {
-    case 'information':
-      return <InformationPanel />
-    case 'stat':
-      return <div />
-    case 'team':
-      return <TeamPanel />
-    case 'contact':
-      return <ContactPanel />
-    default:
-      return <div />
-  }
-}
 
 function scrollToSection(
   refs: React.MutableRefObject<{[key: string]: HTMLDivElement | null;}>
@@ -57,10 +41,10 @@ export const LandingPage = () => {
       { discover && 
       <>
         { sections.map((section) => (
-        <Column width='100%' horizontal='center'>
-          <div ref= {element => (refs.current[section] = element)}/>
-          <Section sectionName={section}/>
-        </Column>
+          <Column width='100%' horizontal='center'>
+            <div ref= {element => (refs.current[section] = element)}/>
+            <SectionPaper sectionName={section}/>
+          </Column>
         ))}
       </>}
     </>

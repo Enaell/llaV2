@@ -17,7 +17,7 @@ import { NavButton } from '../common/GenericComponents';
 type NavbarType = {
   openLoginModal: () => void, 
   openSigninModal: () => void, 
-  classes: any, 
+  classes: { root: string, grow: string, menuButton: string, homeButton: string }, 
   history: any
 }
 
@@ -57,7 +57,7 @@ export const Navbar = ({
             {discover ? <Row horizontal='center' className={classes.grow}>
               { sections.map(section => 
                 <NavButton onClick={()=> dispatch({type: 'SCROLL_TO_SECTION', payload: section})} key={section}>
-                  {section} 
+                  {translate(`landingPage.sections.${section}`)} 
                 </NavButton>)}
             </Row>
             : <Row className={classes.grow}>

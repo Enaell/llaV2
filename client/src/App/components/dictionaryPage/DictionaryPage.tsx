@@ -41,7 +41,7 @@ const DictionaryPage = ({
 }: { 
   user: UserType,
   openSidePanel: boolean,
-  classes: any,
+  classes: { content: string, contentShift: string },
   setNewWords: (newWords: {[key: string]: WordType}) => void,
   setNewWordLists: (newWordLists: {[key: string]: WordListType}) => void
 }) => {

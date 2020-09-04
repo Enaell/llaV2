@@ -11,7 +11,7 @@ const lptm = 'landingPage.teamMember';
 
 export const TeamPanel = () => {
   return (
-    <Row wrap horizontal='space-around' width='100%' style={{maxWidth: '1200px', paddingTop: '50px'}}>
+    <Row wrap horizontal='space-around' width='100%' style={{maxWidth: '1200px', paddingTop: '60px'}} >
       <MemberCard image={totoroPict} name={translate(`${lptm}.aurelien.name`)} description={translate(`${lptm}.aurelien.description`)} />
       <MemberCard image={kikiPict} name={translate(`${lptm}.lulu.name`)} description={translate(`${lptm}.lulu.description`)} />
     </Row>

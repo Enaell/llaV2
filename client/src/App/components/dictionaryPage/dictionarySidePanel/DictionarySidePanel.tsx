@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import { Column } from '../../common/Flexbox';
 import { SelectedWords } from './SelectedWords';
 import { WordType } from '../../common/types';
-import { userInfo } from 'os';
 
 type DictionarySidePanelType = { 
   word: WordType,

@@ -109,7 +109,7 @@ export type LayoutType = {
     element?: 'article' | 'aside' | 'div' | 'figure' | 'footer' | 'form' | 'header' | 'main' | 'nav' | 'section',
     componentRef?: any,
     className?: string,
-    children: any,
+    children: React.ReactNode,
 }
 
 export type RowType = {
@@ -132,7 +132,7 @@ export type RowType = {
     breakpoints?: object,
     element?: 'article' | 'aside' | 'div' | 'figure' | 'footer' | 'form' | 'header' | 'main' | 'nav' | 'section',
     className?: string,
-    children: any
+    children: React.ReactNode
 }
 
 export type ColumnType = {
@@ -155,5 +155,5 @@ export type ColumnType = {
     breakpoints?: any,
     element?: 'article' | 'aside' | 'div' | 'figure' | 'footer' | 'form' | 'header' | 'main' | 'nav' | 'section',
     className?: string,
-    children: any
+    children: React.ReactNode
 }

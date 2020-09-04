@@ -127,7 +127,7 @@ export const WhiteButton = withStyles(theme => ({
   },
 }))(Button);
 
-const NavButtonInner = ({children, onClick, ...props}:{onClick: () => void, children: any}) => {
+const NavButtonInner = ({children, onClick, ...props}:{onClick: () => void, children: React.ReactNode}) => {
   return (
     <Typography align='center' onClick={onClick} variant='body1' {...props}>
         {children}

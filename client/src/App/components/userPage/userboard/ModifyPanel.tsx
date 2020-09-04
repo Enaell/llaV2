@@ -7,7 +7,7 @@ import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import { Select, MenuItem } from '@material-ui/core';
 
 
-const SideButton = ({children, onClick, squareSide}: {children: JSX.Element, onClick: () => void, squareSide: number}) => {
+const SideButton = ({children, onClick, squareSide}: {children: React.ReactNode, onClick: () => void, squareSide: number}) => {
   const buttonStyle = { 
     border: '#a8c1a3 solid 2px', 
     width: `${squareSide}px`, 

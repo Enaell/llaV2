@@ -29,7 +29,11 @@ type LoginTabsType = {
     children?: any
 }
 
-const TabsWrapper = ({orientation, children, style={}}: {orientation: 'vertical' | 'horizontal', children: any, style?: any}) => {
+const TabsWrapper = ({orientation, children, style={}}: {
+    orientation: 'vertical' | 'horizontal',
+    children: React.ReactNode,
+    style?: any
+}) => {
     return (<>
         {orientation === 'horizontal' 
         ? <Column  vertical={'space-between'} style={style}> {children} </Column>

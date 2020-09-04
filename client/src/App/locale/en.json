@@ -1,5 +1,5 @@
 {
-  "application-name": "Let's learn!",
+  "application-name": "Let's Learn!",
   "connection":{
     "signin": "Signin",
     "login": "Login",
@@ -14,9 +14,17 @@
     "emailInvalidError": "Please enter a valid email address",
     "passwordError": "Please fill the password field",
     "visitor": "Try it out!",
-    "moreDetails": "More Details"
+    "moreDetails": "More Details",
+    "subject": "Subject",
+    "send": "Send my message"
   },
   "landingPage": {
+    "sections": {
+      "information": "Informations",
+      "stat": "Statistiques",
+      "team": "Team",
+      "contact": "Contact"
+    },
     "title": "Welcome to LLA!",
     "welcomeText1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
     "welcomeText2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
