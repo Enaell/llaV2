@@ -4,6 +4,7 @@ import { Column } from '../common/Flexbox';
 
 import WelcomeSection from './welcomeSection';
 import { SectionPaper } from './SectionPaper';
+import { sections } from '../common/utils';
 
 
 function scrollToSection(
@@ -23,7 +24,7 @@ function scrollToTop() {
 
 export const LandingPage = () => {
 
-  const { discover, sections, section = sections[0] } = useSelector((state: any) => state.landing) as {discover: number, sections: string[], section: string}
+  const { discover, section = sections[0] } = useSelector((state: any) => state.landing) as {discover: number, section: string}
 
   const topRef = useRef(null as unknown) as MutableRefObject<HTMLDivElement>;
   const refs = useRef({} as {[key: string]: HTMLDivElement | null });
@@ -32,7 +33,7 @@ export const LandingPage = () => {
     if (discover) {
       sections.includes(section) ?  scrollToSection(refs, section) : scrollToTop();
     }
-  }, [discover, sections, section]);
+  }, [discover, section]);
 
   return (
     <>
@@ -41,7 +42,7 @@ export const LandingPage = () => {
       { discover && 
       <>
         { sections.map((section) => (
-          <Column width='100%' horizontal='center'>
+          <Column key={section} width='100%' horizontal='center'>
             <div ref= {element => (refs.current[section] = element)}/>
             <SectionPaper sectionName={section}/>
           </Column>

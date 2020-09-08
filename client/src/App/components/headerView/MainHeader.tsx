@@ -4,7 +4,7 @@ import { Row, Column } from "../common/Flexbox"
 import { Typography, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core"
 import translate from 'counterpart';
 import { LanguageType, UserType } from "../common/types"
-import { fullNameLanguages } from "../common/utils"
+import { fullNameLanguages, languages } from "../common/utils"
 import { withRouter } from 'react-router-dom';
 
 type MainHeaderType = {
@@ -45,7 +45,7 @@ export const MainHeader = withRouter(({user, setUserLanguage, setUserTargetLangu
               setUserLanguage(event.target.value as LanguageType)
             }}
           >
-            {(Object.keys(fullNameLanguages) as LanguageType[]).map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
+            {languages.map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
           </Select>
         </FormControl>
         <FormControl>
@@ -57,7 +57,7 @@ export const MainHeader = withRouter(({user, setUserLanguage, setUserTargetLangu
             onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
               setUserTargetLanguage(event.target.value as LanguageType)
             }}                  >
-            {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ translate(`language.${key}`) }</MenuItem>)}
+            {languages.map((key) => <MenuItem key={key} value={key}>{ translate(`language.${key}`) }</MenuItem>)}
           </Select>
         </FormControl>
       </>

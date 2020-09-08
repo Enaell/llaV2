@@ -3,7 +3,7 @@ import { Column, Row } from '../common/Flexbox';
 import TextField from '@material-ui/core/TextField';
 import translate from 'counterpart';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { fullNameLanguages, inputLanguage } from '../common/utils';
+import { fullNameLanguages, inputLanguage, languages } from '../common/utils';
 import { LanguageType } from '../common/types';
 
 type SigninFormType = {
@@ -83,8 +83,7 @@ export const SigninForm = ({
               handleLanguageChange(event.target.value as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)
             }}
           >
-            {(Object.keys(fullNameLanguages) as LanguageType[])
-            .filter(key => inputLanguage[key])
+            {languages.filter(key => inputLanguage[key])
             .map((key) => <MenuItem key={key} value={key}>{ fullNameLanguages[key] }</MenuItem>)}
           </Select>
         </FormControl>
@@ -96,7 +95,7 @@ export const SigninForm = ({
             value={targetLanguage}
             onChange={(event: React.ChangeEvent<{ value: unknown }>) => handleTargetLanguageChange(event.target.value as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)}
           >
-            {Object.keys(fullNameLanguages).map((key) => <MenuItem key={key} value={key}>{ translate(`language.${key}`) }</MenuItem>)}
+            {languages.map((key) => <MenuItem key={key} value={key}>{ translate(`language.${key}`) }</MenuItem>)}
           </Select>
         </FormControl>
       </Row>

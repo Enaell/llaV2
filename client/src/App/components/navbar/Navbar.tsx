@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Row } from '../common/Flexbox';
 import { NavButton } from '../common/GenericComponents';
 import { withRouter } from 'react-router-dom';
+import { sections } from '../common/utils';
 
 type NavbarType = {
   history: any
@@ -46,7 +47,7 @@ export const Navbar = withRouter(({
   const handleSideMenuClick = () => {}
 
   const user = useSelector((state: any) => state.user) as UserType;
-  const {discover, sections} = useSelector((state: any) => state.landing) as {discover: number, sections: string[]};
+  const { discover } = useSelector((state: any) => state.landing) as {discover: number};
   const dispatch = useDispatch();
   const classes = useStyles();
 

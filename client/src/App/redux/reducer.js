@@ -30,7 +30,6 @@ const scrollToSection = (state, section) => {
 
 const initialLandingState = {
   discover: 0,
-  sections: [ 'information', 'stat', 'team', 'contact' ]
 }
 
 const landingReducer = (state = initialLandingState, action) => {

@@ -5,6 +5,8 @@ import localeFr from '../../locale/fr.json';
 import localeEn from '../../locale/en.json';
 import localeCn from '../../locale/cn.json';
 
+export const languages: LanguageType[] = ['Fr', 'En', 'Cn', 'Es', 'Ko', 'Jp', 'Ge']
+
 export const fullNameLanguages: {[key in LanguageType]: string} = {
   Fr: "Francais",
   Cn: "中文",
@@ -23,7 +25,6 @@ export const inputLanguage: {[key in LanguageType]: boolean} = {
   Ge: false,
   Ko: false,
   Jp: false
-
 };
 
 export const fileLanguage: {[key in LanguageType]: any} = {
@@ -47,6 +48,8 @@ export const moduleUrl: {[key in ModuleUrlType]: string} = {
 export const subjects= ['general', 'food', 'daily', 'house', 'number'];
 
 export const visibilities= ['visitor', 'loggedin', 'owner'];
+
+export const sections = [ 'information', 'stat', 'team', 'contact' ];
 
 export function setWebSiteLanguage(language: LanguageType) {
   counterpart.setLocale(language)

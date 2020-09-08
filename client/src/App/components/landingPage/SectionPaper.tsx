@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: '50px 0 50px 0'
   },
   textSecondary: {
+    zIndex: 2,
     color: theme.palette.secondary.main,
     textTransform: 'capitalize',
     margin: '20px 0 20px 0',
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   textPrimary: {
+    zIndex: 2,
     color: theme.palette.primary.main,
     textTransform: 'capitalize',
     margin: '20px 0 20px 0',
