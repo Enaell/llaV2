@@ -11,6 +11,16 @@ services:
         volumes:
             - ./client:/usr/src/app
         stdin_open: true
+    lla-mailer:
+        container_name: lla-mailer
+        build:
+            context: ./mailer
+            dockerfile: Dockerfile
+        image: enael/languagelearningmailer
+        ports:
+            - "6000:6000"
+        volumes:
+            - ./mailer:/usr/src/app
     lla-server:
         container_name: lla-server
         build:
@@ -23,13 +33,11 @@ services:
             - ./server:/usr/src/app
         links:
             - mongo
-          
     mongo:
         container_name: mongo
         image: mongo
         ports:
             - "27017:27017"
-            
     mongo-seed:
         build: ./mongo-seed
         links:
@@ -38,4 +46,23 @@ services:
             - ./mongo-seed:/mongo-seed
         command:
             /mongo-seed/import.sh
+    lla-articles:
+        container_name: lla-articles
+        build:
+            context: ./articles
+            dockerfile: Dockerfile
+        image: enael/languagelearningarticles
+        ports:
+            - "4000:4000"
+        volumes:
+            - ./articles:/usr/src/app
+        links:
+            - mongo-articles
+    mongo-articles:
+        container_name: mongo-articles
+        image: mongo
+        ports:
+            - "27018:27017"
+
+
 
