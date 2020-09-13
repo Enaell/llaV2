@@ -158,3 +158,20 @@ export const dictionaryApi = {
     console.log('api client dictionary remove word from wordlist')
   }
 }
+
+export const mailerApi = {
+  sendContactEmail: async (name: string, email: string, subject: string, comments: string) => {
+    console.log('MAIL API !')
+    const res = await fetch('http://localhost:5050/email/contact',
+      {
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method:"POST",
+      body: JSON.stringify({ name, email, subject, comments })
+    });
+    
+    return res.status;
+  }
+}

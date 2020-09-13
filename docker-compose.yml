@@ -18,7 +18,7 @@ services:
             dockerfile: Dockerfile
         image: enael/languagelearningmessenger
         ports:
-            - "6000:6000"
+            - "5050:5050"
         volumes:
             - ./messenger:/usr/src/app
     lla-server:

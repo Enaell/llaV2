@@ -4,6 +4,6 @@ RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
-EXPOSE 6000
+EXPOSE 5050
 
 CMD [ "npm", "start" ]
