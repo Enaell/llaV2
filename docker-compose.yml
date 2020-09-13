@@ -11,16 +11,16 @@ services:
         volumes:
             - ./client:/usr/src/app
         stdin_open: true
-    lla-mailer:
-        container_name: lla-mailer
+    lla-messenger:
+        container_name: lla-messenger
         build:
-            context: ./mailer
+            context: ./messenger
             dockerfile: Dockerfile
-        image: enael/languagelearningmailer
+        image: enael/languagelearningmessenger
         ports:
             - "6000:6000"
         volumes:
-            - ./mailer:/usr/src/app
+            - ./messenger:/usr/src/app
     lla-server:
         container_name: lla-server
         build:
