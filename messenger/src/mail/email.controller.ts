@@ -8,6 +8,7 @@ export class EmailController {
   @Post('/contact')
   async sendMail(@Res() res, @Body() form: {name: string, email: string, subject: string, comments: string}) {
     console.log(form);
+    console.log(process.env);
     const { name, email, subject, comments } = form
     return this.emailService.landingContact(name, email, subject, comments);
   }

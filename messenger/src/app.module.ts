@@ -13,8 +13,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
         transport: {
           service: 'gmail',
           auth: {
-            user: 'email@gmail.com',
-            pass: 'psw'
+            user: process.env.EMAIL_ADDRESS,
+            pass: process.env.EMAIL_PSW
           }
         },
         defaults: {

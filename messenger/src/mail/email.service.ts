@@ -9,7 +9,7 @@ export class EmailService {
     this
       .mailerService
       .sendMail({
-        to: 'orelienmartin@hotmail.fr', // List of receivers email address
+        to: process.env.EMAIL_ADDRESS, // List of receivers email address
         from: email, // Senders email address
         subject: ` [LLA][CONTACT] ${subject}`, // Subject line
         text: comments, // plaintext body
