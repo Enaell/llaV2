@@ -5,15 +5,15 @@ import { MailerService } from '@nestjs-modules/mailer';
 export class EmailService {
   constructor(private readonly mailerService: MailerService) { }
 
-  public example(): void {
+  public landingContact(name: string, email: string, subject: string, comments: string) {
     this
       .mailerService
       .sendMail({
         to: 'orelienmartin@hotmail.fr', // List of receivers email address
-        from: 'orelienmartin@gmail.com', // Senders email address
-        subject: 'Testing Nest MailerModule ✔', // Subject line
-        text: 'welcome', // plaintext body
-        html: '<b>welcome</b>', // HTML body content
+        from: email, // Senders email address
+        subject: ` [LLA][CONTACT] ${subject}`, // Subject line
+        text: comments, // plaintext body
+        html: `<b>${comments}</b>`, // HTML body content
       })
       .then((success) => {
         console.log(success)

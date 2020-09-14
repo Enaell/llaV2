@@ -6,8 +6,9 @@ export class EmailController {
   constructor(private readonly emailService: EmailService) {}
 
   @Post('/contact')
-  async sendMail(@Res() res, @Body() form) {
+  async sendMail(@Res() res, @Body() form: {name: string, email: string, subject: string, comments: string}) {
     console.log(form);
-    return this.emailService.example();
+    const { name, email, subject, comments } = form
+    return this.emailService.landingContact(name, email, subject, comments);
   }
 }
