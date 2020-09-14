@@ -4,6 +4,7 @@ import { TextField } from '@material-ui/core';
 import translate from 'counterpart';
 import { WhiteButton } from '../../common/GenericComponents';
 import { mailerApi } from '../../../apiClient/ApiClient';
+import { useDispatch } from 'react-redux';
 
 type ErrorType = {
   name: boolean;
@@ -25,6 +26,8 @@ function getError(error: ErrorType) {
 
 export const ContactPanel = () => {
 
+  const dispatch = useDispatch();
+
   const [fields, setFields] = useState({
     name: '',
     email: '',
@@ -45,12 +48,23 @@ export const ContactPanel = () => {
     console.log(fieldValue);
     console.log(!fieldValue);
     setFields({...fields, [fieldName]: fieldValue});
-    setError({...error, [fieldName]: !fieldValue});
+    if (fieldName === 'email')
+      setError({...error, [fieldName]: (!fieldValue || !fieldValue.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i))});
+    else setError({...error, [fieldName]: !fieldValue});
   }
 
-
-  console.log(fields);
-  console.log(error)
+  async function sendContactMessage() {
+    setDisplayError(true)
+    if (getError(error)) {
+      try {
+        await mailerApi.sendContactEmail(fields.name, fields.email, fields.subject, fields.comments); 
+        dispatch({type: 'SET_NAV_SNACKBAR', payload: {variant: 'success', message: translate('landingPage.snackbar.success')}});
+      } catch {
+        dispatch({type: 'SET_NAV_SNACKBAR', payload: {variant: 'error', message: translate('landingPage.snackbar.error')}});
+      }
+      dispatch({type: 'TOGGLE_NAV_SNACKBAR'})
+    }
+  }
 
   return (
     <Column vertical={'space-between'} horizontal={'center'} style={{width: '100%', maxWidth: '800px', padding: '40px', backgroundColor: 'white', borderRadius: '30px', marginTop: '40px'}}>
@@ -99,15 +113,13 @@ export const ContactPanel = () => {
         rowsMax={10}  
         fullWidth
       />
-      <WhiteButton 
+      <WhiteButton
         variant='outlined'
         type='submit'
         onClick={(e)=> {
           e.preventDefault();
-          setDisplayError(true)
-          if (getError(error))
-            mailerApi.sendContactEmail(fields.name, fields.email, fields.subject, fields.comments);
-        }} 
+          sendContactMessage();
+        }}
         style={{marginTop: '30px'}}>
           {translate('connection.send')}
         </WhiteButton>

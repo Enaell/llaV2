@@ -66,6 +66,10 @@
         "name": "Lulu Wang",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
       }
+    },
+    "snackbar": {
+      "success": "Merci pour votre message, nous y répondrons aussi vite que possible !",
+      "error": "Votre message n'a pas pu être envoyé, merci de réessayer plus tard"
     }
   },
   "dictionaryPage": {
