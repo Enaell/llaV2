@@ -1,6 +1,6 @@
 import React from 'react';
 import { Column, Row } from './Flexbox';
-import {Typography, Switch, InputBase, Button, withStyles} from '@material-ui/core';
+import {Typography, Switch, InputBase} from '@material-ui/core';
 import translate from 'counterpart';
 
 
@@ -97,58 +97,3 @@ export const DualSwitch =  ({
     </Row>
   )
 }
-
-const b = (props: any) => {
-  return (<Button {...props}>{props.children}</Button> )
-}
-
-export const DarkButton = withStyles(theme => ({
-  root: {
-    borderRadius: '5px',
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    borderColor: theme.palette.primary.main,
-    textTransform: 'uppercase',
-    '&:hover': {
-      color: theme.palette.primary.contrastText,
-      backgroundColor: '#41a61d9a',
-      borderColor: theme.palette.secondary.light,
-    },
-  },
-}))(Button);
-
-export const WhiteButton = withStyles(theme => ({
-  root: {
-    borderRadius: '50px',
-    backgroundColor: 'white',
-    color: theme.palette.primary.main,
-    borderColor: theme.palette.primary.main,
-    textTransform: 'none',
-  },
-}))(Button);
-
-const NavButtonInner = ({children, onClick, ...props}:{onClick: () => void, children: React.ReactNode}) => {
-  return (
-    <Typography align='center' onClick={onClick} variant='body1' {...props}>
-        {children}
-    </Typography>
-  )
-}
-
-export const NavButton = withStyles(theme => ({
-  root: {
-    cursor: 'pointer',
-    color: 'white',
-    width: '100px',
-    margin: '0 10px 0 10px',
-    textTransform: 'capitalize',
-    '&:after': {
-      display:'block',
-      content: '""',
-      borderBottom: 'solid 3px white',  
-      transform: 'scaleX(0)',
-      transition: 'transform 250ms ease-in-out',
-    },
-    '&:hover:after': {transform: 'scaleX(1)' }
-  },
-}))(NavButtonInner);

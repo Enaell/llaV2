@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Column, Row } from '../../common/Flexbox'
 import { TextField } from '@material-ui/core';
 import translate from 'counterpart';
-import { WhiteButton } from '../../common/GenericComponents';
 import { mailerApi } from '../../../apiClient/ApiClient';
 import { useDispatch } from 'react-redux';
+import { LoadingButton } from '../../common/Buttons';
 
 type ErrorType = {
   name: boolean;
@@ -43,6 +43,8 @@ export const ContactPanel = () => {
   });
 
   const [displayError, setDisplayError] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   function updateFields(fieldName: string, fieldValue: string) {
     console.log(fieldValue);
@@ -113,16 +115,14 @@ export const ContactPanel = () => {
         rowsMax={10}  
         fullWidth
       />
-      <WhiteButton
+      <LoadingButton
+        className='whiteButton'
         variant='outlined'
         type='submit'
-        onClick={(e)=> {
-          e.preventDefault();
-          sendContactMessage();
-        }}
+        onClick={sendContactMessage}
         style={{marginTop: '30px'}}>
           {translate('connection.send')}
-        </WhiteButton>
+      </LoadingButton>
     </Column>
   );
 }

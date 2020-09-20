@@ -1,31 +1,11 @@
 import React from 'react';
-import { Column, Row } from '../../common/Flexbox';
-import { Box, Typography, Theme, makeStyles, AppBar, Tabs, Tab, CardMedia, Card, CardContent } from '@material-ui/core';
+import { Column } from '../../common/Flexbox';
+import { Theme, makeStyles, AppBar, Tabs, Tab } from '@material-ui/core';
 import { LanguageType } from '../../common/types';
 import { languages } from '../../common/utils';
 
-import frPict from '../ressources/Fr.jpg';
-import enPict from '../ressources/En.jpg';
-import cnPict from '../ressources/Cn.jpg';
+import { TabPanel } from './TabPanel';
 
-type TabPanelProps = {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
-}
-
-function getPicture(language: LanguageType) {
-  switch (language) {
-    case 'Fr':
-      return frPict;
-    case 'Cn':
-      return cnPict;
-    case 'En':
-      return enPict;
-    default:
-      return frPict;
-  }
-}
 
 function a11yProps(language: LanguageType) {
   return {
@@ -49,30 +29,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '100%',
     filter: 'blur(20px)',
     backgroundSize: '100% 100%'
-  }
+  },
 }));
-
-const TabPanel = ({ children, value, index }: TabPanelProps) => {
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-auto-tabpanel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-    >
-      {value === index && (
-        <Card>
-          <Row width='100%'>
-            {children}
-            <Column width='50%' height='100%'>
-
-            </Column>
-          </Row>
-        </Card>
-      )}
-    </div>
-  );
-}
 
 export const StatisticsPanel = () => {
   const classes = useStyles();
@@ -99,9 +57,7 @@ export const StatisticsPanel = () => {
             {languages.map(language => <Tab key={language} label={language} {...a11yProps(language)} />)}          
           </Tabs>
         </AppBar>
-        {languages.map((language, index) =>  <TabPanel key={language} value={value} index={index}>
-          <CardMedia style={{width: '50%', height: 0, paddingTop: '40% '}} image={getPicture(language)} />
-        </TabPanel>)}
+        {languages.map((language, index) =>  <TabPanel key={language} language={language} value={value} index={index} />)}
 
       </Column>
     </>

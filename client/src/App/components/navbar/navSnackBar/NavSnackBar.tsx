@@ -48,7 +48,7 @@ function NavSnackBar({open, variant, message, closeSnackBar, classes}: any) {
     <div>
       <Snackbar
         anchorOrigin={{
-          vertical: 'top',
+          vertical: 'bottom',
           horizontal: 'center',
         }}
         open={open}

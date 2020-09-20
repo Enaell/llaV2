@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Column, Row } from '../common/Flexbox';
-import { WhiteButton, DarkButton } from '../common/GenericComponents'
 import { LanguageType, UserType } from '../common/types';
 import { Typography } from '@material-ui/core';
 import { welcomeSection, welcomeSectionLogged, backgroundImg, backgroundImgLogged, connectionDiv, statusReminderDiv } from './styles.d';
@@ -9,6 +8,7 @@ import translate from 'counterpart';
 import { LoginTabs } from '../login/LoginTabs';
 import { IntroductionColumn } from './introductionColumn';
 import { MainHeader } from './MainHeader';
+import { LoadingButton } from '../common/Buttons';
 
 type HeaderViewType = {
   onLogin: (emailAddress: string, password: string) => void, 
@@ -147,13 +147,13 @@ export const HeaderView = ({
                     <Row horizontal='space-around' style={{width: '100%', paddingTop: '10px'}}>
                       {tabNumber === 0 &&
                         <>
-                          <WhiteButton variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onConnectAsVisitor()}}> {translate('connection.visitor')}</WhiteButton>
-                          <DarkButton onClick={e => {e.preventDefault(); onDiscoverClick()}}>{translate('connection.moreDetails')}</DarkButton> 
+                          <LoadingButton className='whiteButton' variant='outlined' type='submit' onClick={onConnectAsVisitor}> {translate('connection.visitor')}</LoadingButton>
+                          <LoadingButton className='darkButton' onClick={onDiscoverClick}>{translate('connection.moreDetails')}</LoadingButton> 
                         </>}
                       {tabNumber === 1 && 
-                      <WhiteButton variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onSigninClick()}}> {translate('connection.signin')}</WhiteButton>}
+                      <LoadingButton className='whiteButton' variant='outlined' type='submit' onClick={onSigninClick}> {translate('connection.signin')}</LoadingButton>}
                       {tabNumber === 2 && 
-                      <WhiteButton  variant='outlined' type='submit' onClick={(e)=> {e.preventDefault();onLoginClick()}}> {translate('connection.login')}</WhiteButton>}
+                      <LoadingButton className='whiteButton'  variant='outlined' type='submit' onClick={onLoginClick}> {translate('connection.login')}</LoadingButton>}
                     </Row>
                   </LoginTabs>
                 </Column>

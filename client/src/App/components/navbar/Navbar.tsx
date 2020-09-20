@@ -12,7 +12,7 @@ import translate from 'counterpart';
 import { UserType } from '../common/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row } from '../common/Flexbox';
-import { NavButton } from '../common/GenericComponents';
+import { NavButton } from '../common/Buttons';
 import { withRouter } from 'react-router-dom';
 import { sections } from '../common/utils';
 
@@ -67,7 +67,7 @@ export const Navbar = withRouter(({
 
    return(
     <div className={classes.root}>
-      <AppBar elevation={user.token ? 4: 0} position='fixed' color={ discover ? 'primary' : 'transparent'}>
+      <AppBar elevation={(user.token || discover )? 4: 0} position='fixed' color={ (user.token || discover) ? 'primary' : 'transparent'}>
         <Toolbar>
           <Row width='100%' vertical='center' horizontal='space-between'>
             <Row  className={classes.grow}>
@@ -76,7 +76,7 @@ export const Navbar = withRouter(({
                 <MenuIcon />
               </IconButton>}
               <Button className={classes.homeButton} onClick={handleOnMainPageRedirectionClick}>
-                <Typography color={ discover ? 'secondary' : 'primary'}  variant="h6" noWrap>
+                <Typography color={ (user.token || discover) ? 'secondary' : 'primary'}  variant="h6" noWrap>
                   {translate('application-name')}
                 </Typography>
               </Button>
