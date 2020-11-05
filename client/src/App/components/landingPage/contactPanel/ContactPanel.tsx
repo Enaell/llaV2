@@ -44,8 +44,6 @@ export const ContactPanel = () => {
 
   const [displayError, setDisplayError] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
-
   function updateFields(fieldName: string, fieldValue: string) {
     console.log(fieldValue);
     console.log(!fieldValue);

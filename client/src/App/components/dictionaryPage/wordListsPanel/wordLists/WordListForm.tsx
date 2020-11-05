@@ -1,8 +1,8 @@
 import React from 'react';
-import { WordListType, VisibilityType, LanguageType, RoleType } from '../../../common/types';
+import { WordListType, VisibilityType, LanguageType } from '../../../common/types';
 import { subjects, visibilities } from '../../../common/utils';
 import { Column, Row } from '../../../common/Flexbox';
-import { Button, TextField, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, Typography, Switch, FormControlLabel } from '@material-ui/core';
+import { Button, TextField, Typography, Switch, FormControlLabel } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import translate from 'counterpart';
 import { useWordListFormFields } from './wordListFormhooks';

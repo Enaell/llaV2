@@ -1,10 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { Row, Column } from '../../../common/Flexbox';
-import { WordType, WordListType } from '../../../common/types';
-import CollapseList from '../../tabs/collapseList';
+import { WordType } from '../../../common/types';
 import { CollapseWordList } from '../../../common/CardsComponents';
 import { Filter } from '../../../common/GenericComponents';
-import { Button, Typography } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
@@ -23,19 +22,19 @@ function firstLetterSortedWords(dictionary: WordType[]) {
 }
 
 
-function subjectSortedWords(dictionary: WordType[]) {
+// function subjectSortedWords(dictionary: WordType[]) {
 
-  let sortedDictionary: {[key: string]: WordType[]} = {}
+//   let sortedDictionary: {[key: string]: WordType[]} = {}
   
-  dictionary.forEach((word: WordType) => {
-    (word.subject).forEach(subject => {
-      if (!sortedDictionary.hasOwnProperty(subject))
-        sortedDictionary[subject] = [];
-      sortedDictionary[subject].push(word);
-    });
-  })
-  return sortedDictionary;
-}
+//   dictionary.forEach((word: WordType) => {
+//     (word.subject).forEach(subject => {
+//       if (!sortedDictionary.hasOwnProperty(subject))
+//         sortedDictionary[subject] = [];
+//       sortedDictionary[subject].push(word);
+//     });
+//   })
+//   return sortedDictionary;
+// }
 
 function filteredWords(words: WordType[], filter: string) {
   if (filter && filter.length > 0) {

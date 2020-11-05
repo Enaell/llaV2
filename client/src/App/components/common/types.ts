@@ -16,6 +16,8 @@ export type LanguageType = 'Fr'| 'En' | 'Cn' | 'Es' | 'Ko' | 'Jp' | 'Ge';
 
 export type VisibilityType = 'visitor' | 'loggedin' | 'owner' ;
 
+export type MetricName = 'wordNumber' | 'deckNumber' | 'natives' | 'learners' | 'cultureArticles';
+
 export type SentencesType = {
     sentence: string,
     translatedSentence: string

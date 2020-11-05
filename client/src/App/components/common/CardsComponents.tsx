@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import {WordType, TranslationType, LanguageType, SentencesType, VisibilityType} from './types';
 import translate from 'counterpart';
 import { subjects, visibilities } from '../common/utils';
@@ -15,9 +15,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import { translationsToString } from './utils';
-import transitions from '@material-ui/core/styles/transitions';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const styles = {
@@ -191,7 +189,7 @@ export const WordCard = ({
 
 export const TranslationList = ({
   translations= [],
-  setWordTranslations = ([])=> {},
+  setWordTranslations= () => {},
   modify= false,
   language,
   error=false,

@@ -1,11 +1,11 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { VisibilityType } from '../../../common/types';
 
 
 function getErrorFromField(key: string, value: string | string[] | [] | number | boolean | VisibilityType){
   switch (key) {
     case 'subject':
-      return !(value != '');
+      return !(value !== '');
     case 'rank':
       return !(value || value === 0);
     case 'level': 
@@ -30,16 +30,13 @@ export function useWordListFormFields(
   const [canSave, setCanSave] = useState(false);
   const [checkError, setCheckError] = useState(false);
 
-  useEffect(()=>{
-    setFields({name, subject, level, rank, validated, visibility, comments})
-    setErrors({
-      name: getErrorFromField('name', name), 
-      subject: getErrorFromField('subject', subject), 
-      level: getErrorFromField('level', level),
-      rank: getErrorFromField('rank', rank), 
-      visibility: getErrorFromField('visibility', visibility) 
-    })
-  }, [name])
+  // useEffect(()=>{
+  //   setFields({ ...fields, name})
+  //   setErrors({
+  //     ...errors,
+  //     name: getErrorFromField('name', name),
+  //   })
+  // }, [name])
 
   useMemo(()=> {
     const findError = Object.keys(errors).find((error) => errors[error as 'name' | 'subject' | 'level' | 'rank' | 'visibility'])

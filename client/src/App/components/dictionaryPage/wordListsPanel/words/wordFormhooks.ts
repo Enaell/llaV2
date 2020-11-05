@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { WordType, TranslationType, VisibilityType, LanguageType } from '../../../common/types';
 
 function checkWordError(
@@ -7,7 +7,7 @@ function checkWordError(
   ) {
   switch (key) {
     case 'subject':
-      return !(value != '');
+      return !(value !== '');
     case 'level': 
       return !(value || value === 0);
     case 'translations':

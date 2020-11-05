@@ -1,11 +1,7 @@
 import React from 'react';
-import { Column, Row } from '../common/Flexbox';
-import translate from 'counterpart';
-import  { PageTitle }  from '../common/GenericComponents';
-import DictionaryTabs from './tabs';
-import DictionarySidePanel from './dictionarySidePanel';
+import { Row } from '../common/Flexbox';
 import { withStyles } from '@material-ui/core/styles';
-import { UserType, LanguageType, WordListType, WordType } from '../common/types';
+import { UserType, WordListType, WordType } from '../common/types';
 import { Route } from 'react-router-dom';
 import { WordListsPanel } from './wordListsPanel/WordListsPanel';
 import { DictionaryPanel } from './dictionaryPanel/DictionaryPanel';
@@ -46,9 +42,9 @@ const DictionaryPage = ({
   setNewWordLists: (newWordLists: {[key: string]: WordListType}) => void
 }) => {
 
-  const contentShiftClasses = {
-    [classes.contentShift]: openSidePanel,
-  }
+  // const contentShiftClasses = {
+  //   [classes.contentShift]: openSidePanel,
+  // }
 
   // useEffect(()=>{
   //   const token = user && user.token ? user.token : undefined;

@@ -47,9 +47,9 @@ export const DictionaryPanel = ({user, history, match}: WordListsPanelType) => {
 
   useEffect(() => {
     dictionaryApi.getAllWords(user.targetLanguage, user.token).then((w: WordType[]) => {setWords(w)});
-  }, [user.token]);
+  }, [user.token, user.targetLanguage]);
 
-  useMemo(() => {setSortedWords(sortFunction(words))}, [words])
+  useMemo(() => {setSortedWords(sortFunction(words))}, [words, sortFunction])
 
   return (
     <Row horizontal='space-around' width='80%' style={{ maxWidth: '1800px'}}>

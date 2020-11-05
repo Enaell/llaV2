@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch as RouterSwitch } from 'react-router-dom'
-import { TranslationType, UserType, WordListType, WordType } from '../../common/types';
+import { UserType, WordListType, WordType } from '../../common/types';
 import { Column, Row } from '../../common/Flexbox';
 import { Typography } from '@material-ui/core';
 import translate from 'counterpart';

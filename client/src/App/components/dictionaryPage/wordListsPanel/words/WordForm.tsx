@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { WordListType, WordType, LanguageType, VisibilityType, TranslationType } from '../../../common/types';
+import React from 'react';
+import { WordType, LanguageType } from '../../../common/types';
 import { WordCard, TranslationList } from '../../../common/CardsComponents'
 import { Row, Column } from '../../../common/Flexbox';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';

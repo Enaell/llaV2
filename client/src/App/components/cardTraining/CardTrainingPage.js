@@ -31,7 +31,7 @@ const CardTrainingPage = ({turnData, highlight, user, onAnswerSelected, onContin
     useEffect(()=>{
       const token = user && user.token ? user.token : undefined;
       getCards(token);
-      },[user]);
+      },[user, getCards]);
 
     return (
       <React.Fragment>
