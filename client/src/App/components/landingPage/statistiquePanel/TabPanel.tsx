@@ -75,7 +75,6 @@ function shapePadding(balls: Ball[], width: number, height: number){
       x: acc.max.x > (ball.pos.left + ball.size) ? acc.max.x : ball.pos.left + ball.size,
       y: acc.max.y > (ball.pos.top + ball.size) ? acc.max.y : ball.pos.top + ball.size
     }
-    console.log(max);
     return {min, max};
   }, {min: {x: 0, y: 0}, max: {x: 0, y: 0}});
 
@@ -156,6 +155,10 @@ function ballIntersections(c1: Circle,c2: Circle) // c = [abscisse,ordonnée,ray
     return [{x: x1, y: y1}, {x: x2, y: y2}]; // coordonnées des deux points d'intersection [abscisse,ordonnée] (nb : seront identiques si les cercles ne se touchent qu'en un seul point)
 }
 
+function isOnFreePlace(newCenter: {x: number, y: number}, circles: Ball[]) {
+  return !circles.some(circle => Math.pow(newCenter.x - circle.center.x, 2) + Math.pow(newCenter.y - circle.center.y, 2) < Math.pow(circle.radius, 2));
+}
+
 function computeBalls(initialBalls: Ball[], balls: { value: number;  title: MetricName; color: string;}[]){
 
   let computedBalls = [...initialBalls]
@@ -163,7 +166,7 @@ function computeBalls(initialBalls: Ball[], balls: { value: number;  title: Metr
   balls.forEach((ball, index) => {
     const bRadius =  statBallSize(ball.title, ball.value) / 2;
 
-    const b3Center = ballIntersections({
+    const bPotentialCenter = ballIntersections({
       x: computedBalls[index].pos.left + computedBalls[index].radius,
       y: computedBalls[index].pos.top + computedBalls[index].radius,
       radius: bRadius + computedBalls[index].radius
@@ -172,22 +175,24 @@ function computeBalls(initialBalls: Ball[], balls: { value: number;  title: Metr
       x: computedBalls[index + 1].pos.left + computedBalls[index + 1].radius,
       y: computedBalls[index + 1].pos.top + computedBalls[index + 1].radius,
       radius: bRadius + computedBalls[index + 1].radius
-    })[0]
+    });
+
+    const bCenter = isOnFreePlace(bPotentialCenter[0], computedBalls) ? bPotentialCenter[0]: bPotentialCenter[1];
   
     computedBalls = [...computedBalls, {
       size: bRadius * 2,
       radius: bRadius,
-      center: {...b3Center},
+      center: {...bCenter},
       pos: {
-        left: b3Center.x - bRadius,
-        top: b3Center.y - bRadius,
+        left: bCenter.x - bRadius,
+        top: bCenter.y - bRadius,
       },
       gap: getGap(10, 25),
       title: ball.title,
       value: ball.value,
       color: ball.color
-    }]
-  })
+    }];
+  });
 
   return computedBalls;
 }
@@ -247,9 +252,34 @@ const ballMinSize = 100;
 
 const StatBalls = ({balls}: {balls: {value: number, title: MetricName, color: string }[]}) => {
 
-  const computedBalls = generateBalls(balls);
+  let computedBalls = generateBalls(balls);
 
-  const padding = shapePadding(computedBalls, panelWidth, panelHeight);
+  let padding = shapePadding(computedBalls, panelWidth, panelHeight);
+
+  if (padding.left < 0) {
+    computedBalls = computedBalls.map(ball => {
+      return {
+        size: ball.size,
+        radius: ball.radius,
+        center: {
+            x: ball.center.y,
+            y: ball.center.x
+        },
+        pos: {
+            top: ball.pos.left,
+            left: ball.pos.top
+        },
+        gap: {
+            left: ball.gap.top,
+            top: ball.gap.left
+        },
+        title: ball.title,
+        value: ball.value,
+        color: ball.color
+      }
+    });
+    padding = shapePadding(computedBalls, panelWidth, panelHeight);
+  }
 
   return (
     <>
