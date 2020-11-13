@@ -29,8 +29,9 @@ export function ballIntersections(c1: Circle,c2: Circle) // c = [abscisse,ordonn
     return [{x: x1, y: y1}, {x: x2, y: y2}]; // coordonnées des deux points d'intersection [abscisse,ordonnée] (nb : seront identiques si les cercles ne se touchent qu'en un seul point)
 }
 
-export function isOnFreePlace(newCenter: {x: number, y: number}, circles: Ball[]) {
-  return !circles.some(circle => Math.pow(newCenter.x - circle.center.x, 2) + Math.pow(newCenter.y - circle.center.y, 2) < Math.pow(circle.radius, 2));
+export function isOnFreePlace(newCircle: Circle, circles: Ball[]) {
+  return !circles.some(circle => Math.pow(newCircle.x - circle.center.x, 2) + Math.pow(newCircle.y - circle.center.y, 2) < Math.pow(circle.radius, 2) 
+  || Math.pow(circle.center.x - newCircle.x, 2) + Math.pow(circle.center.y - newCircle.y, 2) < Math.pow(newCircle.radius, 2) );
 }
 
 export function statBallSize(title: MetricName, value: number) {

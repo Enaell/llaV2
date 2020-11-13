@@ -40,7 +40,7 @@ function computeBalls(initialBalls: Ball[], balls: { value: number;  title: Metr
       radius: bRadius + computedBalls[index + 1].radius
     });
 
-    const bCenter = isOnFreePlace(bPotentialCenter[0], computedBalls) ? bPotentialCenter[0]: bPotentialCenter[1];
+    const bCenter = isOnFreePlace({...bPotentialCenter[0], radius: bRadius }, computedBalls) ? bPotentialCenter[0]: bPotentialCenter[1];
   
     computedBalls = [...computedBalls, {
       size: bRadius * 2,
