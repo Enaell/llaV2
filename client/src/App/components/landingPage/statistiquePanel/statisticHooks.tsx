@@ -1,7 +1,7 @@
 import {Ball} from './types';
-import { MetricName } from '../../common/types';
+import { LanguageType, MetricName } from '../../common/types';
 import { shuffleArray, plusOrMinus } from '../../common/utils';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { statBallSize, ballIntersections, isOnFreePlace, getGap, shapePadding } from './utils';
 
 const panelWidth = 600;
@@ -60,7 +60,9 @@ function computeBalls(initialBalls: Ball[], balls: { value: number;  title: Metr
   return computedBalls;
 }
 
-function generateBalls(balls: { value: number;  title: MetricName; color: string;}[]) {
+function generateBalls(balls?: { value: number;  title: MetricName; color: string;}[]) {
+  if (!balls)
+    return [];
 
   const shuffledBalls = shuffleArray(balls);
 
@@ -108,14 +110,42 @@ function generateBalls(balls: { value: number;  title: MetricName; color: string
   return computeBalls([firstBall, secondBall], shuffledBalls.slice(2));
 }
 
-export function useStatBalls(balls: {value: number, title: MetricName, color: string }[]) {
+export function useStatBalls(language: LanguageType) {
 
-  const [computedBalls, setComputedBalls] = useState(generateBalls(balls));
+  useEffect(() => {
+    const ApiBalls = [
+      {
+        value: 558,
+        title: 'wordNumber' as MetricName,
+        color: '#1e42a78f'
+      },
+      {
+        value: 3,
+        title: 'cultureArticles' as MetricName,
+        color: '#1e9aa78f'
+      },
+      {
+        value: 2,
+        title: 'learners' as MetricName,
+        color: '#b423348f'
+      },
+      {
+        value: 60,
+        title: 'deckNumber' as MetricName,
+        color: '#72a71e8f'
+      },
+      {
+        value: 20,
+        title: 'natives' as MetricName,
+        color: '#a75d1e8f'
+      },
+    ];
+    setComputedBalls(generateBalls(ApiBalls));
+
+  }, []);
+
+  const [computedBalls, setComputedBalls] = useState(generateBalls());
   const [shappedBalls, setShappedBalls] = useState([] as Ball[]);
-
-  function setBalls(balls: {value: number, title: MetricName, color: string }[]) {
-    setComputedBalls(generateBalls(balls));
-  }
 
   useMemo(() => {
     let padding = shapePadding(computedBalls, panelWidth, panelHeight);

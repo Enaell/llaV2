@@ -57,8 +57,11 @@ export const StatisticsPanel = () => {
             {languages.map(language => <Tab key={language} label={language} {...a11yProps(language)} />)}          
           </Tabs>
         </AppBar>
-        {languages.map((language, index) =>  <TabPanel key={language} language={language} value={value} index={index} />)}
-
+        <div style={{background: 'transparent', width: '1200px', height: '500px'}}>
+        {languages.map((language, index) => (
+            <TabPanel key={language} language={language} value={value} index={index} />
+        ))}
+        </div>
       </Column>
     </>
   );
