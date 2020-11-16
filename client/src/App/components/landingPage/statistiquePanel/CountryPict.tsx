@@ -37,12 +37,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export const CountryPict = ({language, value, index}: {language: LanguageType, value: number, index: number}) => {
+export const CountryPict = ({language, isVisible}: {language: LanguageType, isVisible: boolean}) => {
   const classes = useStyles();
 
   return (
     <Box  className={classes.box}>
-      <CardMedia className={value === index ? classes.pictCardActive : classes.pictCard} image={getPicture(language)} />
+      <CardMedia className={isVisible ? classes.pictCardActive : classes.pictCard} image={getPicture(language)} />
     </Box>
   )
 }

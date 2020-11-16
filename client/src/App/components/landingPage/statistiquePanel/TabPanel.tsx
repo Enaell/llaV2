@@ -20,9 +20,8 @@ export const TabPanel = ({ language, value, index }: TabPanelProps) => {
       aria-labelledby={`scrollable-auto-tab-${index}`}
     >
       <Row width='100%'>
-        <CountryPict language={language} value={value} index={index}/>
-        {value === index && (
-          <StatBalls language={language} />)}
+        <CountryPict language={language} isVisible={value === index}/>
+        <StatBalls language={language} isVisible={value === index}/>
       </Row>
     </div>
   );
