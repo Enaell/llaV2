@@ -8,9 +8,9 @@ import { Column, Row } from './Flexbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -243,8 +243,8 @@ const TranslationPanel = ({
 }) => {
   
   return (
-    <ExpansionPanel>
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
       {modify ? 
         <Row style={{width: '100%'}} vertical='center' horizontal='space-between'>
           <FormControl
@@ -275,8 +275,8 @@ const TranslationPanel = ({
         </Row>
         : <Typography>{translation.name}</Typography>
       }
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails style={{paddingTop: '0', paddingBottom: '0'}}>
+      </AccordionSummary>
+      <AccordionDetails style={{paddingTop: '0', paddingBottom: '0'}}>
         <List style={{paddingTop: '0', width: '100%', paddingLeft: '20px', paddingRight: '20px'}} >
           {translation.sentences.map((sentence, index) => (
           <div key={index}>
@@ -306,8 +306,8 @@ const TranslationPanel = ({
               </Button> 
           </Column>}
         </List >
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   )
 }
 
@@ -382,11 +382,11 @@ export const CollapseWordList = ({
 }) => {
   return (
     <div style={{...style}}>
-      <ExpansionPanel elevation={0}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <Accordion elevation={0}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{listTitle}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails style={{paddingTop: '0', paddingBottom: '0'}}>
+        </AccordionSummary>
+        <AccordionDetails style={{paddingTop: '0', paddingBottom: '0'}}>
           <List style={{paddingTop: '0', width: '100%', paddingLeft: '20px', paddingRight: '20px'}} >
             {wordList.map((word) => (
             <div key={word.id || word.name} >
@@ -405,8 +405,8 @@ export const CollapseWordList = ({
               </ListItem>
             </div>))}
           </List >
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     </div>
   )
 }

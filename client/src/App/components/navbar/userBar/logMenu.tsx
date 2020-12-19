@@ -6,9 +6,15 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Badge from '@material-ui/core/Badge';
+import { UserType } from '../../common/types';
 
 
-export const getLogMenu = (anchorEl, isMenuOpen, handleMenuClose, handleLogout) => (
+export const getLogMenu = (
+    anchorEl: HTMLElement | null,
+    isMenuOpen: boolean,
+    handleMenuClose: () => void,
+    handleLogout: (event: React.MouseEvent<HTMLElement>) => void
+  ) => (
   <Menu
     anchorEl={anchorEl}
     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -22,7 +28,13 @@ export const getLogMenu = (anchorEl, isMenuOpen, handleMenuClose, handleLogout) 
   </Menu>
 );
 
-export const getLogMobileMenu = (mobileMoreAnchorEl, isMobileMenuOpen, handleProfileMenuOpen, handleMobileMenuClose, user) => (
+export const getLogMobileMenu = (
+    mobileMoreAnchorEl: HTMLElement | null,
+    isMobileMenuOpen: boolean,
+    handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void,
+    handleMobileMenuClose: () => void,
+    user: UserType | any
+  ) => (
   <Menu
     anchorEl={mobileMoreAnchorEl}
     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}

@@ -7,8 +7,8 @@ import { SortableContainer } from 'react-sortable-hoc';
 import { WordTile } from './WordTile';
 
 const height= {
-  minHeight: 'calc(100vh - 550px)',
-  maxHeight: 'calc(100vh - 450px)',
+  minHeight: 'calc(100vh - 350px)',
+  maxHeight: 'calc(100vh - 250px)',
   height: '100%',
   overflow: 'auto'
 }

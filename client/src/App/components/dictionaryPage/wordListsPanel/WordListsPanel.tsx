@@ -13,8 +13,8 @@ import { WordForm } from './words/WordForm';
 import { FindWordPanel } from './words/FindWordPanel';
 
 const height = {
-  minHeight: 'calc(100vh - 400px)',
-  maxHeight: 'calc(100vh - 300px)',
+  minHeight: 'calc(100vh - 300px)',
+  maxHeight: 'calc(100vh - 200px)',
   height: '100%'
 }
 

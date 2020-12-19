@@ -5,9 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import { Column } from '../../common/Flexbox';
@@ -76,11 +76,11 @@ const DictionarySidePanel = ({
       </IconButton>
     </div>
 
-    <ExpansionPanel expanded={openWordPreview} onChange={toggleWordPreview}>
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+    <Accordion expanded={openWordPreview} onChange={toggleWordPreview}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography>Word Preview</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails style={{ padding: '0' }}>
+      </AccordionSummary>
+      <AccordionDetails style={{ padding: '0' }}>
         <Column style={{ width: '100%' }}>
           <WordCard
             targetLanguage={'Cn'}
@@ -91,16 +91,16 @@ const DictionarySidePanel = ({
           />
           {/* <TranslationList word={word} language='Cn'/> */}
         </Column>    
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
-    <ExpansionPanel expanded={openSelectedWords} onChange={toggleSelectedWords}>
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      </AccordionDetails>
+    </Accordion>
+    <Accordion expanded={openSelectedWords} onChange={toggleSelectedWords}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography>Selected Words</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <SelectedWords wordList={selectedWords} handleWordPreview={setWordPreview} />
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   </Drawer>
   )
 }

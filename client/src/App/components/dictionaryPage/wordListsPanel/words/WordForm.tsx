@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { IconButton } from '@material-ui/core';
 import { useWordForm } from './wordFormhooks' 
 const height= {
-  maxHeight: 'calc(100vh - 450px)',
+  maxHeight: 'calc(100vh - 250px)',
   paddingLeft: '2px',
   paddingRight: '5px',
   overflowY: 'auto',

@@ -4,10 +4,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Button, makeStyles, Theme } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import LoginModal from './loginModal';
 import NavSnackBar from './navSnackBar';
-import UserBar from './userBar'
+import { UserBar } from './userBar/UserBar'
 import translate from 'counterpart';
 import { UserType } from '../common/types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,30 +15,11 @@ import { Row } from '../common/Flexbox';
 import { NavButton } from '../common/Buttons';
 import { withRouter } from 'react-router-dom';
 import { sections } from '../common/utils';
+import { useStyles } from './styles';
 
 type NavbarType = {
   history: any
 }
-
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    zIndex: 9999,
-    width: '100%',
-  },
-  grow: {
-    flex: 1
-  },
-  grow3: {
-    flex:3
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  homeButton:{
-    textTransform: 'none',
-  }
-}));
 
 export const Navbar = withRouter(({
   history

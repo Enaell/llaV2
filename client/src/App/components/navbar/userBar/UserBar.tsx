@@ -6,43 +6,47 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Badge from '@material-ui/core/Badge';
 import {getLogMenu, getLogMobileMenu} from './logMenu.js'
+import { useStyles } from './styles'
+import { useDispatch, useSelector } from 'react-redux';
+import { UserType } from '../../common/types.js';
 
 
 
-const UserBar = ({ user, onLogout, classes }) => {
+export const UserBar = () => {
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);;
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);;
   
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   
-  function handleProfileMenuOpen(event) {
+  const user = useSelector((state: any) => state.user as UserType | any);
+  const dispatch = useDispatch();
+
+  function handleProfileMenuOpen(event: React.MouseEvent<HTMLElement>) {
     setAnchorEl(event.currentTarget);
   }
   
-  function handleMobileMenuClose() {
-    setMobileMoreAnchorEl(null);
-  }
-  
-  function handleMenuClose() {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  }
-  
-  function handleMobileMenuOpen(event) {
+  function handleMobileMenuOpen(event: React.MouseEvent<HTMLElement>) {
     setMobileMoreAnchorEl(event.currentTarget);
   }
-  
-  function handleLogout(event){
+
+  function handleMenuClose() {
+    setAnchorEl(null);
+    setMobileMoreAnchorEl(null);
+  }
+    
+  function handleLogout(event: React.MouseEvent<HTMLElement>){
     handleMenuClose();
-    onLogout(event.currentTarget);
+    dispatch({type:'LOGOUT'});
   }
 
   const LogMenu = getLogMenu(anchorEl, isMenuOpen, handleMenuClose, handleLogout);
 
-  const LogMobileMenu = getLogMobileMenu(mobileMoreAnchorEl, isMobileMenuOpen, handleProfileMenuOpen, handleMobileMenuClose, user);
+  const LogMobileMenu = getLogMobileMenu(mobileMoreAnchorEl, isMobileMenuOpen, handleProfileMenuOpen, handleMenuClose, user);
   
+  const classes = useStyles();
+
   return (
     <div>
       <div className={classes.sectionDesktop}>
@@ -78,5 +82,3 @@ const UserBar = ({ user, onLogout, classes }) => {
       </div>
     </div>
   )}
-
-export default UserBar;

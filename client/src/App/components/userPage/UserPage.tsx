@@ -1,29 +1,17 @@
 import React from 'react';
 import { Fade } from '@material-ui/core';
 import { Row } from '../common/Flexbox';
-import { UserType, LanguageType, UserModulesType } from '../common/types';
 import {UserBoard} from './userboard/UserBoard';
+import { useUserPage } from './userPageHooks';
 
-export const UserPage = ({user, updateUserBoard, history }: {
-    user: UserType,
-    updateUserBoard: (userBoard: UserModulesType, token: string | undefined) => Promise<void>,
-    setLanguage: (language: LanguageType, token: string | undefined) => void,
-    setTargetLanguage: (targetLanguage: LanguageType, token: string | undefined) => void,
-    history: any
-  }) => {
-  function goToPage (url: string) {
-    history.push(url)
-  }
+export const UserPage = () => {
 
-  async function updateBoard(userBoard: UserModulesType) {
-    await updateUserBoard(userBoard, user.token)
-  }
-
+  const { user, updateUserBoard, goToPage } = useUserPage();
 
   return(
     <>
-      { user && user.language !== undefined && user.targetLanguage !== undefined &&
-      <Fade timeout={2000} in={user && user.language !== undefined && user.targetLanguage !== undefined}>
+      { user && user.language && user.targetLanguage &&
+      <Fade timeout={2000} in={user && user.language && user.targetLanguage !== undefined}>
         <Row horizontal='center' style={{ width:'100%', marginTop:'50px'}}>
           <UserBoard 
             userModules={
@@ -32,7 +20,7 @@ export const UserPage = ({user, updateUserBoard, history }: {
               : {} }
             language={user.language}
             targetLanguage={user.targetLanguage}
-            updateUserBoard={updateBoard}
+            updateUserBoard={updateUserBoard}
             goToPage={goToPage}
           />
         </Row>

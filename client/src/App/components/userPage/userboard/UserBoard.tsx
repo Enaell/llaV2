@@ -117,21 +117,21 @@ export const UserBoard = ({
     setOnModify(true);
   }
 
-  // useEffect(()=> {
-  //   setLayouts(getBlocksLayoutsFromModule({...userModules}, onModify));
-  //   setNewUserModules(userModules);
-  // }, [userModules])
   useEffect(()=> {
     setLayouts(getBlocksLayoutsFromModule({...userModules}, onModify));
     setNewUserModules(userModules);
-  }, [userModules, onModify])
+  }, [userModules])
+  // useEffect(()=> {
+  //   setLayouts(getBlocksLayoutsFromModule({...userModules}, onModify));
+  //   setNewUserModules(userModules);
+  // }, [userModules, onModify])
 
-  // // useEffect(() => {
-  // //   setLayouts(layoutsAreResizable(layouts, onModify));
-  // }, [onModify]);
   useEffect(() => {
     setLayouts(layoutsAreResizable(layouts, onModify));
-  }, [onModify, layouts]);
+  }, [onModify]);
+  // useEffect(() => {
+  //   setLayouts(layoutsAreResizable(layouts, onModify));
+  // }, [onModify, layouts]);
 
   useEffect(() => {
     handleBreakpointChange(breakPoint);
