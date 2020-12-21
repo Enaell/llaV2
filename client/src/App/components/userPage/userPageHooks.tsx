@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { LanguageType, UserModulesType, UserType } from '../common/types';
+import { UserModulesType, UserType } from '../common/types';
 
 
 export function useUserPage() {

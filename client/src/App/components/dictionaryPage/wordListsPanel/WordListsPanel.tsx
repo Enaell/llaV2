@@ -88,19 +88,18 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
             />
             <Route
               path={`${url}/:wordlistname`}
-              render={({ match }) => {
-                const wordListName = String(match.params.wordlistname);
-                if (wordLists && wordLists[wordListName])
+              render={({ match: {params: {wordlistname}} }) => {
+                if (wordLists && wordLists[wordlistname])
                   return (
                     <Words
-                      path={`${url}/${wordListName}/words`}
+                      path={`${url}/${wordlistname}/words`}
                       userConnected={user?.role !== 'Visitor'}
-                      words={wordLists && wordLists[wordListName] && wordLists[wordListName].words}
-                      onAddWord={() => history.replace(`${url}/${wordListName}/words/addToList`)}
+                      words={wordLists && wordLists[wordlistname] && wordLists[wordlistname].words}
+                      onAddWord={() => history.replace(`${url}/${wordlistname}/words/addToList`)}
                       onDeleteWord={(name: string) => {
-                        removeWordFromWordList(name, wordListName);
+                        removeWordFromWordList(name, wordlistname);
                         if (history.location.pathname.split('/').pop() === name)
-                          history.replace(`${url}/${wordListName}`);
+                          history.replace(`${url}/${wordlistname}`);
                       }}
                       onSortEnd={() => {}}
                     />
@@ -171,14 +170,13 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
             <Route
               exact
               path={`${url}/:wordlistname`}
-              render={({ match }) => {
-                const wordListName = String(match.params.wordlistname);
-                if (wordLists && wordLists[wordListName]) {
+              render={({ match: {params: {wordlistname}} }) => {
+                if (wordLists && wordLists[wordlistname]) {
                   return ( 
                     <WordListForm
                       adminRole={user.role === 'Admin' || user.role === 'Moderator'}
-                      wordList={wordLists[wordListName]}
-                      canModify={user.role === 'Admin' || user.role === 'Moderator' || wordLists[wordListName].owner === user.username}
+                      wordList={wordLists[wordlistname]}
+                      canModify={user.role === 'Admin' || user.role === 'Moderator' || wordLists[wordlistname].owner === user.username}
                       onSave={updateWlAndPath}
                       language={user.language}
                       targetLanguage={user.targetLanguage}

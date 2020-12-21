@@ -9,6 +9,7 @@ export function useWordLists(user: UserType) {
   const [words, setWords] = useState([] as WordType[])
 
   useEffect(() => {
+    console.log('========================================================================');
     dictionaryApi.getAllWordLists(user.language, user.targetLanguage, user.token).then(wl => {setWordLists(wl)});
     dictionaryApi.getAllWords(user.targetLanguage, user.token).then((w: WordType[]) => {setWords(w)});
   }, [user.token, user.language, user.targetLanguage]);

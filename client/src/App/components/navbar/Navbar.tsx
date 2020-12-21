@@ -9,42 +9,15 @@ import LoginModal from './loginModal';
 import NavSnackBar from './navSnackBar';
 import { UserBar } from './userBar/UserBar'
 import translate from 'counterpart';
-import { UserType } from '../common/types';
-import { useSelector, useDispatch } from 'react-redux';
 import { Row } from '../common/Flexbox';
 import { NavButton } from '../common/Buttons';
-import { withRouter } from 'react-router-dom';
 import { sections } from '../common/utils';
-import { useStyles } from './styles';
+import { useNavbar } from './navbarHooks';
 
-type NavbarType = {
-  history: any
-}
-
-export const Navbar = withRouter(({
-  history
-}: NavbarType) => {
+export const Navbar = () => {
 
   const handleSideMenuClick = () => {}
-
-  const user = useSelector((state: any) => state.user) as UserType;
-  const { discover } = useSelector((state: any) => state.landing) as {discover: number};
-  const dispatch = useDispatch();
-  const classes = useStyles();
-
-  const handleOnMainPageRedirectionClick = () => {
-    discover ? dispatch({type: 'SCROLL_TO_SECTION', payload: 'top'}) : history.push('/');
-  }
-
-  const openLoginModal = () => {
-    dispatch({type: 'CHANGE_LOGIN_MODAL_TAB', payload: 2})
-    dispatch({type: 'TOGGLE_LOGIN_MODAL'})
-  }
-
-  const openSigninModal = () => {
-    dispatch({type: 'CHANGE_LOGIN_MODAL_TAB', payload: 1})
-    dispatch({type: 'TOGGLE_LOGIN_MODAL'})
-  }
+  const { user, discover, classes, handleOnMainPageRedirectionClick, openLoginModal, openSigninModal, scrollToSection } = useNavbar();
 
    return(
     <div className={classes.root}>
@@ -64,7 +37,7 @@ export const Navbar = withRouter(({
             </Row>
             {discover ? <Row horizontal='center' className={classes.grow}>
               { sections.map(section => 
-                <NavButton onClick={()=> dispatch({type: 'SCROLL_TO_SECTION', payload: section})} key={section}>
+                <NavButton onClick={() => scrollToSection(section)} key={section}>
                   {translate(`landingPage.sections.${section}`)} 
                 </NavButton>)}
             </Row>
@@ -93,5 +66,5 @@ export const Navbar = withRouter(({
       <NavSnackBar></NavSnackBar>
     </div>
   );
-})
+};
 

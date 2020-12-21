@@ -5,7 +5,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Badge from '@material-ui/core/Badge';
-import {getLogMenu, getLogMobileMenu} from './logMenu.js'
+import {getLogMenu, getLogMobileMenu} from './logMenu'
 import { useStyles } from './styles'
 import { useDispatch, useSelector } from 'react-redux';
 import { UserType } from '../../common/types.js';

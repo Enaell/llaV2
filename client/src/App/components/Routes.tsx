@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Route, Switch as RouterSwitch } from 'react-router-dom'
-import UserPage from './userPage'
+import { UserPage } from './userPage/UserPage'
 import DictionaryPage from './dictionaryPage'
 import CardTrainingPage from './cardTraining/CardTrainingPage-container';
 import AddCardForm from './addCard/AddCardForm'

@@ -8,7 +8,7 @@ import { WordTile } from './WordTile';
 
 const height= {
   minHeight: 'calc(100vh - 350px)',
-  maxHeight: 'calc(100vh - 250px)',
+  maxHeight: 'calc(100vh - 285px)',
   height: '100%',
   overflow: 'auto'
 }
