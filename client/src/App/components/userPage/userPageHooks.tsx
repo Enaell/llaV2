@@ -16,7 +16,7 @@ export function useUserPage() {
 
   async function updateUserBoard (userBoard: UserModulesType) {
     if (user?.token) {      
-      await fetch("http://localhost:5000/api/usergridBlocks",
+      await fetch("http://46.101.130.5:5000/api/usergridBlocks",
       {
           headers: {
             'Authorization': `Token ${user.token}`,

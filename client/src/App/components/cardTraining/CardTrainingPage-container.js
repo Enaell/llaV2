@@ -36,7 +36,7 @@ function mapDispatchToProps(dispatch){
       'Content-Type': 'application/json'
       };
 
-      fetch('http://localhost:5000/api/words',
+      fetch('http://46.101.130.5:5000/api/words',
       { 
         headers:  headers,
         method:"GET"

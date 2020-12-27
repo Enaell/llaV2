@@ -2,7 +2,7 @@ import { WordListType, WordType } from "../components/common/types";
 
 export const dictionaryApi = {
   getAllWords: async (targetLanguage: string, token?: string) => {
-    const getWordsUrl = targetLanguage ? `http://localhost:5000/api/words?language=${targetLanguage}` : `http://localhost:5000/api/words`
+    const getWordsUrl = targetLanguage ? `http://46.101.130.5:5000/api/words?language=${targetLanguage}` : `http://46.101.130.5:5000/api/words`
     const res = await fetch(getWordsUrl,
     {
       headers: token ? {
@@ -28,7 +28,7 @@ export const dictionaryApi = {
     console.log('api client dictionary update word');
     console.log(word);
     try {
-      const res = await fetch('http://localhost:5000/api/words',{
+      const res = await fetch('http://46.101.130.5:5000/api/words',{
         headers: {
           'Authorization': `Token ${token}`,
           'Accept': 'application/json',
@@ -48,7 +48,7 @@ export const dictionaryApi = {
   },
   getAllWordLists: async (language: string, targetLanguage: string, token?: string) => {
     try {
-      const getWordListsUrl = language && targetLanguage ? `http://localhost:5000/api/wordlists?language=${language}&targetlanguage=${targetLanguage}` : `http://localhost:5000/api/wordlists`;
+      const getWordListsUrl = language && targetLanguage ? `http://46.101.130.5:5000/api/wordlists?language=${language}&targetlanguage=${targetLanguage}` : `http://46.101.130.5:5000/api/wordlists`;
       const res = await fetch(getWordListsUrl,
         {
           headers: token ? {
@@ -72,7 +72,7 @@ export const dictionaryApi = {
     console.log('api client dictionary create wordlists');
     console.log(wordLists);
     try {
-      const res = await fetch('http://localhost:5000/api/wordlists',{
+      const res = await fetch('http://46.101.130.5:5000/api/wordlists',{
         headers: {
           'Authorization': `Token ${token}`,
           'Accept': 'application/json',
@@ -94,7 +94,7 @@ export const dictionaryApi = {
     console.log(`api client dictionary create word id wordlist ${wordListId}`);
     console.log(words);
     try {
-      const res = await fetch(`http://localhost:5000/api/wordlists/${wordListId}/words`, {
+      const res = await fetch(`http://46.101.130.5:5000/api/wordlists/${wordListId}/words`, {
         headers: {
           'Authorization': `Token ${token}`,
           'Accept': 'application/json',
@@ -117,7 +117,7 @@ export const dictionaryApi = {
     console.log('api client dictionary update wordlist');
     console.log(wordList);
     try {
-      const res = await fetch('http://localhost:5000/api/wordlists',{
+      const res = await fetch('http://46.101.130.5:5000/api/wordlists',{
         headers: {
           'Authorization': `Token ${token}`,
           'Accept': 'application/json',
@@ -139,7 +139,7 @@ export const dictionaryApi = {
     console.log('api client dictionary delete wordlist');
     console.log(wordListId);
     try {
-      const res = await fetch(`http://localhost:5000/api/wordlists/${wordListId}`, {
+      const res = await fetch(`http://46.101.130.5:5000/api/wordlists/${wordListId}`, {
         headers: {
           'Authorization': `Token ${token}`,
           'Accept': 'application/json',

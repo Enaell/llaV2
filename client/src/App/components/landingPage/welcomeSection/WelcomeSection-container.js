@@ -13,7 +13,7 @@ function mapDispatchToProps(dispatch){
   return({
     setUserLanguage: (language, token) => {
       dispatch({type: 'SET_LANGUAGE', payload: language});
-      fetch("http://localhost:5000/api/users/",
+      fetch("http://46.101.130.5:5000/api/users/",
       {
           headers: {
             'Authorization': `Token ${token}`,
@@ -26,7 +26,7 @@ function mapDispatchToProps(dispatch){
     },
     setUserTargetLanguage: (targetLanguage, token) => {
       dispatch({type: 'SET_TARGET_LANGUAGE', payload: targetLanguage});
-      fetch("http://localhost:5000/api/users/",
+      fetch("http://46.101.130.5:5000/api/users/",
       {
           headers: {
             'Authorization': `Token ${token}`,
@@ -42,7 +42,7 @@ function mapDispatchToProps(dispatch){
     },
     onLogin:(emailAddress, password) => {
       const loginBody = { user: { "email":emailAddress,"password":password }};
-      fetch("http://localhost:5000/api/users/login",
+      fetch("http://46.101.130.5:5000/api/users/login",
         {
             headers: {
               'Accept': 'application/json',
@@ -85,7 +85,7 @@ function mapDispatchToProps(dispatch){
           ]
         }
       };
-      fetch("http://localhost:5000/api/users",
+      fetch("http://46.101.130.5:5000/api/users",
         {
             headers: {
               'Accept': 'application/json',
