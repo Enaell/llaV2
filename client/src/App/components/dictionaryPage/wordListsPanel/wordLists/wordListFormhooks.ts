@@ -24,28 +24,6 @@ function getErrorFromField(
 
 export function useWordListFormFields(wordList?: WordListType)
 {
-  console.log('name changed')
-  // const [fields, setFields] = useState({...wordlist });
-  // const [errors, setErrors] = useState({
-  //   name: !wordlist.name,
-  //   subject: !wordlist.subject,
-  //   level: !(wordlist.level || wordlist.level === 0),
-  //   rank: !(wordlist.rank || wordlist.rank === 0),
-  //   visibility: !wordlist.visibility 
-  // });
-  // const [canSave, setCanSave] = useState(false);
-  // const [checkError, setCheckError] = useState(false);
-
-  // useEffect(()=> {
-  //   console.log('--------------------------------------')
-  //   console.log(wordlist)
-  //   setFields({...wordlist})
-  // }, [wordlist]);
-  
-  // useMemo(()=> {
-  //   const findError = Object.keys(errors).find((error) => errors[error as 'name' | 'subject' | 'level' | 'rank' | 'visibility'])
-  //   setCanSave(!findError);
-  // }, [errors])
 
   const [fields, setFields] = useState({ 
     name: wordList?.name || '',
@@ -67,8 +45,6 @@ export function useWordListFormFields(wordList?: WordListType)
   const [checkError, setCheckError] = useState(false);
 
   useEffect(()=> {
-    console.log('--------------------------------------')
-    console.log(wordList)
     setFields({ 
       name: wordList?.name || '',
       subject: wordList?.subject || [],
@@ -79,11 +55,19 @@ export function useWordListFormFields(wordList?: WordListType)
       comments: wordList?.comments || ''
      })
   }, [wordList]);
-  
+
   useMemo(()=> {
     const findError = Object.keys(errors).find((error) => errors[error as 'name' | 'subject' | 'level' | 'rank' | 'visibility'])
     setCanSave(!findError);
   }, [errors])
+
+  function updateFields(
+    key: 'name' | 'subject' | 'level' | 'rank' | 'validated' | 'visibility' | 'comments', 
+    value: string | string[] | number | boolean | VisibilityType
+  ) {
+    setFields({...fields, [key]: value});
+    setErrors({...errors, [key]:  getErrorFromField(key, value)});
+  }
 
   return {
     fields,
@@ -91,6 +75,6 @@ export function useWordListFormFields(wordList?: WordListType)
     canSave,
     checkError,
     setCheckError,
-    setFields
+    setFields: updateFields
   }
 }

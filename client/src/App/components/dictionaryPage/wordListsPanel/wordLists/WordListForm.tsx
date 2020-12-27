@@ -57,7 +57,7 @@ export const WordListForm = ({
               style={styles.formInput}
               label={translate(`${localListForm}.name`)} 
               onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-                  setFields({ ...fields, name: event.target.value as string});
+                  setFields('name', event.target.value as string);
                 }}
               value={fields.name}
               error={(create || canModify) && checkError && errors.name}
@@ -72,7 +72,7 @@ export const WordListForm = ({
               value={fields.subject}
               filterSelectedOptions
               disableCloseOnSelect
-              onChange={(_event, values) => {setFields({...fields,subject: values})}}
+              onChange={(_event, values) => {setFields('subject', values)}}
               renderInput={(params: any) => (
                 <TextField
                   {...params}
@@ -93,7 +93,7 @@ export const WordListForm = ({
               inputProps={{ min: "0", max: "6", step: "1" }} 
               label={translate(`${localListForm}.level`)}
               onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-                setFields({...fields, level: event.target.value as number});
+                setFields('level', event.target.value as number);
               }}
               value={fields.level}
               error={(create || canModify)  && checkError && errors.level}
@@ -105,7 +105,7 @@ export const WordListForm = ({
               inputProps={{ min: "0", max: "9", step: "1" }} 
               label={translate(`${localListForm}.rank`)}
               onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-                setFields( {...fields, rank: event.target.value as number});
+                setFields( 'rank', event.target.value as number);
               }}
               value={fields.rank}
               error={(create || canModify) && checkError && errors.rank}
@@ -119,7 +119,7 @@ export const WordListForm = ({
                 value={fields.visibility}
                 filterSelectedOptions
                 openOnFocus
-                onChange={(_event: React.ChangeEvent<{}>, value: string | null) => setFields({...fields, visibility: value as VisibilityType})}
+                onChange={(_event: React.ChangeEvent<{}>, value: string | null) => setFields('visibility', value as VisibilityType)}
                 renderInput={(params: any) => (
                   <TextField
                     {...params}
@@ -137,7 +137,7 @@ export const WordListForm = ({
                 <Switch
                   disabled={!adminRole}
                   checked={fields.validated}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFields({...fields, validated: event.target.checked})}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFields('validated', event.target.checked)}
                   color="primary"
                   inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
@@ -153,7 +153,7 @@ export const WordListForm = ({
           rowsMax={4}
           label={translate(`${localListForm}.comments`)}
           onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
-            setFields( {...fields, comments: event.target.value as string});
+            setFields( 'comments', event.target.value as string);
           }}
           value={fields.comments}
         />
