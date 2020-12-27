@@ -5,7 +5,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import OrderList from './OrderList';
 import { Filter, DualSwitch } from '../../common/GenericComponents';
-import { WordType } from '../../common/types';
+import { UserType, WordType } from '../../common/types';
+import { dictionaryApi } from '../../../apiClient/ApiClient';
+import { useSelector } from 'react-redux';
 
 const firstLetterSortedDictionary = (dictionary: WordType[]) => {
   
@@ -54,7 +56,7 @@ const filteredWords = (words: WordType[], filter: string) => {
 };
 
 
-const DictionaryTabs = ({ words }: { words: WordType[] }) =>{
+const DictionaryTabs = () =>{
 
   const alphabeticOrderText: string = translate('dictionaryPage.alphabeticOrder');
   const levelOrderText: string = translate('dictionaryPage.levelOrder');
@@ -65,6 +67,14 @@ const DictionaryTabs = ({ words }: { words: WordType[] }) =>{
     alphabeticOrderText: alphabeticSort,
     levelOrderText: levelSort
   }
+
+  const [words, setWords] = useState([] as WordType[]);
+
+  const user = useSelector((state: any) => state.user) as UserType;
+
+  useEffect(()=> {
+    dictionaryApi.getAllWords(user.targetLanguage, user.token).then((w: WordType[]) => {setWords(w)});
+  }, [user.token, user.language, user.targetLanguage]);
 
   const [dictionary, setDictionary] = useState(words);
 

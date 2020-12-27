@@ -4,10 +4,11 @@ import { Row } from '../../common/Flexbox';
 import { CollapseWordList } from '../../common/CardsComponents';
 import { dictionaryApi } from '../../../apiClient/ApiClient';
 import { WordForm } from '../wordListsPanel/words/WordForm';
+import { useSelector } from 'react-redux';
+import DictionaryTabs from '../tabs';
 
 
 type WordListsPanelType = {
-  user: UserType;
   history: any;
   match: any;
 }
@@ -39,8 +40,9 @@ const subjectSortedWords = (dictionary: WordType[]) => {
   return sortedDictionary;
 }
 
-export const DictionaryPanel = ({user, history, match}: WordListsPanelType) => {
+export const DictionaryPanel = ({history, match}: WordListsPanelType) => {
 
+  const user = useSelector((state: any) => state.user) 
   const [words, setWords] = useState([] as WordType[])
   const [sortedWords, setSortedWords] = useState({} as {[key: string]: WordType[]});
   const [sortFunction, setSortFunction] = useState(() => firstLetterSortedWords);
@@ -54,10 +56,12 @@ export const DictionaryPanel = ({user, history, match}: WordListsPanelType) => {
   return (
     <Row horizontal='space-around' width='80%' style={{ maxWidth: '1800px'}}>
       <Row wrap horizontal='space-around'>
-        {sortedWords && Object.keys(sortedWords) && Object.keys(sortedWords).map((key) => 
-        <CollapseWordList style={{ marginLeft: '30px'}} key={key} listTitle={key} wordList={sortedWords[key]} onActionClick={()=> {}}/>) }
+        {/* {sortedWords && Object.keys(sortedWords) && Object.keys(sortedWords).map((key) => 
+        <CollapseWordList style={{ marginLeft: '30px'}} key={key} listTitle={key} wordList={sortedWords[key]} onActionClick={()=> {}}/>) } */}
+
+        <DictionaryTabs />
+
       </Row>
-      <WordForm language={user.language} targetLanguage={user.targetLanguage} word={undefined} onSave={()=>{}}/>
     </Row>
   )
 }

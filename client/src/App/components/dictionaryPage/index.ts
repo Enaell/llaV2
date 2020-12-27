@@ -1,1 +1,1 @@
-export { default } from "./DictionaryPage-container";
+export { default } from "./DictionaryPage";

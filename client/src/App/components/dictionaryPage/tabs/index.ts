@@ -1,1 +1,1 @@
-export { default } from "./DictionaryTabs-container";
+export { default } from "./DictionaryTabs";

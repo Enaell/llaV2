@@ -19,40 +19,45 @@ const height = {
 }
 
 type WordListsPanelType = {
-  user: UserType;
   history: any;
   match: any;
-  setNewWords: (newWords: {[key: string]: WordType}) => void,
-  setNewWordLists: (newWordLists: {[key: string]: WordListType}) => void
-}
+};
 
-
-
-export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) => {
-  const { url } = props.match;
-  const { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWordInWordList, updateWord } = useWordLists(user);
+export const WordListsPanel = ({match, history}: WordListsPanelType) => {
+  const { 
+    user, 
+    wordLists, 
+    words, 
+    createWordList, 
+    updateWordList, 
+    deleteWordList, 
+    removeWordFromWordList, 
+    addWordToWordList, 
+    createWordInWordList, 
+    updateWord 
+  } = useWordLists();
 
   async function createWlAndUpdatePath(newWordLists: WordListType) {
     const newWlStatus = await createWordList(newWordLists);
-    history.replace(`${url}/${newWordLists.name}`);
+    history.replace(`${match.url}/${newWordLists.name}`);
     return newWlStatus;
   }
 
   async function updateWlAndPath(newWordLists: WordListType, wordListOldName?: string | undefined) {
     const newWlStatus = await updateWordList(newWordLists, wordListOldName);
-    history.replace(`${url}/${newWordLists.name}`)
+    history.replace(`${match.url}/${newWordLists.name}`)
     return newWlStatus;
   }
 
   async function deleteWl(wordList: WordListType){
     const newWlStatus = await deleteWordList(wordList);
-    history.replace(`${url}/`);
+    history.replace(`${match.url}/`);
     return newWlStatus;
   }
 
   async function updateWordAndPath (newWord: WordType, wordListName: string, wordName: string) {
     const newWStatus = await updateWord(newWord, wordListName, wordName);
-    history.replace(`${url}/${wordListName}/words/${newWord.name}`);
+    history.replace(`${match.url}/${wordListName}/words/${newWord.name}`);
     return newWStatus;
   }
 
@@ -63,16 +68,16 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
         <Row style={height}>
           <WordLists
             userConnected={user?.role !== 'Visitor'}
-            path={url && `${url}`}
+            path={match.url && `${match.url}`}
             wordLists={wordLists}
-            onAddWordList={() => history.replace(`${url}/create`)}
+            onAddWordList={() => history.replace(`${match.url}/create`)}
             onDeleteWordList={deleteWl}
             onSortEnd={()=>{}}
           />
           <RouterSwitch>
             <Route
               exact
-              path={`${url}/create`}
+              path={`${match.url}/create`}
               render={() => {
                 if (user.role !== 'Visitor')
                   return (
@@ -87,19 +92,19 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
               }}
             />
             <Route
-              path={`${url}/:wordlistname`}
+              path={`${match.url}/:wordlistname`}
               render={({ match: {params: {wordlistname}} }) => {
                 if (wordLists && wordLists[wordlistname])
                   return (
                     <Words
-                      path={`${url}/${wordlistname}/words`}
+                      path={`${match.url}/${wordlistname}/words`}
                       userConnected={user?.role !== 'Visitor'}
                       words={wordLists && wordLists[wordlistname] && wordLists[wordlistname].words}
-                      onAddWord={() => history.replace(`${url}/${wordlistname}/words/addToList`)}
+                      onAddWord={() => history.replace(`${match.url}/${wordlistname}/words/addToList`)}
                       onDeleteWord={(name: string) => {
                         removeWordFromWordList(name, wordlistname);
                         if (history.location.pathname.split('/').pop() === name)
-                          history.replace(`${url}/${wordlistname}`);
+                          history.replace(`${match.url}/${wordlistname}`);
                       }}
                       onSortEnd={() => {}}
                     />
@@ -111,12 +116,12 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
           <RouterSwitch>
             <Route
               exact
-              path={`${url}/:wordlistname/words/addToList`}
+              path={`${match.url}/:wordlistname/words/addToList`}
               render={({ match }) => {
                 const wordListName = String(match.params.wordlistname);
                 if (user.role !== 'Visitor' && wordLists && wordLists[wordListName])
                   return <FindWordPanel 
-                      path={`${url}/${wordListName}/words/createAndAdd`}  
+                      path={`${match.url}/${wordListName}/words/createAndAdd`}  
                       level={user.levels?.find(level => level.language === user.targetLanguage)?.rank} 
                       words={words}
                       wordListWordsName={Object.keys(wordLists[wordListName].words)}
@@ -127,7 +132,7 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
             />
             <Route 
               exact
-              path={`${url}/:wordlistname/words/createAndAdd`}
+              path={`${match.url}/:wordlistname/words/createAndAdd`}
               render={({ match }) => {
                 const wordListName = String(match.params.wordlistname);
                 if (user.role !== 'Visitor' && wordLists && wordLists[wordListName]){
@@ -147,7 +152,7 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
               }}
             />
             <Route
-              path={`${url}/:wordlistname/words/:wordname`}
+              path={`${match.url}/:wordlistname/words/:wordname`}
               render={({ match }) => {
                 const wordName = String(match.params.wordname);
                 const wordListName = String(match.params.wordlistname);
@@ -169,7 +174,7 @@ export const WordListsPanel = ({ history, user, ...props}: WordListsPanelType) =
             />
             <Route
               exact
-              path={`${url}/:wordlistname`}
+              path={`${match.url}/:wordlistname`}
               render={({ match: {params: {wordlistname}} }) => {
                 if (wordLists && wordLists[wordlistname]) {
                   return ( 

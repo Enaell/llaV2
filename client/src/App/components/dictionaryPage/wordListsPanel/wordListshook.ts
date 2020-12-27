@@ -1,15 +1,18 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { dictionaryApi } from '../../../apiClient/ApiClient';
 import { UserType, WordListType, WordType } from '../../common/types';
 import { renameObjectKey, cleanTranslations } from '../../common/utils';
 
-export function useWordLists(user: UserType) {
+export function useWordLists() {
+
+  const user = useSelector((state: any) => state.user) as UserType;
 
   const [wordLists, setWordLists] = useState({} as {[key: string]: WordListType});
-  const [words, setWords] = useState([] as WordType[])
+  const [words, setWords] = useState([] as WordType[]);
 
   useEffect(() => {
-    console.log('========================================================================');
     dictionaryApi.getAllWordLists(user.language, user.targetLanguage, user.token).then(wl => {setWordLists(wl)});
     dictionaryApi.getAllWords(user.targetLanguage, user.token).then((w: WordType[]) => {setWords(w)});
   }, [user.token, user.language, user.targetLanguage]);
@@ -127,5 +130,16 @@ export function useWordLists(user: UserType) {
     return await dictionaryApi.updateWord(cleanWord, user.token);
   };
 
-  return { wordLists, words, createWordList, updateWordList, deleteWordList, removeWordFromWordList, addWordToWordList, createWordInWordList, updateWord }
+  return {
+    user,
+    wordLists,
+    words,
+    createWordList,
+    updateWordList,
+    deleteWordList,
+    removeWordFromWordList,
+    addWordToWordList,
+    createWordInWordList,
+    updateWord
+  }
 }
