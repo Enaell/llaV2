@@ -1,32 +1,32 @@
 version: "3"
 services:
-    lla-client:
-        container_name: lla-client
+    client:
+        container_name: client
         build:
             context: ./client
             dockerfile: Dockerfile
-        image: enael/languagelearningclient
+        image: enael/llaclient
         ports:
             - "3000:3000"
         volumes:
             - ./client:/usr/src/app
         stdin_open: true
-    lla-messenger:
-        container_name: lla-messenger
+    messenger:
+        container_name: messenger
         build:
             context: ./messenger
             dockerfile: Dockerfile
-        image: enael/languagelearningmessenger
+        image: enael/llamessenger
         ports:
             - "5050:5050"
         volumes:
             - ./messenger:/usr/src/app
-    lla-server:
-        container_name: lla-server
+    server:
+        container_name: server
         build:
             context: ./server
             dockerfile: Dockerfile
-        image: enael/languagelearningserver
+        image: enael/llaserver
         ports:
             - "5000:5000"
         volumes:
@@ -46,12 +46,12 @@ services:
             - ./mongo-seed:/mongo-seed
         command:
             /mongo-seed/import.sh
-    lla-articles:
-        container_name: lla-articles
+    articles:
+        container_name: articles
         build:
             context: ./articles
             dockerfile: Dockerfile
-        image: enael/languagelearningarticles
+        image: enael/articles
         ports:
             - "4000:4000"
         volumes:
@@ -63,6 +63,45 @@ services:
         image: mongo
         ports:
             - "27018:27017"
-
-
+    gateway:
+        container_name: gateway
+        build:
+            context: ./gateway
+            dockerfile: Dockerfile
+        image: enael/llagateway
+        ports:
+            - "3020:3020"
+            - "4020:4020"
+        volumes:
+            - ./gateway:/usr/src/app
+        stdin_open: true
+        networks: 
+            - microservices
+    users:
+        container_name: users
+        build:
+            context: ./users
+            dockerfile: Dockerfile
+        image: enael/llausers
+        ports:
+            - "3010:3010"
+            - "4010:4010"
+        volumes:
+            - ./users:/usr/src/app
+        links:
+            - mongo-users
+        networks: 
+            - microservices
+    mongo-users:
+        container_name: mongo-users
+        image: mongo
+        volumes: 
+            - ~/mongo/data:/data/db
+        ports:
+            - "27019:27017"
+        networks: 
+            - microservices
+networks: 
+    microservices:
+        driver: bridge
 

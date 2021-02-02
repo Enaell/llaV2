@@ -3,8 +3,6 @@ import React from 'react';
 import { Route, Switch as RouterSwitch } from 'react-router-dom'
 import { UserPage } from './userPage/UserPage'
 import DictionaryPage from './dictionaryPage'
-import CardTrainingPage from './cardTraining/CardTrainingPage-container';
-import AddCardForm from './addCard/AddCardForm'
 import RouteNotFound from './RouteNotfound';
 import { connect } from 'react-redux';
 import { LandingPage } from './landingPage/LandingPage';
@@ -24,8 +22,6 @@ const RoutesSwitch = ({isLogged}: {isLogged?: boolean}) => {
       <div style={{marginTop:'100px', width:'100%', minHeight: 'calc(100vh - 150px)'}}>
         <RouterSwitch>
           <Route exact path="/" component={UserPage}/>
-          <Route path="/cardTraining" component={CardTrainingPage} />
-          <Route path="/addCard" component={AddCardForm} />
           <Route path="/dictionary" component={DictionaryPage}/>
           <Route component={RouteNotFound} />
         </RouterSwitch>
