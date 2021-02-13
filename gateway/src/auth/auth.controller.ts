@@ -1,26 +1,33 @@
-import { Controller, Post, UseGuards, Request, Logger } from '@nestjs/common';
-import { LocalAuthGuard } from './local-auth.guard';
+import { Controller, Post, UseGuards, Request, Logger, Get, Body } from '@nestjs/common';
+import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { AuthService } from './auth.service';
-import { MessagePattern } from '@nestjs/microservices';
+import { JWtAuthGuard } from 'src/guards/jwt-auth.guard ';
+import { AuthUser } from './decorators/user.decorator';
 
-@Controller('auth')
+@Controller('/auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
+
+  @Post('signin')
+  async signin(@Body() body) {
+    Logger.log(body);
+    return {success: true}
+  }
 
   @UseGuards(LocalAuthGuard)
-  @Post('/')
+  @Post('login/')
   async login(@Request() req) {
     Logger.log('before Login')
     return this.authService.login(req.user);
   }
-
-  @MessagePattern({ role: 'auth', cmd: 'check'})
-  async loggedIn(data) {
+  
+  @UseGuards(JWtAuthGuard)
+  @Get('/greet')
+  async loggedIn(@AuthUser() user: any) {
     try {
-      const res = this.authService.validateToken(data.jwt);
-
-      return res;
+      Logger.log('============================');
+      Logger.log(user)
+      return user;
     } catch(e) {
       Logger.log(e);
       return false;

@@ -6,7 +6,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { User } from './schemas/users.schema';
 import { CreateUserDTO } from './dto/create-user.dto';
 
-@Controller('user')
+@Controller('/user')
 export class UserController {
   constructor(
     private readonly userService: UserService
@@ -19,13 +19,12 @@ export class UserController {
     return this.userService.findOne(data.username);
   }
 
-  @Post('/')
-  async addNews(@Res() res, @Body() createUserDTO: CreateUserDTO) {
-      const news = await this.userService.createUser(createUserDTO);
-      return res.status(HttpStatus.OK).json({
-          message: "User has been created successfully",
-          news
-      })
+  @MessagePattern({ role: 'user', cmd: 'create' })
+  async createUser(data: CreateUserDTO): Promise<User> {
+    Logger.log('Try create user');
+    Logger.log(data)
+    const user = await this.userService.createUser(data);
+    return user;
   }
 
   @UseGuards(AuthGuard)

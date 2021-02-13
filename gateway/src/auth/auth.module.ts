@@ -5,6 +5,7 @@ import { AuthService } from "./auth.service";
 import { LocalStrategy } from "./local.strategy";
 import { AuthController } from "./auth.controller";
 import constants from "./constants";
+import { JwtStrategy } from "./jwt.strategy";
 
 @Module({
   imports: [ClientsModule.register([{
@@ -19,6 +20,6 @@ import constants from "./constants";
     signOptions: { expiresIn: '2h' }
   })],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy]
+  providers: [AuthService, LocalStrategy, JwtStrategy]
 })
 export class AuthModule {}

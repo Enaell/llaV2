@@ -38,15 +38,15 @@ export class AuthService {
   }
 
   async login(user) {
-    const payload = { user, sub: user.id};
+    const payload = { user};
     Logger.log(payload);
     return {
-      userId: user.id,
+      // userId: user.id,
       accessToken: this.jwtService.sign(payload)
     };
   }
 
-  validateToken(jwt: string) {
+  async validateToken(jwt: string) {
     return this.jwtService.verify(jwt);
   }
 }

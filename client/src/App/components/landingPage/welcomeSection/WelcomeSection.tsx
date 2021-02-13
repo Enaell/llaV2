@@ -9,6 +9,7 @@ import { LoginTabs } from '../../login/LoginTabs';
 import { IntroductionColumn } from './IntroductionColumn';
 import { useDispatch } from 'react-redux';
 import { LoadingButton } from '../../common/Buttons';
+import { testApi } from '../../../apiClient/ApiClient';
 
 type WelcomeSectionType = {
   onLogin: (emailAddress: string, password: string) => void, 
@@ -95,6 +96,9 @@ export const WelcomeSection = ({
   }
 
   function onDiscoverClick() {
+    // testApi.auth();
+    // testApi.greet();
+    testApi.signin();
     dispatch({type: 'DISCOVER'})
   }
 
