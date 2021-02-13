@@ -24,10 +24,7 @@ export class AuthService {
         return throwError(err);
       }),)
       .toPromise();
-      
 
-      Logger.log(password);
-      Logger.log(user)
       const allowed  = await compare(password, user?.password)
       return allowed ? user : null;
       
@@ -35,6 +32,10 @@ export class AuthService {
       Logger.log(e);
       throw e;
     }
+  }
+  
+  async validateToken(jwt: string) {
+    return this.jwtService.verify(jwt);
   }
 
   async login(user) {
@@ -44,9 +45,5 @@ export class AuthService {
       // userId: user.id,
       accessToken: this.jwtService.sign(payload)
     };
-  }
-
-  async validateToken(jwt: string) {
-    return this.jwtService.verify(jwt);
   }
 }

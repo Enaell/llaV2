@@ -8,12 +8,6 @@ import { AuthUser } from './decorators/user.decorator';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('signin')
-  async signin(@Body() body) {
-    Logger.log(body);
-    return {success: true}
-  }
-
   @UseGuards(LocalAuthGuard)
   @Post('login/')
   async login(@Request() req) {

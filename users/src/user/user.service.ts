@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { hash } from 'bcrypt';
 import { Model } from 'mongoose';
 import { CreateUserDTO } from './dto/create-user.dto';
+import { UpdateUserDTO } from './dto/update-user.dto';
 import { User, UserDocument } from './schemas/users.schema';
 
 
@@ -25,20 +26,32 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
-  async createUser(createUserDTO: CreateUserDTO): Promise<User> {
+  async createUser(createUser: CreateUserDTO): Promise<User> {
     try {
       /**
        * Perform all needed checks
        */
-      const hashPswd = await hash(createUserDTO.password, 10);  
+      const hashPswd = await hash(createUser.password, 10);  
 
-      const createdUser = new this.userModel({...createUserDTO, password: hashPswd});
+      const createdUser = new this.userModel({...createUser, password: hashPswd});
 
       const res = await createdUser.save();
 
       Logger.log('createUser - Created user');
 
       return res;
+    } catch(e) {
+      Logger.log(e);
+      throw e;
+    }
+  }
+
+  async updateUser(updateUser: {username: string, updates: UpdateUserDTO}): Promise<User> {
+    try {
+      const { username, updates } = updateUser;
+      const password = updates.password ? await hash(updates.password, 10): undefined; 
+      const user = await this.userModel.findOneAndUpdate({username},  {...updates, password});
+      return 
     } catch(e) {
       Logger.log(e);
       throw e;
