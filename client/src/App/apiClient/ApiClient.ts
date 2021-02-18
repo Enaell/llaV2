@@ -165,7 +165,7 @@ export const testApi = {
     console.log(`===================================`);
     console.log(`TEST SIGNIN`);
     try {
-      const res = await fetch(`http://localhost:3020/api/auth/signin`, {
+      const res = await fetch(`http://localhost:3020/api/users/`, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -174,6 +174,7 @@ export const testApi = {
         body: JSON.stringify({
           "username": "USER3",
           "password": "password",
+          "email": "a@a.fr"
         })
       });
       const json = await res.json();

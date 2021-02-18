@@ -14,6 +14,8 @@ export class UsersService {
 
   async createUser(createUserDTO: CreateUserDTO): Promise<any> {
     try {
+      Logger.log('try create user')
+      Logger.log(createUserDTO)
       const user = await this.client.send({role: 'user', cmd: 'create'}, {...createUserDTO, name: createUserDTO.username})
       .pipe(
         timeout(5000), 

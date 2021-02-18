@@ -1,6 +1,8 @@
+import * as mongoose from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { LANGUAGES } from 'src/utils';
+import { Userboard } from './userboard.schema';
 
 export type UserDocument = User & Document;
 
@@ -27,8 +29,9 @@ export class User {
   @Prop({ required: true, default: {language: LANGUAGES.Fr, level: 1}})
   levels: {language: string, level: number}[];
 
-  @Prop({ required: true, default: ''})
-  userBoard: string
+
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Userboard' })
+  userboard: Userboard;
 
   @Prop({ default: Date.now })
   createAt: Date;

@@ -1,11 +1,12 @@
-import { Controller, UseGuards, Get, Body, Res, HttpStatus, Post, Logger } from '@nestjs/common';
+import { Controller, UseGuards, Get, Logger } from '@nestjs/common';
 import { UserService } from './user.service';
 import { MessagePattern } from '@nestjs/microservices';
 import { AuthGuard } from '../guards/auth.guard';
-import { User } from './schemas/users.schema';
+import { User } from '../schemas/users.schema';
 import { FindUserDTO } from './dto/find-user.dto';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
+import { ResponseUserDTO } from './dto/response-user-dto';
 
 @Controller('/user')
 export class UserController {
@@ -21,7 +22,7 @@ export class UserController {
   }
 
   @MessagePattern({ role: 'user', cmd: 'create' })
-  async createUser(data: CreateUserDTO): Promise<User> {
+  async createUser(data: CreateUserDTO): Promise<ResponseUserDTO> {
     Logger.log('Try create user');
     Logger.log(data)
     const user = await this.userService.createUser(data);
@@ -30,12 +31,11 @@ export class UserController {
 
   @MessagePattern({ role: 'user', cmd: 'update' })
   async updateUser(data: { username: string, updates: UpdateUserDTO}): Promise<User> {
-    Logger.log('Try create user');
+    Logger.log('Try update user');
     Logger.log(data)
     const user = await this.userService.updateUser(data);
     return user;
   }
-
 
   @UseGuards(AuthGuard)
   @Get('greet') 
