@@ -4,6 +4,7 @@ import { timeout, catchError } from 'rxjs/operators';
 import { TimeoutError, throwError } from 'rxjs';
 import { ClientProxy } from '@nestjs/microservices';
 import { UpdateUserDTO } from './dto/update-user.dto';
+import { RequestUserboard } from 'src/types';
 
 
 @Injectable()
@@ -56,9 +57,22 @@ export class UsersService {
     }
   }
 
-  async updateUser(username: string, userUpdates: UpdateUserDTO) {
-    try {
-      const user = await this.client.send({role: 'user', cmd: 'update'}, {username, updates: userUpdates})
+  private async sendUpdateUser(
+    username: string,
+    updates : {
+      password: string;
+      name: string;
+      email: string;
+      language: string;
+      targetLanguage: string;
+      levels: {
+          language: string;
+          level: number;
+      }[];
+      username: string;
+  }) {
+    if (updates)
+      return await this.client.send({role: 'user', cmd: 'update'}, {username, updates})
       .pipe(
         timeout(5000), 
         catchError(err => {
@@ -66,15 +80,43 @@ export class UsersService {
           return throwError(new RequestTimeoutException());
         }
         return throwError(err);
-      }),)
-      .toPromise();
+      })).toPromise()
+    return undefined;
+  };
 
-      Logger.log(user);
-      return user
+  private async sendUpdateUserboard(username: string, updates: RequestUserboard) {
+    if (updates) 
+      return await this.client.send({role: 'userboard', cmd: 'update'}, { username, updates })
+      .pipe(
+        timeout(5000), 
+        catchError(err => {
+        if (err instanceof TimeoutError) {
+          return throwError(new RequestTimeoutException());
+        }
+        return throwError(err);
+      })).toPromise()
+    return undefined;
+  }
+
+  async updateUser(username: string, userUpdates: UpdateUserDTO) {
+    const  { password, name, email, language, targetLanguage, levels } = userUpdates;
+    const user = { password, name, email, language, targetLanguage, levels, username };
+    const { userboard } = userUpdates
+
+
+    try {
+      const [resUser, resUserboard] = await Promise.all([
+        await this.sendUpdateUser(username, user),
+        await this.sendUpdateUserboard(username, userboard)
+      ]);
+
+      Logger.log('============ Send update ===============');
+      Logger.log(resUser);
+      Logger.log(resUserboard);
+      return resUser
     } catch(e) {
       Logger.log(e);
       throw e;
     }
   }
-
 }

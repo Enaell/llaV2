@@ -1,4 +1,4 @@
-import { WordListType, WordType } from "../components/common/types";
+import { UserType, WordListType, WordType } from "../components/common/types";
 
 export const dictionaryApi = {
   getAllWords: async (targetLanguage: string, token?: string) => {
@@ -159,7 +159,7 @@ export const dictionaryApi = {
   }
 }
 
-export const testApi = {
+export const userApi = {
 
   signin: async () => {
     console.log(`===================================`);
@@ -210,6 +210,34 @@ export const testApi = {
     catch (error) {
       console.log(error);
       return {success: false, message: error.message}
+    }
+  },
+  update: async (user: UserType) => {
+    console.log('------------------------------------------');
+    console.log('Update User');
+    const {userBoard, token, name, email, username, language, targetLanguage, levels} = user;
+    const userUpdates = {
+      username, language, targetLanguage, email, userBoard, name, levels
+    }
+    console.log(userUpdates);
+
+    try {
+      const res = await fetch(`http://localhoset:3020/api/users/${username}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'PATCH',
+        body: JSON.stringify(userUpdates),
+      });
+      const json = await res.json();
+      console.log('------------------------------------------');
+      console.log(json);
+      return {success: true, message: json};
+    } catch (error) {
+        console.log(error);
+        return {success: false, message: error.message}
     }
   },
   greet: async () => {

@@ -4,6 +4,7 @@ export type UserType = {
     token?: string,
     email?: string,
     username: string,
+    name?:string
     role?: RoleType,
     language: LanguageType,
     targetLanguage: LanguageType,

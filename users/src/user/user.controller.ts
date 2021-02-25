@@ -15,7 +15,7 @@ export class UserController {
   ) { }
 
   @MessagePattern({ role: 'user', cmd: 'get' })
-  getUser(data: FindUserDTO): Promise<User> {
+  getUser(data: FindUserDTO): Promise<ResponseUserDTO> {
     Logger.log('Try get user');
     Logger.log(data)
     return this.userService.findOne(data.username);
@@ -30,7 +30,7 @@ export class UserController {
   }
 
   @MessagePattern({ role: 'user', cmd: 'update' })
-  async updateUser(data: { username: string, updates: UpdateUserDTO}): Promise<User> {
+  async updateUser(data: { username: string, updates: UpdateUserDTO}): Promise<ResponseUserDTO> {
     Logger.log('Try update user');
     Logger.log(data)
     const user = await this.userService.updateUser(data);

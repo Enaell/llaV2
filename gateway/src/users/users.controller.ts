@@ -2,6 +2,7 @@ import { Body, Controller, Get, HttpStatus, Logger, Param, Patch, Post, Res, Use
 import { AuthUser } from 'src/auth/decorators/user.decorator';
 import { JWtAuthGuard } from 'src/guards/jwt-auth.guard ';
 import { CreateUserDTO } from './dto/create-user.dto';
+import { UpdateUserDTO } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
 
@@ -31,14 +32,13 @@ export class UsersController {
   }
 
   @UseGuards(JWtAuthGuard)
-  @Patch('/')
+  @Patch('/:username')
   async updateUser(
     @Res() res,
     @AuthUser() authUser,
-    @Body() body
+    @Body() body: UpdateUserDTO
   ) {
     const user = await this.usersService.updateUser(authUser.username, body);
     return res.status(HttpStatus.OK).json(user);
   }
-
 }

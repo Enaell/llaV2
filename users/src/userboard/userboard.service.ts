@@ -1,7 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { formatUserboard } from 'src/formatter';
 import { Userboard, UserboardDocument } from 'src/schemas/userboard.schema';
+import { ResponseUserboardDTO } from './dto/response-userboard.dto';
 import { UpdateUserboardDTO } from './dto/update-userboard.dto';
 
 @Injectable()
@@ -11,10 +13,11 @@ export class UserboardService {
     private readonly userboardModel: Model<UserboardDocument>,
   ) {}
 
-  async updateUserboard(updatedUserboard: {id: string, updates: UpdateUserboardDTO}): Promise<Userboard> {
+  async updateUserboard(updateUserboard: {username: string, updates: UpdateUserboardDTO}): Promise<ResponseUserboardDTO> {
     try {
-      const { id, updates } = updatedUserboard;
-      const userboard = await this.userboardModel.findByIdAndUpdate({_id: id, updates});
+      const { username, updates } = updateUserboard;
+      const updatedUserboard = await this.userboardModel.findOneAndUpdate({username}, updates);
+      const userboard = formatUserboard(updatedUserboard.blocks);
       Logger.log('userboard updated');
       return userboard;
     } catch (e) {

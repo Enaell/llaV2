@@ -20,13 +20,14 @@ export class UserService {
     private readonly userboardModel: Model<UserboardDocument>
   ) {}
 
-  async findOne(username: string): Promise<User> {
+  async findOne(username: string): Promise<ResponseUserDTO> {
     Logger.log(username);
     
     const user = await this.userModel.findOne({username});
+    await user.populate('userboard').execPopulate();
     Logger.log('User found')
     Logger.log(user)
-    return user;
+    return formatUser(user);
   }
 
   async findAll(): Promise<User[]> {
@@ -42,8 +43,6 @@ export class UserService {
       const userboard = new this.userboardModel({})
       await userboard.save();
 
-      Logger.log(userboard);
-
       const createdUser = new this.userModel({
         ...createUser,
         password: hashPswd,
@@ -52,23 +51,24 @@ export class UserService {
 
       await createdUser.save();
       
-      const res = formatUser(createdUser); 
-
+      const user = formatUser(createdUser);
       Logger.log('createUser - Created user');
-
-      return res;
+      Logger.log(user);
+      return user;
     } catch(e) {
       Logger.log(e);
       throw e;
     }
   }
 
-  async updateUser(updatedUser: {username: string, updates: UpdateUserDTO}): Promise<User> {
+  async updateUser(updateUser: {username: string, updates: UpdateUserDTO}): Promise<ResponseUserDTO> {
     try {
-      const { username, updates } = updatedUser;
+      const { username, updates } = updateUser;
       const password = updates.password ? await hash(updates.password, 10): undefined; 
-      const user = await this.userModel.findOneAndUpdate({username},  {...updates, password});
+      const updatedUser = await this.userModel.findOneAndUpdate({username},  password ? {...updates, password}: updates);
+      const user = formatUser(updatedUser);
       Logger.log('user updated');
+      Logger.log(user);
       return user;
     } catch(e) {
       Logger.log(e);

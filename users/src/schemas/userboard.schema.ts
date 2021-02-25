@@ -91,6 +91,9 @@ export class Userboard {
   ]})
   blocks: Blocks;
 
+  @Prop({ required: true, unique: true})
+  username: string;
+
   @Prop({ default: Date.now })
   createAt: Date;
 }
