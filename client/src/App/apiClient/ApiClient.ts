@@ -161,7 +161,7 @@ export const dictionaryApi = {
 
 export const userApi = {
 
-  signin: async () => {
+  signin: async (user: UserType) => {
     console.log(`===================================`);
     console.log(`TEST SIGNIN`);
     try {
@@ -172,9 +172,11 @@ export const userApi = {
         },
         method: "POST",
         body: JSON.stringify({
-          "username": "USER3",
-          "password": "password",
-          "email": "a@a.fr"
+          "email": user.email,
+          "username": user.username,
+          "password": user.password,
+          "language": user.language,
+          "targetLanguage": user.targetLanguage,
         })
       });
       const json = await res.json();
@@ -187,7 +189,7 @@ export const userApi = {
       return {success: false, message: error.message}
     }
   },
-  auth: async () => {
+  auth: async (email: string, password: string) => {
     console.log(`===================================`);
     console.log(`TEST LOGIN`);
     try {
@@ -198,8 +200,8 @@ export const userApi = {
         },
         method: "POST",
         body: JSON.stringify({
-          "username": "USER1",
-          "password": "password"
+          "username": email,
+          "password": password
         })
       });
       const json = await res.json();
@@ -215,9 +217,9 @@ export const userApi = {
   update: async (user: UserType) => {
     console.log('------------------------------------------');
     console.log('Update User');
-    const {userBoard, token, name, email, username, language, targetLanguage, levels} = user;
+    const {userboard, token, name, email, username, language, targetLanguage, levels} = user;
     const userUpdates = {
-      username, language, targetLanguage, email, userBoard, name, levels
+      username, language, targetLanguage, email, userboard, name, levels
     }
     console.log(userUpdates);
 

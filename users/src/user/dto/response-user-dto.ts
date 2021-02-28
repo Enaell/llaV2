@@ -1,5 +1,6 @@
 export class ResponseUserDTO {
   readonly username: string;
+  readonly password?: string;
   readonly name: string;
   readonly language: string;
   readonly targetLanguage: string;
@@ -8,5 +9,5 @@ export class ResponseUserDTO {
     level: number;
   }[];
   readonly userboard: {};
-  readonly createAt: DateConstructor;
+  readonly createAt: Date;
 }

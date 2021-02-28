@@ -9,21 +9,15 @@ import { LoginTabs } from '../../login/LoginTabs';
 import { IntroductionColumn } from './IntroductionColumn';
 import { useDispatch } from 'react-redux';
 import { LoadingButton } from '../../common/Buttons';
-import { testApi } from '../../../apiClient/ApiClient';
+import { userApi } from '../../../apiClient/ApiClient';
 
 type WelcomeSectionType = {
-  onLogin: (emailAddress: string, password: string) => void, 
-  onSignin: (username: string, emailAddress: string, password: string, language: string, targetLanguage: string) => void,
-  connectAsVisitor: (language: LanguageType, targetLanguage: LanguageType) => void,
   tabNumber: number,
   changeTabNumber: (num: number) => void,
   position?: 'absolute' | 'relative'
 }
 
 export const WelcomeSection = ({ 
-  onLogin,
-  onSignin,
-  connectAsVisitor,
   tabNumber,
   changeTabNumber,
   position = 'relative'
@@ -57,7 +51,7 @@ export const WelcomeSection = ({
     setPassword(event.target.value);
   }
   
-  const onSigninClick = () => {
+  const onSigninClick = async () => {
     const usError = !username;
     const pError =  !password;
     const eaError = !(emailAddress && emailAddress.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i));
@@ -71,17 +65,34 @@ export const WelcomeSection = ({
     setLanguageError(lError);
 
     if (!(usError || pError || eaError || tlError || lError))
-      onSignin(username, emailAddress, password, language, targetLanguage);
+    {
+        const loggedUser = await userApi.signin({username, email: emailAddress, password, language, targetLanguage});
+        if (loggedUser.success)
+          dispatch({type: 'LOGIN', payload: loggedUser.message.user});
+        else {
+          dispatch({type: 'SET_NAV_SNACKBAR', payload: {variant: 'error', message: "Signin Error !"}});
+          dispatch({type: 'TOGGLE_NAV_SNACKBAR'})
+        }
+    } 
+      // onSignin(username, emailAddress, password, language, targetLanguage);
   };
 
-  const onLoginClick = () => {
+  const onLoginClick = async () => {
     const pError =  !password;
     const eaError = !(emailAddress && emailAddress.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i));
     setEmailAddressError(eaError);
     setPasswordError(pError);
 
-    if (!(pError || eaError))
-      onLogin(emailAddress, password);
+    if (!(pError || eaError)) {
+      const loggedUser = await userApi.auth(emailAddress, password);
+      if (loggedUser.success)
+        dispatch({type: 'LOGIN', payload: loggedUser.message});
+      else {
+        dispatch({type: 'SET_NAV_SNACKBAR', payload: {variant: 'error', message: "Login Error !"}});
+        dispatch({type: 'TOGGLE_NAV_SNACKBAR'})
+      }
+    }
+      //onLogin(emailAddress, password);
   };
 
   function onConnectAsVisitor() {
@@ -92,13 +103,11 @@ export const WelcomeSection = ({
     setLanguageError(lError);
     
     if (!(lError || tlError))
-      connectAsVisitor(language, targetLanguage);
+      dispatch({type: 'LOGIN_AS_VISITOR', payload: {language: language, targetLanguage: targetLanguage}})
+      // connectAsVisitor(language, targetLanguage);
   }
 
   function onDiscoverClick() {
-    // testApi.auth();
-    // testApi.greet();
-    testApi.signin();
     dispatch({type: 'DISCOVER'})
   }
 

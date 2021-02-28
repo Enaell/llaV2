@@ -17,7 +17,12 @@ export class UsersService {
     try {
       Logger.log('try create user')
       Logger.log(createUserDTO)
-      const user = await this.client.send({role: 'user', cmd: 'create'}, {...createUserDTO, name: createUserDTO.username})
+      const user = await this.client.send(
+        {role: 'user', cmd: 'create'}, 
+        {...createUserDTO, name: createUserDTO.username, levels: [
+          {"language": createUserDTO.language, "rank": 6},
+          {"language": createUserDTO.targetLanguage, "rank": 1}
+        ]})
       .pipe(
         timeout(5000), 
         catchError(err => {
@@ -27,7 +32,7 @@ export class UsersService {
         return throwError(err);
       }),)
       .toPromise();
-
+      
       Logger.log(user);
       return user;
     } catch(e) {

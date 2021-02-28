@@ -68,7 +68,7 @@ const loginAsVisitor = (state, languages) => {
   }
 }
 
-const updateUserboard = (state, userBoard) => ({ ...state, userBoard: { ...userBoard }});
+const updateUserboard = (state, userboard) => ({ ...state, userboard: { ...userboard }});
 
 const setLanguage = (state, language) => {
   counterpart.setLocale(language);
@@ -86,7 +86,7 @@ const setTargetLanguage = (state, language) => {
 };
 
 const initialUserState = {
-  userBoard: {
+  userboard: {
     news: { 
       lg: { x: 8, y: 0, w: 4, h: 4 },
       md: { x: 0, y: 0, w: 4, h: 4 },

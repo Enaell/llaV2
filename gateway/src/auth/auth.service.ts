@@ -12,23 +12,30 @@ export class AuthService {
     private readonly client: ClientProxy,
     private readonly jwtService: JwtService) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
+  async validateUser(email: string, password: string): Promise<any> {
+    Logger.log(email)
+    Logger.log(password)
     try {
-      const user = await this.client.send({ role: 'user', cmd: 'get' }, { username })
+      const loggingInfo = await this.client.send({ role: 'user', cmd: 'logging' }, { email })
       .pipe(
         timeout(5000), 
         catchError(err => {
         if (err instanceof TimeoutError) {
           return throwError(new RequestTimeoutException());
         }
+        Logger.log('===================================')
+        Logger.log(err);
         return throwError(err);
       }),)
       .toPromise();
 
-      const allowed  = await compare(password, user?.password)
-      return allowed ? user : null;
+      Logger.log(loggingInfo);
+      Logger.log(password);
+      const allowed  = await compare(password, loggingInfo?.password)
+      return allowed ? loggingInfo.user : null;
       
     } catch(e) {
+      Logger.log('-----------------------------------')
       Logger.log(e);
       throw e;
     }
@@ -39,11 +46,11 @@ export class AuthService {
   }
 
   async login(user) {
-    const payload = { user};
-    Logger.log(payload);
+    // const payload = { user };
+    Logger.log(user);
     return {
-      // userId: user.id,
-      accessToken: this.jwtService.sign(payload)
+      ...user,
+      token: this.jwtService.sign(user)
     };
   }
 }

@@ -15,8 +15,8 @@ export const UserPage = () => {
         <Row horizontal='center' style={{ width:'100%', marginTop:'50px'}}>
           <UserBoard 
             userModules={
-              user && user.userBoard ?
-              {...user.userBoard}
+              user && user.userboard ?
+              {...user.userboard}
               : {} }
             language={user.language}
             targetLanguage={user.targetLanguage}

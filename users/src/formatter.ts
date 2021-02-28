@@ -23,6 +23,6 @@ export function formatUser(user: UserDocument) {
     targetLanguage: user.targetLanguage,
     levels: user.levels,
     userboard: formatUserboard(user.userboard.blocks),
-    createAt: Date,
+    createAt: user.createAt,
   }
 }

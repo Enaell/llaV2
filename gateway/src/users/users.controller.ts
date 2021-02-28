@@ -1,4 +1,5 @@
 import { Body, Controller, Get, HttpStatus, Logger, Param, Patch, Post, Res, UseGuards } from '@nestjs/common';
+import { AuthService } from 'src/auth/auth.service';
 import { AuthUser } from 'src/auth/decorators/user.decorator';
 import { JWtAuthGuard } from 'src/guards/jwt-auth.guard ';
 import { CreateUserDTO } from './dto/create-user.dto';
@@ -8,11 +9,15 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService){}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService
+  ){}
 
   @Post('/')
   async createUser(@Res() res, @Body() createUserDTO: CreateUserDTO) {
       const user = await this.usersService.createUser(createUserDTO);
+      const loggedUser = await this.authService.login(user)
       return res.status(HttpStatus.OK).json({
           message: "User has been created successfully",
           user

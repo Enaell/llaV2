@@ -6,9 +6,9 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { User, UserDocument } from '../schemas/users.schema';
 import { Userboard, UserboardDocument } from 'src/schemas/userboard.schema';
-import { Mode } from 'fs';
-import { formatUser, formatUserboard } from 'src/formatter';
+import { formatUser } from 'src/formatter';
 import { ResponseUserDTO } from './dto/response-user-dto';
+import { ResponseLoggingUserDTO } from './dto/response-logging-user-dto';
 
 
 @Injectable()
@@ -20,10 +20,10 @@ export class UserService {
     private readonly userboardModel: Model<UserboardDocument>
   ) {}
 
-  async findOne(username: string): Promise<ResponseUserDTO> {
-    Logger.log(username);
+  async findOne(email: string): Promise<ResponseUserDTO> {
+    Logger.log(email);
     
-    const user = await this.userModel.findOne({username});
+    const user = await this.userModel.findOne({email});
     await user.populate('userboard').execPopulate();
     Logger.log('User found')
     Logger.log(user)
@@ -34,13 +34,24 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
+  async findLoggingUser(email: string): Promise<ResponseLoggingUserDTO> {
+    Logger.log(email);
+    
+    const user = await this.userModel.findOne({email});
+    await user.populate('userboard').execPopulate();
+    Logger.log('User found')
+    Logger.log(user)
+    return { user: formatUser(user), password: user.password };
+  }
+
+
   async createUser(createUser: CreateUserDTO): Promise<ResponseUserDTO> {
     try {
       /**
        * Perform all needed checks
        */
       const hashPswd = await hash(createUser.password, 10);  
-      const userboard = new this.userboardModel({})
+      const userboard = new this.userboardModel({username: createUser.username})
       await userboard.save();
 
       const createdUser = new this.userModel({

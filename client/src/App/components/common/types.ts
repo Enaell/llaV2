@@ -1,6 +1,6 @@
 export type UserType = {
     _id?: string,
-    userBoard?: UserModulesType,
+    userboard?: UserModulesType,
     token?: string,
     email?: string,
     username: string,
@@ -8,6 +8,7 @@ export type UserType = {
     role?: RoleType,
     language: LanguageType,
     targetLanguage: LanguageType,
+    password?: string,
     levels?: {language: LanguageType, rank: number}[]
 } 
 
@@ -28,7 +29,7 @@ export type UserBoardType = {
     userModules: UserModulesType;
     language: LanguageType,
     targetLanguage: LanguageType,
-    updateUserBoard: (userBoard: UserModulesType) => Promise<void>;
+    updateUserBoard: (userboard: UserModulesType) => Promise<void>;
     goToPage: (url: string) => void;
 }
 

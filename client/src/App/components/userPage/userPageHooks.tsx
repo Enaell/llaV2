@@ -14,7 +14,7 @@ export function useUserPage() {
     history.push(url)
   }
 
-  async function updateUserBoard (userBoard: UserModulesType) {
+  async function updateUserBoard (userboard: UserModulesType) {
     if (user?.token) {      
       await fetch("http://localhost:5000/api/usergridBlocks",
       {
@@ -24,10 +24,10 @@ export function useUserPage() {
             'Content-Type': 'application/json'
               },
           method: "PUT",
-          body: JSON.stringify(userBoard)
+          body: JSON.stringify(userboard)
       })
     }
-    dispatch({type: 'UPDATE_USERBOARD', payload: userBoard})
+    dispatch({type: 'UPDATE_USERBOARD', payload: userboard})
   };
 
 
