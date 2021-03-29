@@ -165,7 +165,7 @@ export const userApi = {
     console.log(`===================================`);
     console.log(`TEST SIGNIN`);
     try {
-      const res = await fetch(`http://localhost:3020/api/users/`, {
+      const res = await fetch(`http://localhost:3020/api/auth/signin`, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

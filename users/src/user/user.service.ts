@@ -11,6 +11,7 @@ import { ResponseUserDTO } from './dto/response-user-dto';
 import { ResponseLoggingUserDTO } from './dto/response-logging-user-dto';
 
 
+
 @Injectable()
 export class UserService {
   constructor(
@@ -30,10 +31,6 @@ export class UserService {
     return formatUser(user);
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
-  }
-
   async findLoggingUser(email: string): Promise<ResponseLoggingUserDTO> {
     Logger.log(email);
     
@@ -45,6 +42,10 @@ export class UserService {
   }
 
 
+  async findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
+  }
+  
   async createUser(createUser: CreateUserDTO): Promise<ResponseUserDTO> {
     try {
       /**

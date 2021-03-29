@@ -6,7 +6,6 @@ import { FindUserDTO } from './dto/find-user.dto';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { ResponseUserDTO } from './dto/response-user-dto';
-import { ResponseLoggingUserDTO } from './dto/response-logging-user-dto';
 
 @Controller('/user')
 export class UserController {
@@ -19,13 +18,6 @@ export class UserController {
     Logger.log('Try get user');
     Logger.log(data)
     return this.userService.findOne(data.email);
-  }
-
-  @MessagePattern({ role: 'user', cmd: 'logging' })
-  getLoggingUser(data: FindUserDTO): Promise<ResponseLoggingUserDTO> {
-    Logger.log('Try get user for loggings');
-    Logger.log(data)
-    return this.userService.findLoggingUser(data.email);
   }
 
   @MessagePattern({ role: 'user', cmd: 'create' })
